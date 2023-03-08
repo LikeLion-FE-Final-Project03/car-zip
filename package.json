@@ -13,12 +13,19 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^3.1.0",
+    "eslint": "^8.35.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "vite": "^4.1.4"
   },
   "scripts": {
     "start": "npm run dev -- --open",
     "dev": "vite --host localhost --port 3000 --cors",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint src --ext .tsx,.ts,.jsx,.js",
+    "lint:fix": "npm run lint -- --fix"
   }
 }
