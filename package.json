@@ -14,10 +14,12 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^3.1.0",
     "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.4",
     "vite": "^4.1.4"
   },
   "scripts": {
@@ -26,6 +28,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext .tsx,.ts,.jsx,.js",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier src --check",
+    "format:fix": "prettier src --write"
   }
 }

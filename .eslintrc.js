@@ -22,7 +22,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["react", "import", "react-hooks", "jsx-a11y"],
+  plugins: ["react", "import", "react-hooks", "jsx-a11y", "prettier"],
   rules: {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
