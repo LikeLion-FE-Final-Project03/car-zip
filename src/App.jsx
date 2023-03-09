@@ -1,18 +1,24 @@
-import { useState } from "react";
-import "./App.css";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import GlobalStyle from './styles/global.css';
+import { ThemeProvider } from 'styled-components';
+import theme from './styles/theme.js';
+import Main from './pages/Main';
+import Detail from './pages/Detail';
+import Search from './pages/Search';
+import NotFound from './pages/NotFound';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="App">
-      <h1>🦁멋쟁이사자처럼 FE 4기 React 3조🦁</h1>
-      <div className="button">
-        <button onClick={() => setCount((count) => count + 1)}>
-          신나는 만큼 클릭 ❤️ {count}
-        </button>
-      </div>
-    </div>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/detail" element={<Detail />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/notfound" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
