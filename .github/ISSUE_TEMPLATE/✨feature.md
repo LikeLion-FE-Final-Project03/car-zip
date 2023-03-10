@@ -1,7 +1,7 @@
 ---
 name: "✨FEATURE"
 about: Suggest an idea for this project
-title: "[BUG] 작업 내용"
+title: "[FEATURE] 작업 내용"
 labels: "✨feature"
 assignees: ''
 
