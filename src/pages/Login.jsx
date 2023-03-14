@@ -54,7 +54,9 @@ export default function Login() {
               <img src={naver} alt="네이버 로그인" />
             </a>
           </li>
-          <li><a href="">다음에 하기</a></li>
+          <li>
+            <a href="">다음에 하기</a>
+            </li>
         </ul>
       </LoginColumn>
     </LoginWrapper>
