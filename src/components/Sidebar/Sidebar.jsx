@@ -1,9 +1,17 @@
 import { IcBack } from '../../../public/assets/icons';
 import { Logo } from '../../../public/assets/images';
+import styled from 'styled-components';
+import theme from './../../styles/theme';
+
+const MenuWrapper = styled.div`
+  width: 300px;
+  height: 844px;
+  background-color: ${theme.colors.dark};
+`;
 
 export default function Sidebar() {
   return (
-    <div>
+    <MenuWrapper>
       <h1 className="menuTitle">
         메뉴<span>MENU</span>
       </h1>
@@ -24,6 +32,6 @@ export default function Sidebar() {
         <IcBack />
         <span>뒤로</span>
       </div>
-    </div>
+    </MenuWrapper>
   );
 }
