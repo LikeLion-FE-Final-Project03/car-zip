@@ -12,16 +12,13 @@ const fontSizes = {
 };
 
 const colors = {
-  gray100: '#FBFBFB',
-  gray200: '#F6F6F6',
-  gray300: '#DDDDDD',
-  gray400: '#BFBFBF',
-  gray500: '#999999',
-  gray600: '#959595',
-  gray700: '#666666',
-  black: '#333333',
   white: '#FFFFFF',
-  main: '#00C3BD',
+  dark: '#3D444C',
+  grey: '#A7ADBF',
+  orangeMain: '#FC9400',
+  orangeDark: '#593A00',
+  orangeBright: '#D9A305',
+  yellow: '#F2CA04',
 };
 
 const deviceSizes = {
