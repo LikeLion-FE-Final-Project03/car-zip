@@ -12,6 +12,12 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     width: 320px;
   }
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+  }
 `;
 
 export default GlobalStyles;
