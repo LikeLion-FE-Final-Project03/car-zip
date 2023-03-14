@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components'
-import logo_dark from '../../public/assets/images//login/light-logo.svg';
+import theme from "../styles/theme.js";
+import logo_dark from '../../public/assets/images//login/dark-logo.svg';
 import facebook from '../../public/assets/images/login/facebook.svg';
 import google from '../../public/assets/images/login/google.svg';
 import kakao from '../../public/assets/images/login/kakao.svg';
@@ -9,11 +10,11 @@ import naver from '../../public/assets/images/login/naver.svg';
 
 let LoginWrapper = styled.div`
 display: flex;
-justify-content: center;
+flex-direction : column;
 align-items: center;
+gap : 3rem;
+background-color: ${theme.colors.dark};
 color: white;
-width: 100%;
-height: 100%;
 `;
 
 export default function Login() {
