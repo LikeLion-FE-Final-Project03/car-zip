@@ -10,7 +10,6 @@ const fontSizes = {
   caption: calcRem(12),
   page: calcRem(10),
 };
-
 const colors = {
   white: '#FFFFFF',
   dark: '#3D444C',
@@ -19,6 +18,7 @@ const colors = {
   orangeDark: '#593A00',
   orangeBright: '#D9A305',
   yellow: '#F2CA04',
+  gray: '#B8B8B8',
 };
 
 const deviceSizes = {
