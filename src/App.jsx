@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import FeeCalculator from './pages/FeeCalculator';
 import Mypage from './pages/Mypage';
 import NewReview from './pages/NewReview';
+import SidebarTest from './pages/SidebarTest';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/mypage" element={<Mypage />}>
             <Route path="newreview" element={<NewReview />} />
           </Route>
+          <Route path="/sidebar" element={<SidebarTest />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
