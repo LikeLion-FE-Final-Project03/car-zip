@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import GlobalStyle from './styles/global.css';
+import GlobalStyles from './styles/global.js';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme.js';
 import Main from './pages/Main';
@@ -14,6 +14,7 @@ import NewReview from './pages/NewReview';
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyles />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
