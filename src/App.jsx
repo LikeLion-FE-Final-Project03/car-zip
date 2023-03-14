@@ -3,7 +3,7 @@ import GlobalStyles from './styles/global.js';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme.js';
 import Main from './pages/Main';
-import ZipDetail from './pages/ZipDetail';
+import ZipDetail from './pages/ZipDetail/ZipDetail';
 import Search from './pages/Search';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
