@@ -1,5 +1,7 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { fireStore } from "../Firebase.js";
+
 import styled from 'styled-components'
 import theme from "../styles/theme.js";
 import logo_dark from '../../public/assets/images//login/dark-logo.svg';
@@ -32,7 +34,6 @@ gap : .25em;
 `
 
 export default function Login() {
-
   return (
     <LoginWrapper>
       <LoginColumn>
