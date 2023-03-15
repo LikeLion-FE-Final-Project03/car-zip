@@ -18,6 +18,16 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
     color: inherit;
   }
+
+  button{
+    background: inherit ;
+    border:none;
+    box-shadow:none;
+    border-radius:0;
+    padding:0;
+    overflow:visible;
+    cursor:pointer
+  }
 `;
 
 export default GlobalStyles;

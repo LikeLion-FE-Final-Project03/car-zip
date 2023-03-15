@@ -42,27 +42,27 @@ export default function Login() {
         </h1>
         <LoginList>
           <li>
-            <a href="">
+            <button>
               <img src={facebook} alt="페이스북 로그인" />
-            </a>
+            </button>
           </li>
           <li>
-            <a href="">
+            <button>
               <img src={google} alt="구글 로그인" />
-            </a>
+            </button>
           </li>
           <li>
-            <a href="">
+            <button>
               <img src={kakao} alt="카카오 로그인" />
-            </a>
+            </button>
           </li>
           <li>
-            <a href="">
+            <button>
               <img src={naver} alt="네이버 로그인" />
-            </a>
+            </button>
           </li>
           <li>
-            <a href="">다음에 하기</a>
+            <button>다음에 하기</button>
           </li>
         </LoginList>
       </LoginColumn>
