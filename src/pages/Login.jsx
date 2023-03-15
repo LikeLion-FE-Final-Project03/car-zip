@@ -24,6 +24,12 @@ flex-direction : column;
 align-items: center;
 gap : 3rem;
 `
+const LoginList = styled.ul`
+display : flex;
+flex-direction : column;
+align-items: center;
+gap : .25em;
+`
 
 export default function Login() {
 
@@ -33,7 +39,7 @@ export default function Login() {
         <h1>
           <img src={logo_dark} alt="CarZip" />
         </h1>
-        <ul>
+        <LoginList>
           <li>
             <a href="">
               <img src={facebook} alt="페이스북 로그인" />
@@ -56,8 +62,8 @@ export default function Login() {
           </li>
           <li>
             <a href="">다음에 하기</a>
-            </li>
-        </ul>
+          </li>
+        </LoginList>
       </LoginColumn>
     </LoginWrapper>
   );
