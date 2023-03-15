@@ -1,4 +1,4 @@
-const calcRem = (size) => `${size / 16}rem`;
+export const calcRem = (size) => `${size / 16}rem`;
 const fontSizes = {
   headLint: calcRem(45),
   title: calcRem(30),
@@ -13,6 +13,7 @@ const fontSizes = {
 };
 const colors = {
   white: '#FFFFFF',
+  black: '#212121',
   dark: '#3C454C',
   grey: '#A7ADBF',
   orangeMain: '#FC9400',
