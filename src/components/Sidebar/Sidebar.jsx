@@ -38,7 +38,6 @@ const MenuWrapper = styled.div`
   width: 300px;
   height: 844px;
   background-color: ${theme.colors.dark};
-  background-color: #3c454c;
   padding: 36px 20px 17px 20px;
   display: flex;
   flex-flow: column nowrap;
@@ -52,8 +51,7 @@ const MenuWrapper = styled.div`
 
 const MenuTitle = styled.h1`
   color: ${theme.colors.orangeMain};
-  /* font-size: ${theme.fontSizes.subTitle1}; */
-  font-size: 28px;
+  font-size: ${theme.fontSizes.display};
   font-weight: 700;
   padding-bottom: 17px;
   border-bottom: 1px solid ${theme.colors.orangeMain};
@@ -61,8 +59,7 @@ const MenuTitle = styled.h1`
 
 const MenuTitleEng = styled.span`
   color: ${theme.colors.white};
-  /* font-size: ${theme.fontSizes.paragraph1}; */
-  font-size: 16px;
+  font-size: ${theme.fontSizes.paragraph2};
   font-weight: 400;
   margin-left: 2px;
 `;
@@ -73,7 +70,7 @@ const SubMenu = styled.section`
 `;
 
 const MyPage = styled.h2`
-  font-size: 24px;
+  font-size: ${theme.fontSizes.subTitle2};
   font-weight: 400;
   color: ${theme.colors.orangeMain};
   margin-bottom: 12px;
@@ -82,7 +79,7 @@ const MyPage = styled.h2`
 const MypageList = styled.ul`
   padding-left: 12px;
   list-style-type: none;
-  font-size: 18px;
+  font-size: ${theme.fontSizes.paragraph3};
   font-weight: 400;
   line-height: 21.48px;
 `;
@@ -116,7 +113,7 @@ const Logo = styled.img`
 
 const TextCopyright = styled.p`
   height: 24px;
-  font-size: 16px;
+  font-size: ${theme.fontSizes.paragraph2};
   color: ${theme.colors.gray};
   margin-bottom: 27px;
 `;
@@ -138,7 +135,7 @@ const BackButton = styled.button`
   border: none;
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: ${theme.fontSizes.subTitle1};
   margin-bottom: 20px;
 `;
 
