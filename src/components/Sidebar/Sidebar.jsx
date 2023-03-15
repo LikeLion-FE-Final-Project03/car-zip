@@ -11,20 +11,36 @@ export default function Sidebar() {
       <SubMenu>
         <MyPage>마이페이지</MyPage>
         <MypageList>
-          <ReviewMenu>- 나의 리뷰</ReviewMenu>
-          <BookmarkMenu>- 즐겨찾기</BookmarkMenu>
+          <ReviewLi>
+            <ReviewMenu href="http://localhost:3000/mypage" tabIndex={0}>
+              - 나의 리뷰
+            </ReviewMenu>
+          </ReviewLi>
+          <li>
+            <BookmarkMenu href="http://localhost:3000/mypage/bookmark" tabIndex={0}>
+              - 즐겨찾기
+            </BookmarkMenu>
+          </li>
         </MypageList>
       </SubMenu>
       <CarzipInfo>
         <LogoWrapper>
-          <Logo src="../public/assets/images/logo.png" alt="카집 로고" />
+          <Logo src={'../public/assets/images/logo.png'} alt={'카집 로고'} />
         </LogoWrapper>
 
-        <TextCopyright>Copyright By Parking-React</TextCopyright>
-        <TextTitle>만든 사람들</TextTitle>
-        <TextGithub href="https://github.com/LikeLion-FE-Final-Project03" target="_blank" rel="noopener noreferer">
-          Parking-React
-        </TextGithub>
+        <TextCopyright role={'contentinfo'}>Copyright By Parking-React</TextCopyright>
+        <TextTitle role={'contentinfo'}>만든 사람들</TextTitle>
+        <p>
+          <TextGithub
+            href="https://github.com/LikeLion-FE-Final-Project03"
+            target="_blank"
+            rel="noopener noreferer"
+            role={'contentinfo'}
+            aria-label={'파킹 리액트 깃허브 주소'}
+          >
+            Parking-React
+          </TextGithub>
+        </p>
       </CarzipInfo>
       <BackButton>
         <IcBack />
@@ -84,15 +100,20 @@ const MypageList = styled.ul`
   line-height: 21.48px;
 `;
 
-const ReviewMenu = styled.li`
-  color: ${theme.colors.white};
-  list-style-type: none;
+const ReviewLi = styled.li`
   margin-top: 12px;
   margin-bottom: 8px;
 `;
 
-const BookmarkMenu = styled.li`
+const ReviewMenu = styled.a`
   color: ${theme.colors.white};
+  list-style-type: none;
+  text-decoration-line: none;
+`;
+
+const BookmarkMenu = styled.a`
+  color: ${theme.colors.white};
+  text-decoration-line: none;
 `;
 
 const CarzipInfo = styled.section`
@@ -129,6 +150,8 @@ const TextGithub = styled.a`
 `;
 
 const BackButton = styled.button`
+  width: 62px;
+  padding: 0;
   color: ${theme.colors.orangeMain};
   order: -1;
   background-color: inherit;
@@ -137,6 +160,7 @@ const BackButton = styled.button`
   align-items: center;
   font-size: ${theme.fontSizes.subTitle1};
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 const TextBack = styled.span`
