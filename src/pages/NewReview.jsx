@@ -10,19 +10,19 @@ export default function NewReview() {
   return (
     <ReviewWrapper>
       <PageHeader>
-        <button>
+        <button aria-label="뒤로가기 버튼">
           <IcVector />
         </button>
         <PageTitle>리뷰 작성</PageTitle>
       </PageHeader>
       <ParkingName>파킹 주차장</ParkingName>
       <BtnWrapper>
-        <RecommendBtn />
-        <NotRecommendBtn />
+        <RecommendBtn tabIndex={0} />
+        <NotRecommendBtn tabIndex={0} />
       </BtnWrapper>
       <ReviewInput name="reviewInput" cols="30" rows="10" placeholder="리뷰를 작성해주세요."></ReviewInput>
       <LetterNum>40/100자</LetterNum>
-      <SubmitBtn type="submit" value={'submit'}>
+      <SubmitBtn aria-label="등록하기 버튼" type="submit" value={'submit'}>
         등록하기
       </SubmitBtn>
     </ReviewWrapper>
@@ -48,6 +48,7 @@ const PageHeader = styled.div`
     padding: 0;
     margin-left: 14px;
     width: 17px;
+    cursor: pointer;
   }
 `;
 
@@ -61,6 +62,7 @@ const PageTitle = styled.h1`
   letter-spacing: -0.56px;
   color: ${theme.colors.white};
   font-size: ${theme.fontSizes.subTitle2};
+  user-select: none;
 `;
 
 const ParkingName = styled.h2`
@@ -74,6 +76,7 @@ const BtnWrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  cursor: pointer;
 `;
 
 const ReviewInput = styled.textarea`
@@ -100,6 +103,7 @@ const LetterNum = styled.p`
   padding-right: 31px;
   margin-bottom: 20px;
   text-align: right;
+  user-select: none;
 `;
 
 const SubmitBtn = styled.button`
@@ -115,4 +119,5 @@ const SubmitBtn = styled.button`
   line-height: 50px;
   letter-spacing: 0.31px;
   text-align: center;
+  cursor: pointer;
 `;
