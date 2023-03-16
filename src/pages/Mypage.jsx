@@ -23,9 +23,8 @@ export default function Mypage() {
       <UserInfoContents></UserInfoContents>
       <Nav></Nav>
       <Routes>
-        <Route path="/*" element={<ReviewContents />}></Route>
-        <Route path="/review" element={<ReviewContents />}></Route>
-        <Route path="/bookmark" element={<ParkinglotContents />}></Route>
+        <Route exact path="/review" element={<ReviewContents />}></Route>
+        <Route exact path="/bookmark" element={<ParkinglotContents />}></Route>
       </Routes>
     </>
   );
@@ -86,6 +85,7 @@ const UserInfoWrapper = styled.div`
   align-items: center;
   padding: 40px 20px;
   border-bottom: solid 4px ${theme.colors.dark};
+  letter-spacing: -1px;
 
   > div {
     display: flex;
@@ -140,7 +140,6 @@ const NavStyle = styled(NavLink)`
   line-height: ${calcRem(57)};
   text-align: center;
   min-width: 160px;
-
   &.active {
     background-color: ${theme.colors.grey2};
   }
