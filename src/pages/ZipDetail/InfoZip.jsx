@@ -1,24 +1,27 @@
 import styled from 'styled-components';
 import theme from '../../styles/theme';
-import icon_favorite from '../../../public/assets/icons/icon-favorite.svg';
+import icon_marker from '../../../public/assets/icons/icon-marker.svg';
+import FavoriteButton from '../../components/FavoriteButton';
+import CopyButton from '../../components/CopyButton';
+import TagItem from '../../components/TagItem';
 
 export default function InfoZip() {
   return (
     <InfoZipWrapper>
       <Title>
         <h2>마포 공영주차장</h2>
-        <button type="button">즐겨찾기 추가</button>
+        <FavoriteButton type="button">즐겨찾기 추가</FavoriteButton>
       </Title>
-      <Tags>
-        <span>공영</span>
-        <span>전기차 충전소</span>
-        <span>화장실</span>
-        <span>공휴일 무료</span>
-      </Tags>
-      <div>
+      <TagWrapper>
+        <TagItem text={'공영'} />
+        <TagItem text={'전기차 충전소'} />
+        <TagItem text={'화장실'} />
+        <TagItem text={'공휴일 무료'} />
+      </TagWrapper>
+      <Address>
         <span>서울 서대문구 충정로 60 10층</span>
-        <button type="button">주소 복사하기</button>
-      </div>
+        <CopyButton type="button">주소 복사하기</CopyButton>
+      </Address>
       <div>최초 10분 2,500원 / 추가 5분당 500원</div>
       <div>
         <button type="button">주차비 미리보기</button>
@@ -45,28 +48,29 @@ const Title = styled.div`
     color: ${theme.colors.black};
     font-weight: 700;
   }
-
-  & button {
-    width: 24px;
-    height: 24px;
-    border: 0;
-    padding-top: 24px;
-    background: url(${icon_favorite}) no-repeat center center;
-    overflow: hidden;
-    cursor: pointer;
-  }
 `;
 
-const Tags = styled.div`
+const TagWrapper = styled.div`
   white-space: nowrap;
+  margin-bottom: 16px;
+`;
+
+const Address = styled.div`
+  display: flex;
+  align-items: center;
 
   & span {
-    display: inline-block;
-    padding: 6px 12px;
     margin-right: 4px;
-    border-radius: 999px;
-    background-color: ${theme.colors.yellow};
-    color: ${theme.colors.dark};
-    font-size: ${theme.fontSizes.subTitle1};
+    font-size: ${theme.fontSizes.paragraph2};
+  }
+
+  & span::before {
+    content: '';
+    display: inline-block;
+    width: 17px;
+    height: 24px;
+    margin-right: 4px;
+    background: url(${icon_marker}) no-repeat center center;
+    vertical-align: middle;
   }
 `;

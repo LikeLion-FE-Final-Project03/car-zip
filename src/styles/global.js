@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle`
   body{
     margin: 0;
     padding: 0;
-    width: 320px;
+    min-width: 320px;
   }
 `;
 
