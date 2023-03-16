@@ -1,3 +1,10 @@
+import styled from 'styled-components';
+
 export default function Review() {
-  return <section>리뷰</section>;
+  return <ReviewWrapper>리뷰</ReviewWrapper>;
 }
+
+const ReviewWrapper = styled.section`
+  padding: 20px;
+  overflow: hidden;
+`;

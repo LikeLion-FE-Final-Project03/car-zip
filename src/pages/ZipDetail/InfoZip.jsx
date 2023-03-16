@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import icon_marker from '../../../public/assets/icons/icon-marker.svg';
+import icon_call from '../../../public/assets/icons/icon-call.svg';
+import icon_calculator from '../../../public/assets/icons/icon-calculator.svg';
+import icon_navi from '../../../public/assets/icons/icon-navi.svg';
+
 import FavoriteButton from '../../components/FavoriteButton';
 import CopyButton from '../../components/CopyButton';
 import TagItem from '../../components/TagItem';
+import UtilButton from '../../components/UtilButton';
 
 export default function InfoZip() {
   return (
@@ -22,12 +27,22 @@ export default function InfoZip() {
         <span>서울 서대문구 충정로 60 10층</span>
         <CopyButton type="button">주소 복사하기</CopyButton>
       </Address>
-      <div>최초 10분 2,500원 / 추가 5분당 500원</div>
-      <div>
-        <button type="button">주차비 미리보기</button>
-        <button type="button">전화</button>
-        <button type="button">길안내</button>
-      </div>
+      <Price>
+        최초 10분 <span>2,500원</span> / 추가 5분당 500원
+      </Price>
+      <Utils>
+        <UtilButton type="button" width="100" icon={icon_calculator} theme="default">
+          주차비 미리보기
+        </UtilButton>
+        <div>
+          <UtilButton type="button" width="50" icon={icon_call} theme="dark">
+            전화
+          </UtilButton>
+          <UtilButton type="button" width="50" icon={icon_navi} theme="default">
+            길안내
+          </UtilButton>
+        </div>
+      </Utils>
     </InfoZipWrapper>
   );
 }
@@ -57,6 +72,7 @@ const TagWrapper = styled.div`
 
 const Address = styled.div`
   display: flex;
+  margin-bottom: 12px;
   align-items: center;
 
   & span {
@@ -72,5 +88,29 @@ const Address = styled.div`
     margin-right: 4px;
     background: url(${icon_marker}) no-repeat center center;
     vertical-align: middle;
+  }
+`;
+
+const Price = styled.div`
+  margin-bottom: 12px;
+  font-size: ${theme.fontSizes.paragraph2};
+  color: ${theme.colors.black};
+  letter-spacing: -0.5px;
+
+  & span {
+    font-size: ${theme.fontSizes.headLint};
+  }
+`;
+
+const Utils = styled.div`
+  margin-bottom: 20px;
+
+  & button {
+    margin-bottom: 10px;
+  }
+
+  & div {
+    display: flex;
+    gap: 10px;
   }
 `;

@@ -16,6 +16,7 @@ const colors = {
   black: '#212121',
   dark: '#3C454C',
   grey: '#A7ADBF',
+  grey2: '#F1F4F7',
   orangeMain: '#FC9400',
   orangeDark: '#593A00',
   orangeBright: '#D9A305',
