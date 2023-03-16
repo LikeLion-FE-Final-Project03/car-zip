@@ -68,7 +68,7 @@ export default function KakaoMap(props) {
           <Map
             id="map"
             center={state.center}
-            style={{ width: '100%', height: '844px', position: 'relative', overflow: 'hidden' }}
+            style={{ width: '100%', height: '100vh', position: 'relative', overflow: 'hidden' }}
             level={3}
             draggable={draggable}
             ref={mapRef}
