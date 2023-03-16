@@ -23,8 +23,8 @@ export default function Mypage() {
       <UserInfoContents></UserInfoContents>
       <Nav></Nav>
       <Routes>
-        <Route path="/review" element={<ReviewContents />}></Route>
         <Route path="/*" element={<ReviewContents />}></Route>
+        <Route path="/review" element={<ReviewContents />}></Route>
         <Route path="/bookmark" element={<ParkinglotContents />}></Route>
       </Routes>
     </>

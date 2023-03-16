@@ -24,7 +24,7 @@ function App() {
           </Route>
           <Route path="/search" element={<Search />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/mypage/*" element={<Mypage />}>
+          <Route path="/mypage/review" element={<Mypage />}>
             <Route path="newreview" element={<NewReview />} />
           </Route>
         </Routes>
