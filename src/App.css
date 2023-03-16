@@ -76,3 +76,15 @@
 .custom_zoomcontrol span:first-child {
   border-bottom: 1px solid #bfbfbf;
 }
+
+.currentLocation {
+  background-color: #f5f5f5;
+  width: 36px;
+  height: 40px;
+  position: absolute;
+  right: 20px;
+  bottom: 100px;
+  z-index: 9999;
+  border: none;
+  padding-top: 2px;
+}
