@@ -45,12 +45,27 @@ const SearchArea = styled.div`
   align-items: center;
 `;
 
+const SearchInput = styled.input`
+  margin: 0 8px;
+  width: 100%;
+  font-size: 20px;
+  border: none;
+  box-shadow: none;
+
+  ::placeholder {
+    font-weight: 400;
+    line-height: 24px;
+    color: #999999;
+  }
+`;
+
 export default function Main() {
   return (
     <div className="App">
       <SearchBarWrapper>
         <IcMenu />
         <SearchArea>
+          <SearchInput placeholder="검색어를 입력하세요." type="text" />
           <IcSearchBtn />
         </SearchArea>
       </SearchBarWrapper>
