@@ -1,9 +1,17 @@
-import { useRef, useLayoutEffect, useState } from 'react';
-import { Map, CustomOverlayMap } from 'react-kakao-maps-sdk';
+import { useRef, useLayoutEffect, useState, useEffect } from 'react';
+import { Map, CustomOverlayMap, MapMarker } from 'react-kakao-maps-sdk';
 
 export default function KakaoMap(props) {
   const Main = () => {
     const [draggable, setDraggable] = useState(true);
+    const [state, setState] = useState({
+      center: {
+        lat: 33.450701,
+        lng: 126.570667,
+      },
+      errMsg: null,
+      isLoading: true,
+    });
 
     const mapRef = useRef();
 
@@ -72,29 +80,60 @@ export default function KakaoMap(props) {
       map.setLevel(map.getLevel() + 1);
     };
 
+    useEffect(() => {
+      if (navigator.geolocation) {
+        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setState((prev) => ({
+              ...prev,
+              center: {
+                lat: position.coords.latitude, // 위도
+                lng: position.coords.longitude, // 경도
+              },
+              isLoading: false,
+            }));
+          },
+          (err) => {
+            setState((prev) => ({
+              ...prev,
+              errMsg: err.message,
+              isLoading: false,
+            }));
+          }
+        );
+      } else {
+        // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+        setState((prev) => ({
+          ...prev,
+          errMsg: 'geolocation을 사용할수 없어요..',
+          isLoading: false,
+        }));
+      }
+    }, []);
+
     return (
       <>
         <div className={`map_wrap`}>
           <Map
             id="map"
-            center={{ lat: props.la, lng: props.lo }}
+            center={state.center}
             style={{ width: '100%', height: '844px', position: 'relative', overflow: 'hidden' }}
             level={3}
             draggable={draggable}
             ref={mapRef}
           >
-            <CustomOverlayMap // 커스텀 오버레이를 표시할 Container
-              // 커스텀 오버레이가 표시될 위치입니다
-              position={{
-                lat: 37.49887,
-                lng: 127.026581,
-              }}
-              // 커스텀 오버레이가에 대한 확장 옵션
-              xAnchor={0.3}
-              yAnchor={0.91}
-            >
-              <ParkingFeeMarker />
-            </CustomOverlayMap>
+            {!state.isLoading && (
+              <CustomOverlayMap // 커스텀 오버레이를 표시할 Container
+                // 커스텀 오버레이가 표시될 위치입니다
+                position={state.center}
+                // 커스텀 오버레이가에 대한 확장 옵션
+                xAnchor={0.3}
+                yAnchor={0.91}
+              >
+                <ParkingFeeMarker />
+              </CustomOverlayMap>
+            )}
           </Map>
           <div className="custom_zoomcontrol radius_border">
             <span onClick={zoomIn}>
