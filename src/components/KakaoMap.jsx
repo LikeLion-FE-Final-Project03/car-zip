@@ -73,6 +73,7 @@ export default function KakaoMap(props) {
             draggable={draggable}
             ref={mapRef}
           >
+            {/* 🚨 To Do : 위치 변경 시 오버레이 랜더링 필요 */}
             {!state.isLoading && (
               <CustomOverlayMap // 커스텀 오버레이를 표시할 Container
                 // 커스텀 오버레이가 표시될 위치입니다
