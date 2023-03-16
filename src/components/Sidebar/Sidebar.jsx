@@ -42,7 +42,7 @@ export default function Sidebar() {
           </TextGithub>
         </p>
       </CarzipInfo>
-      <BackButton>
+      <BackButton aria-label="뒤로가기 버튼">
         <IcBack />
         <TextBack>뒤로</TextBack>
       </BackButton>
