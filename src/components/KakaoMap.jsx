@@ -103,5 +103,3 @@ export default function KakaoMap(props) {
   };
   return <Main />;
 }
-
-const mapStyle = { width: 390, height: 766 };
