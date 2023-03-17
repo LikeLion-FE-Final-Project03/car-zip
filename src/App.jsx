@@ -19,9 +19,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/*" element={<NotFound />} />
-          <Route path="/detail" element={<ZipDetail />}>
-            <Route path="fee" element={<FeeCalculator />} />
-          </Route>
+          <Route path="/detail" element={<ZipDetail />} />
+          <Route path="/fee" element={<FeeCalculator />} />
           <Route path="/search" element={<Search />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />}>

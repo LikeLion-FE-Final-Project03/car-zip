@@ -2,11 +2,11 @@ import theme from '../../styles/theme';
 import styled from 'styled-components';
 import icon_prev_page from '../../../public/assets/icons/icon-prev-page.svg';
 
-export default function Header() {
+export default function Header(props) {
   return (
     <DetailHeader>
       <button type="button">뒤로 가기</button>
-      <h1>주차장 상세보기</h1>
+      <h1>{props.title}</h1>
     </DetailHeader>
   );
 }
