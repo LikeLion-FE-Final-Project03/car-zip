@@ -26,7 +26,8 @@ const GlobalStyles = createGlobalStyle`
     border-radius:0;
     padding:0;
     overflow:visible;
-    cursor:pointer
+    cursor:pointer;
+    color:inherit;
   }
 `;
 
