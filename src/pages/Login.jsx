@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { db } from "../Firebase.js";
+import { db, auth } from "../Firebase.js";
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 import styled from 'styled-components'
 import theme from "../styles/theme.js";
@@ -57,6 +58,20 @@ export default function Login() {
     console.log(db);
   });
 
+  const [userData, setUserData] = useState(null);
+
+  function handleGoogleLogin() {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((data) => {
+        setUserData(data.user);
+        console.log(data)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <LoginWrapper>
       <LoginColumn>
@@ -64,13 +79,13 @@ export default function Login() {
           <img src={logo_dark} alt="CarZip" />
         </h1>
         <LoginList>
-          <li>
+          {/* <li>
             <button>
               <img src={facebook} alt="페이스북 로그인" />
             </button>
-          </li>
+          </li> */}
           <li>
-            <button>
+            <button onClick={handleGoogleLogin}>
               <img src={google} alt="구글 로그인" />
             </button>
           </li>
@@ -87,7 +102,8 @@ export default function Login() {
           <li>
             <button>다음에 하기</button>
           </li>
-          <li>{db._databaseId.projectId}</li>
+          {/* <li>{db._databaseId.projectId}</li> */}
+          <li>{userData ? userData.displayName : null}</li>
         </LoginList>
       </LoginColumn>
     </LoginWrapper>
