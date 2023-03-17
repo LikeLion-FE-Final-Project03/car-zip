@@ -95,7 +95,7 @@ const Price = styled.div`
   margin-bottom: 12px;
   font-size: ${theme.fontSizes.paragraph2};
   color: ${theme.colors.black};
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
 
   & span {
     font-size: ${theme.fontSizes.headLint};

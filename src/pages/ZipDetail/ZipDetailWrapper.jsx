@@ -1,10 +1,9 @@
 import React from 'react';
 import Header from './Header';
-import InfoTables from './InfoTables';
 import InfoZip from './InfoZip';
 import RecentUpdate from './RecentUpdate';
 import Review from './Review';
-import styled from 'styled-components';
+import InfoMore from './InfoMore';
 
 export default function ZipDetailWrapper() {
   return (
@@ -12,12 +11,8 @@ export default function ZipDetailWrapper() {
       <Header />
       <InfoZip />
       <Review />
-      <InfoTables />
+      <InfoMore />
       <RecentUpdate />
     </div>
   );
 }
-
-styled.div`
-  background-color: #000;
-`;
