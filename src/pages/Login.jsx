@@ -72,6 +72,15 @@ export default function Login() {
       });
   }
 
+  // const handleKakaoLogin = () => {
+  //   const redirectUri = `${location.origin}/callback/kakaotalk`;
+  
+  //   window.Kakao.Auth.authorize({
+  //     redirectUri
+  //   });
+  // };
+
+
   return (
     <LoginWrapper>
       <LoginColumn>
