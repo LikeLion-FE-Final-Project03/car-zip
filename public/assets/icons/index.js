@@ -15,3 +15,4 @@ export { ReactComponent as KakaoIcon } from './icon-kakao.svg';
 export { ReactComponent as NaverIcon } from './icon-naver.svg';
 export { ReactComponent as LogoutButton } from './button-logout.svg';
 export { ReactComponent as BackButton } from './button-back.svg';
+export { ReactComponent as ReviewUpdateButton } from './button-review-update.svg';
