@@ -10,3 +10,8 @@ export { ReactComponent as PrevButton } from './icon-back.svg';
 export { ReactComponent as NaviButton } from './button-navi.svg';
 export { ReactComponent as ActiveFavorite } from './icon-active-favorite.svg';
 export { ReactComponent as DeactiveFavorite } from './icon-deactive-favorite.svg';
+export { ReactComponent as GoogleIcon } from './icon-google.svg';
+export { ReactComponent as KakaoIcon } from './icon-kakao.svg';
+export { ReactComponent as NaverIcon } from './icon-naver.svg';
+export { ReactComponent as LogoutButton } from './button-logout.svg';
+export { ReactComponent as BackButton } from './button-back.svg';
