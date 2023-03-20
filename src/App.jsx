@@ -3,7 +3,7 @@ import GlobalStyles from './styles/global.js';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme.js';
 import Main from './pages/Main';
-import ZipDetail from './pages/ZipDetail';
+import ZipDetail from './pages/ZipDetail/ZipDetail';
 import Search from './pages/Search';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
@@ -22,9 +22,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/*" element={<NotFound />} />
-          <Route path="/detail" element={<ZipDetail />}>
-            <Route path="fee" element={<FeeCalculator />} />
-          </Route>
+          <Route path="/detail" element={<ZipDetail />} />
+          <Route path="/fee" element={<FeeCalculator />} />
           <Route path="/search" element={<Search />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />} />
