@@ -11,6 +11,17 @@ import TagItem from '../TagItem';
 import UtilButton from '../UtilButton';
 
 export default function InfoZip() {
+  function copyClipboard() {
+    const target = document.querySelector('.zip-address').innerHTML;
+    navigator.clipboard
+      .writeText(target)
+      .then(() => {
+        alert('주소를 클립보드에 복사하였습니다.');
+      })
+      .catch(() => {
+        alert('클립보드에 복사를 실패하였습니다.');
+      });
+  }
   return (
     <InfoZipWrapper>
       <Title>
@@ -24,8 +35,10 @@ export default function InfoZip() {
         <TagItem text={'노외'} />
       </TagWrapper>
       <Address>
-        <span>서울 서대문구 충정로 60 10층</span>
-        <CopyButton type="button">주소 복사하기</CopyButton>
+        <span className="zip-address">서울 서대문구 충정로 60 10층</span>
+        <CopyButton type="button" onClick={copyClipboard}>
+          주소 복사하기
+        </CopyButton>
       </Address>
       <Price>
         최초 10분 <span>2,500원</span> / 추가 5분당 500원

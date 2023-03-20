@@ -65,15 +65,15 @@ function renderTable({ title, caption, rowData }) {
       <table>
         <caption>{caption}</caption>
         <thead>
-          <tr>
+          <tr key="head">
             <th>구분</th>
             <th>상세</th>
           </tr>
         </thead>
         <tbody>
-          {rowData.map((item) => {
+          {rowData.map((item, i) => {
             return (
-              <tr>
+              <tr key={i}>
                 <td>{item.key}</td>
                 <td>{item.value}</td>
               </tr>
