@@ -49,6 +49,7 @@ const a11yHidden = {
 };
 
 const theme = {
+  calcRem,
   fontSizes,
   colors,
   deviceSizes,

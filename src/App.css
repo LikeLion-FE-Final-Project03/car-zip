@@ -1,8 +1,81 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.overlaybox {
+  background-color: #ffffff;
+  border: #fc9400 solid 1px;
+  border-radius: 8px;
+  color: #fc9400;
+  font-size: 16px;
+  font-weight: 500;
+  height: auto;
+  letter-spacing: -0.25px;
+  padding: 8px 10px 6px;
+  position: relative;
+  width: fit-content;
+  z-index: 100;
+}
+
+.overlaybox::after {
+  border-color: #ffffff transparent;
+  border-style: solid;
+  border-width: 8px 6px 0 6.5px;
+  content: '';
+  display: block;
+  left: 40%;
+  position: absolute;
+  bottom: -7px;
+  width: 0;
+  z-index: 1;
+}
+
+.overlaybox::before {
+  border-color: #fc9400 transparent;
+  border-style: solid;
+  border-width: 8px 6px 0 6.5px;
+  content: '';
+  display: block;
+  left: 40%;
+  position: absolute;
+  bottom: -9px;
+  width: 0;
+  z-index: 0;
+}
+
+.custom_zoomcontrol {
+  position: absolute;
+  bottom: 160px;
+  right: 20px;
+  width: 36px;
+  height: 80px;
+  overflow: hidden;
+  z-index: 1;
+  background-color: #f5f5f5;
+}
+.custom_zoomcontrol span {
+  display: block;
+  width: 36px;
+  height: 40px;
   text-align: center;
+  cursor: pointer;
+}
+.custom_zoomcontrol span img {
+  width: 15px;
+  height: 15px;
+  padding: 12px 0;
+  border: none;
+}
+.custom_zoomcontrol span:first-child {
+  border-bottom: 1px solid #bfbfbf;
+}
+
+.currentLocation {
+  background-color: #f5f5f5;
+  width: 36px;
+  height: 40px;
+  position: absolute;
+  right: 20px;
+  bottom: 100px;
+  z-index: 9999;
+  border: none;
+  padding-top: 2px;
 }
 
 .button {
