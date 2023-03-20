@@ -1,6 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
-import ReviewBox from './../components/Review/ReviewBox';
+import ReviewBox from '../components/Review/ReviewBox';
 
 export default function ViewReview() {
   return (
