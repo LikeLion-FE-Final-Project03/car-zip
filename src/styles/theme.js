@@ -13,6 +13,7 @@ const fontSizes = {
 };
 const colors = {
   white: '#FFFFFF',
+  black: '#212121',
   dark: '#3C454C',
   grey: '#A7ADBF',
   grey2: '#F1F4F7',
@@ -21,6 +22,7 @@ const colors = {
   orangeBright: '#D9A305',
   yellow: '#F2CA04',
   gray: '#B8B8B8',
+  lightGray: '#F1F4F7',
 };
 
 const deviceSizes = {

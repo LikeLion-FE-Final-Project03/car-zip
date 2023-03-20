@@ -1,15 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
+import ReviewBox from './../components/Review/ReviewBox';
 
 export default function ViewReview() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="App">
-      <h1>🚗Car Zip🏠의 리뷰 조회페이지</h1>
-      <div className="button">
-        <button onClick={() => setCount((count) => count + 1)}>신나는 만큼 클릭 ❤️ {count}</button>
-      </div>
+    <div className="viewWrapper">
+      <h1>리뷰 조회 테스트 페이지</h1>
+      <ReviewBox />
     </div>
   );
 }
