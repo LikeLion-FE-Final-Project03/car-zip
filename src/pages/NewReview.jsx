@@ -15,7 +15,9 @@ export default function NewReview() {
         </button>
         <PageTitle>리뷰 작성</PageTitle>
       </PageHeader>
-      <ParkingName>파킹 주차장</ParkingName>
+      <ParkingNameWrapper>
+        <ParkingName>파킹 주차장</ParkingName>
+      </ParkingNameWrapper>
       <BtnWrapper>
         <RecommendBtnWrapper aria-label="추천" tabIndex={0}>
           <RecommendBtn />
@@ -33,12 +35,15 @@ export default function NewReview() {
 
 const ReviewWrapper = styled.div`
   box-sizing: border-box;
-  width: 390px;
+  min-width: 320px;
   height: 844px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
 `;
 
 const PageHeader = styled.div`
-  width: 390px;
+  width: 100%;
   height: 57px;
   background-color: ${theme.colors.dark};
   display: flex;
@@ -67,6 +72,13 @@ const PageTitle = styled.h1`
   user-select: none;
 `;
 
+const ParkingNameWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: left;
+`;
+
 const ParkingName = styled.h2`
   font-weight: 700;
   font-size: ${calcRem(32)};
@@ -75,19 +87,31 @@ const ParkingName = styled.h2`
 
 const BtnWrapper = styled.div`
   margin: 0 21px;
+  width: 90%;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   cursor: pointer;
 `;
 
-const RecommendBtnWrapper = styled.button``;
+const RecommendBtnWrapper = styled.button`
+  width: 100%;
 
-const NotRecommendBtnWrapper = styled.button``;
+  & svg {
+    width: 95%;
+  }
+`;
+
+const NotRecommendBtnWrapper = styled.button`
+  width: 100%;
+  & svg {
+    width: 95%;
+  }
+`;
 
 const ReviewInput = styled.textarea`
   box-sizing: border-box;
-  width: 350px;
+  width: 90%;
   height: 200px;
   background-color: ${theme.colors.lightGray};
   border-color: ${theme.colors.grey};
@@ -105,15 +129,15 @@ const LetterNum = styled.p`
   line-height: 19px;
   letter-spacing: -0.76px;
   width: 100%;
-  padding-left: 20px;
-  padding-right: 31px;
+  padding-right: 10%;
   margin-bottom: 20px;
   text-align: right;
   user-select: none;
 `;
 
 const SubmitBtn = styled.button`
-  width: 354px;
+  /* width: 354px; */
+  width: 90%;
   height: 49.75px;
   background-color: ${theme.colors.orangeMain};
   border: none;
