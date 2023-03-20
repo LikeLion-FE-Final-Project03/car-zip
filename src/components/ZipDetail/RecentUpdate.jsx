@@ -10,6 +10,7 @@ export default function RecentUpdate() {
 }
 
 const RecentUpdateWrapper = styled.div`
+  margin-bottom: 20px;
   text-align: center;
   color: ${theme.colors.black};
 `;
