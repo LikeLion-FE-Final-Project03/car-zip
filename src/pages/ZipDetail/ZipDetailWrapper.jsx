@@ -8,7 +8,7 @@ import InfoMore from './InfoMore';
 export default function ZipDetailWrapper() {
   return (
     <div>
-      <Header />
+      <Header title="주차장 상세보기" />
       <InfoZip />
       <Review />
       <InfoMore />
