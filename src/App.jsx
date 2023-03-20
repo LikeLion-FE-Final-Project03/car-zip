@@ -27,7 +27,6 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />} />
-          <Route path="/mypage/bookmark" element={<Bookmark />} />
           <Route path="/sidebar" element={<SidebarTest />} />
           <Route path="/viewreview" element={<ViewReview />} />
           <Route path="/newreview" element={<NewReview />} />

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { TextStyle } from '../styles/UsefulStyle';
-import prevButton from '../../public/assets/icons/icon-prev.svg';
+import prevButton from '../../public/assets/icons/icon-back.svg';
 import { ParkinglotList } from '../components/ParkinglotList';
 import theme from '../styles/theme';
 
