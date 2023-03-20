@@ -5,10 +5,10 @@ import icon_call from '../../../public/assets/icons/icon-call.svg';
 import icon_calculator from '../../../public/assets/icons/icon-calculator.svg';
 import icon_navi from '../../../public/assets/icons/icon-navi.svg';
 
-import FavoriteButton from '../../components/FavoriteButton';
-import CopyButton from '../../components/CopyButton';
-import TagItem from '../../components/TagItem';
-import UtilButton from '../../components/UtilButton';
+import FavoriteButton from '../FavoriteButton';
+import CopyButton from '../CopyButton';
+import TagItem from '../TagItem';
+import UtilButton from '../UtilButton';
 
 export default function InfoZip() {
   return (

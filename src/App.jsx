@@ -3,7 +3,7 @@ import GlobalStyles from './styles/global.js';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme.js';
 import Main from './pages/Main';
-import ZipDetail from './pages/ZipDetail/ZipDetail';
+import ZipDetail from './pages/ZipDetail';
 import Search from './pages/Search';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
@@ -12,7 +12,7 @@ import Mypage from './pages/Mypage';
 import NewReview from './pages/NewReview';
 import SidebarTest from './pages/SidebarTest';
 import Bookmark from './pages/Bookmark';
-import ViewReview from './pages/VeiwReview';
+import ViewReview from './pages/ViewReview';
 
 function App() {
   return (

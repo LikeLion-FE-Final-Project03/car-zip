@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
-import Header from './ZipDetail/Header';
+import Header from '../components/ZipDetail/Header';
 
 export default function FeeCalculator() {
   return (
