@@ -8,6 +8,8 @@
     "vscode": "^1.22.0"
   },
   "dependencies": {
+    "firebase": "^9.17.2",
+    "firebase-tools": "^11.24.1",
     "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

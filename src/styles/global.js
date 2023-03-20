@@ -11,7 +11,23 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     min-width: 320px;
-    font-family: Pretendard;
+  }
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+  }
+
+  button{
+    background: inherit ;
+    border:none;
+    box-shadow:none;
+    border-radius:0;
+    padding:0;
+    overflow:visible;
+    cursor:pointer;
+    color:inherit;
   }
 `;
 
