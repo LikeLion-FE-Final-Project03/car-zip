@@ -19,9 +19,9 @@ export default function InfoZip() {
       </Title>
       <TagWrapper>
         <TagItem text={'공영'} />
-        <TagItem text={'전기차 충전소'} />
-        <TagItem text={'화장실'} />
-        <TagItem text={'공휴일 무료'} />
+        <TagItem text={'유료'} />
+        <TagItem text={'11면'} />
+        <TagItem text={'노외'} />
       </TagWrapper>
       <Address>
         <span>서울 서대문구 충정로 60 10층</span>
@@ -66,7 +66,7 @@ const Title = styled.div`
 `;
 
 const TagWrapper = styled.div`
-  white-space: nowrap;
+  /* white-space: nowrap; */
   margin-bottom: 16px;
 `;
 
