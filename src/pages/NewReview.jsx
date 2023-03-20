@@ -17,14 +17,16 @@ export default function NewReview() {
       </PageHeader>
       <ParkingName>파킹 주차장</ParkingName>
       <BtnWrapper>
-        <RecommendBtn tabIndex={0} />
-        <NotRecommendBtn tabIndex={0} />
+        <RecommendBtnWrapper aria-label="추천" tabIndex={0}>
+          <RecommendBtn />
+        </RecommendBtnWrapper>
+        <NotRecommendBtnWrapper aria-label="비추천" tabIndex={0}>
+          <NotRecommendBtn />
+        </NotRecommendBtnWrapper>
       </BtnWrapper>
       <ReviewInput name="reviewInput" cols="30" rows="10" placeholder="리뷰를 작성해주세요."></ReviewInput>
       <LetterNum>40/100자</LetterNum>
-      <SubmitBtn aria-label="등록하기 버튼" type="submit" value={'submit'}>
-        등록하기
-      </SubmitBtn>
+      <SubmitBtn aria-label="등록하기 버튼">등록하기</SubmitBtn>
     </ReviewWrapper>
   );
 }
@@ -78,6 +80,10 @@ const BtnWrapper = styled.div`
   justify-content: space-between;
   cursor: pointer;
 `;
+
+const RecommendBtnWrapper = styled.button``;
+
+const NotRecommendBtnWrapper = styled.button``;
 
 const ReviewInput = styled.textarea`
   box-sizing: border-box;
