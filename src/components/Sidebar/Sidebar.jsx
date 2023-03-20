@@ -51,7 +51,7 @@ export default function Sidebar() {
 }
 
 const MenuWrapper = styled.div`
-  width: 300px;
+  width: 60%;
   height: 844px;
   background-color: ${theme.colors.dark};
   padding: 36px 20px 17px 20px;
