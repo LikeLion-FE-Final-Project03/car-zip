@@ -22,6 +22,16 @@ export default function InfoZip() {
         alert('클립보드에 복사를 실패하였습니다.');
       });
   }
+
+  function handleCallZip() {
+    const usersDevice = navigator.userAgent;
+    if (usersDevice.indexOf('Windows') > -1 || usersDevice.indexOf('Macintosh') > -1) {
+      alert('전화번호 1234-1234');
+    } else {
+      document.location.href = 'tel: 1234-1234';
+    }
+  }
+
   return (
     <InfoZipWrapper>
       <Title>
@@ -48,7 +58,7 @@ export default function InfoZip() {
           주차비 미리보기
         </UtilButton>
         <div>
-          <UtilButton type="button" width="50" icon={icon_call} theme="dark">
+          <UtilButton type="button" width="50" icon={icon_call} theme="dark" onClick={handleCallZip}>
             전화
           </UtilButton>
           <UtilButton type="button" width="50" icon={icon_navi} theme="default">
