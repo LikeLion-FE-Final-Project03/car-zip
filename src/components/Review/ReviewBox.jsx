@@ -16,10 +16,10 @@ export default function ReviewBox() {
 
 const ReviewWrapper = styled.div`
   box-sizing: border-box;
-  width: 280px;
+  min-width: 280px;
   height: 150px;
   background-color: ${theme.colors.lightGray};
-  border: 1px slid ${theme.colors.lightGray};
+  border: 1px solid ${theme.colors.grey};
   border-radius: 10px;
   padding: 20px 16px;
   letter-spacing: -0.65px;
