@@ -6,11 +6,12 @@ const GlobalStyles = createGlobalStyle`
   * {
     font-family: Pretendard;
   }
-
+  
   body{
     margin: 0;
     padding: 0;
-    width: 320px;
+    font-family: Pretendard;
+    min-width: 320px;
   }
 
   a {

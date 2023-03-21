@@ -1,4 +1,4 @@
-const calcRem = (size) => `${size / 16}rem`;
+export const calcRem = (size) => `${size / 16}rem`;
 const fontSizes = {
   headLint: calcRem(45),
   title: calcRem(30),
@@ -13,13 +13,16 @@ const fontSizes = {
 };
 const colors = {
   white: '#FFFFFF',
+  black: '#212121',
   dark: '#3C454C',
   grey: '#A7ADBF',
+  grey2: '#F1F4F7',
   orangeMain: '#FC9400',
   orangeDark: '#593A00',
   orangeBright: '#D9A305',
   yellow: '#F2CA04',
   gray: '#B8B8B8',
+  lightGray: '#F1F4F7',
 };
 
 const deviceSizes = {
@@ -46,6 +49,7 @@ const a11yHidden = {
 };
 
 const theme = {
+  calcRem,
   fontSizes,
   colors,
   deviceSizes,
