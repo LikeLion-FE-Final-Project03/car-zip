@@ -82,7 +82,7 @@ const FeeCalculatorWrapper = styled.section`
 `;
 
 const ParkingTime = styled.section`
-  margin: 40px 0 20px;
+  margin-top: 40px;
 
   & form {
     display: flex;
@@ -121,11 +121,12 @@ const InputWrapper = styled.div`
 `;
 
 const ParkingFee = styled.section`
-  padding-bottom: 20px;
+  margin-top: 20px;
 `;
 
 const ResultFee = styled.section`
   margin-top: 20px;
+  margin-bottom: 20px;
   text-align: center;
 
   & p {
