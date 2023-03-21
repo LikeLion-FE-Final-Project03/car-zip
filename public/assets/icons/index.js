@@ -7,7 +7,7 @@ export { ReactComponent as IcSearchBtn } from './icon-search-btn.svg';
 export { ReactComponent as IcBack } from './icon-prev.svg';
 export { ReactComponent as IcVector } from './icon-vector.svg';
 export { ReactComponent as PrevButton } from './icon-back.svg';
-export { ReactComponent as NaviButton } from './button-navi.svg';
+export { ReactComponent as NaviButtonImg } from './button-navi.svg';
 export { ReactComponent as ActiveFavorite } from './icon-active-favorite.svg';
 export { ReactComponent as DeactiveFavorite } from './icon-deactive-favorite.svg';
 export { ReactComponent as GoogleIcon } from './icon-google.svg';
