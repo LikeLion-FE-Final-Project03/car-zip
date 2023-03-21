@@ -36,7 +36,7 @@ export default function InfoZip() {
     <InfoZipWrapper>
       <Title>
         <h2>마포 공영주차장</h2>
-        <FavoriteButton type="button">즐겨찾기 추가</FavoriteButton>
+        <FavoriteButton>즐겨찾기 추가</FavoriteButton>
       </Title>
       <TagWrapper>
         <TagItem text={'공영'} />
@@ -77,7 +77,7 @@ const InfoZipWrapper = styled.section`
 
 const Title = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
   margin-bottom: 16px;
 
