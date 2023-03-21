@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import icon_marker from '../../../public/assets/icons/icon-marker.svg';
@@ -54,9 +55,11 @@ export default function InfoZip() {
         최초 10분 <span>2,500원</span> / 추가 5분당 500원
       </Price>
       <Utils>
-        <UtilButton type="button" width="100" icon={icon_calculator} theme="default">
-          주차비 미리보기
-        </UtilButton>
+        <Link to="/fee">
+          <UtilButton type="button" width="100" icon={icon_calculator} theme="default">
+            주차비 미리보기
+          </UtilButton>
+        </Link>
         <div>
           <UtilButton type="button" width="50" icon={icon_call} theme="dark" onClick={handleCallZip}>
             전화

@@ -1,9 +1,30 @@
 import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import Header from '../components/ZipDetail/Header';
+import UtilButton from '../components/UtilButton';
+import icon_calculator from '../../public/assets/icons/icon-calculator.svg';
 
 export default function FeeCalculator() {
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [totalFee, setTotalFee] = useState(0);
+
+  function handleHour(e) {
+    setHours(+e.target.value);
+  }
+
+  function handleMinutes(e) {
+    setMinutes(+e.target.value);
+  }
+  function calculatorFee(e) {
+    // e.preventDefault();
+    if (minutes >= 10 || hours >= 1) {
+      setTotalFee(2500 + Math.floor((hours * 60 + minutes - 10) / 5) * 500);
+    }
+  }
+
   return (
     <FeeCalculatorWrapper>
       <Header title="주차비 미리보기" />
@@ -12,23 +33,26 @@ export default function FeeCalculator() {
         <form>
           <InputWrapper>
             <label htmlFor="hour">시간</label>
-            <input type="number" />
+            <input type="number" onChange={handleHour} />
             <span>시간</span>
           </InputWrapper>
           <InputWrapper>
             <label htmlFor="hour">분</label>
-            <input type="number" />
+            <input type="number" onChange={handleMinutes} />
             <span>분</span>
           </InputWrapper>
         </form>
       </ParkingTime>
       <ParkingFee>
         <h2>주차비</h2>
-        <p>최초 10분 2,500원, 추가 5분당 1,000원</p>
+        <p>최초 10분 2,500원, 추가 5분당 500원</p>
       </ParkingFee>
       <ResultFee>
+        <UtilButton type="button" onClick={calculatorFee} width="100" icon={icon_calculator} theme="default">
+          주차비 미리보기
+        </UtilButton>
         <h3>예상 결제 금액</h3>
-        <p>3,500원</p>
+        <p>{totalFee}원</p>
         <span>할인 감면 대상에 따라 결제 금액이 달라질 수 있으니 참고용으로만 사용하시길 바랍니다.</span>
       </ResultFee>
     </FeeCalculatorWrapper>
@@ -50,6 +74,7 @@ const FeeCalculatorWrapper = styled.section`
   }
 
   & h3 {
+    margin-top: 40px;
     margin-bottom: 10px;
     font-size: ${theme.fontSizes.title};
     font-weight: 700;
@@ -97,7 +122,6 @@ const InputWrapper = styled.div`
 
 const ParkingFee = styled.section`
   padding-bottom: 20px;
-  border-bottom: 1px solid ${theme.colors.orangeMain};
 `;
 
 const ResultFee = styled.section`
