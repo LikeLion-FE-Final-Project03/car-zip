@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { RecommendTag } from '../../../public/assets/images';
+import { NotRecommendTag, RecommendTag } from '../../../public/assets/images';
 import theme from './../../styles/theme';
 import { db } from './../../../firebase-config';
-import { addDoc, deleteDoc, updateDoc, doc, collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 
 export default function ReviewBox() {
@@ -28,7 +28,7 @@ export default function ReviewBox() {
     <div key={value.id}>
       <ReviewWrapper>
         <ReviewInfo>
-          <RecommendTag />
+          {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
           <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
         </ReviewInfo>
         <ReviewContent>{value.content}</ReviewContent>
