@@ -5,7 +5,6 @@ import icon_marker from '../../../public/assets/icons/icon-marker.svg';
 import icon_call from '../../../public/assets/icons/icon-call.svg';
 import icon_calculator from '../../../public/assets/icons/icon-calculator.svg';
 import icon_navi from '../../../public/assets/icons/icon-navi.svg';
-
 import FavoriteButton from '../FavoriteButton';
 import CopyButton from '../CopyButton';
 import TagItem from '../TagItem';
