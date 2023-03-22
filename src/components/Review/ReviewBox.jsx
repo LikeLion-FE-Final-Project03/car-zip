@@ -1,17 +1,42 @@
 import styled from 'styled-components';
 import { RecommendTag } from '../../../public/assets/images';
 import theme from './../../styles/theme';
+import { db } from './../../../firebase-config';
+import { addDoc, deleteDoc, updateDoc, doc, collection, getDocs } from 'firebase/firestore';
+import { useState, useEffect } from 'react';
 
 export default function ReviewBox() {
-  return (
-    <ReviewWrapper>
-      <ReviewInfo>
-        <RecommendTag />
-        <p className="reviewDate">2023년 3월 13일</p>
-      </ReviewInfo>
-      <ReviewContent>주차면이 넓어서 좋아요. 자동화기계가 잘되어있어요.</ReviewContent>
-    </ReviewWrapper>
-  );
+  const [reviews, setReviews] = useState([]);
+
+  //db의 reviews 컬렉션 가져오기
+  const reviewsCollectionRef = collection(db, 'reviews');
+
+  //시작될 때 한번만 실행
+  useEffect(() => {
+    // 비동기로 데이터 받을준비
+    const getReviews = async () => {
+      // getDocs로 컬렉션안에 데이터 가져오기
+      const data = await getDocs(reviewsCollectionRef);
+      // reviews에 data안의 자료 추가. 객체에 id 덮어씌우는거
+      setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getReviews();
+  }, []);
+
+  const showReviews = reviews.map((value) => (
+    <div key={value.id}>
+      <ReviewWrapper>
+        <ReviewInfo>
+          <RecommendTag />
+          <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
+        </ReviewInfo>
+        <ReviewContent>{value.content}</ReviewContent>
+      </ReviewWrapper>
+    </div>
+  ));
+
+  return <>{showReviews}</>;
 }
 
 const ReviewWrapper = styled.div`
