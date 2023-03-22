@@ -1,12 +1,60 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IcVector } from '../../public/assets/icons';
 import styled from 'styled-components';
 import theme from './../styles/theme';
 import { NotRecommendBtn, RecommendBtn } from '../../public/assets/images';
 import { calcRem } from './../styles/theme';
+import { db } from './../../firebase-config';
+import { addDoc, deleteDoc, updateDoc, doc, collection, getDocs } from 'firebase/firestore';
 
 export default function NewReview() {
+  //리뷰에 필요한 데이터
+  const [name, setName] = useState('');
+  const [userId, setUserId] = useState('');
+  const [content, setContent] = useState('');
+  const [recommend, setRecommend] = useState('');
+
+  const [reviews, setReviews] = useState([]);
+
+  //db의 reviews 컬렉션 가져오기
+  const reviewsCollectionRef = collection(db, 'reviews');
+
+  //시작될 때 한번만 실행
+  useEffect(() => {
+    // 비동기로 데이터 받을준비
+    const getReviews = async () => {
+      // getDocs로 컬렉션안에 데이터 가져오기
+      const data = await getDocs(reviewsCollectionRef);
+      // reviews에 data안의 자료 추가. 객체에 id 덮어씌우는거
+      setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getReviews();
+  }, []);
+
+  //리뷰 작성
+  const createReview = async () => {
+    // addDoc을 이용해서 내가 원하는 collection에 내가 원하는 key로 값을 추가함.
+    await addDoc(reviewsCollectionRef, {
+      name: name,
+      userId: userId,
+      content: content,
+      date: new Date().getTime(),
+      prkplceNo: '2312-023',
+      recommend: recommend,
+    });
+    window.alert('리뷰를 등록하였습니다.');
+    console.log('create Review');
+  };
+
+  //추천, 비추천 클릭시 알림 띄우기
+  const handleRecommend = (recommendVal) => {
+    window.alert(recommendVal ? '추천 버튼을 눌렀습니다.' : '비추천 버튼을 눌렀습니다.');
+
+    setRecommend(recommendVal);
+  };
+
   return (
     <ReviewWrapper>
       <PageHeader>
@@ -18,17 +66,54 @@ export default function NewReview() {
       <ParkingNameWrapper>
         <ParkingName>파킹 주차장</ParkingName>
       </ParkingNameWrapper>
+      <input
+        type="text"
+        placeholder="name..."
+        onChange={(event) => {
+          setName(event.target.value);
+        }}
+      />
+      <input
+        type="text"
+        placeholder="userId..."
+        onChange={(event) => {
+          setUserId(event.target.value);
+        }}
+      />
       <BtnWrapper>
-        <RecommendBtnWrapper aria-label="추천" tabIndex={0}>
+        <RecommendBtnWrapper
+          aria-label="추천"
+          tabIndex={0}
+          onClick={() => {
+            handleRecommend(true);
+          }}
+        >
           <RecommendBtn />
         </RecommendBtnWrapper>
-        <NotRecommendBtnWrapper aria-label="비추천" tabIndex={0}>
+        <NotRecommendBtnWrapper
+          aria-label="비추천"
+          tabIndex={0}
+          onClick={() => {
+            handleRecommend(false);
+          }}
+        >
           <NotRecommendBtn />
         </NotRecommendBtnWrapper>
       </BtnWrapper>
-      <ReviewInput name="reviewInput" cols="30" rows="10" placeholder="리뷰를 작성해주세요."></ReviewInput>
-      <LetterNum>40/100자</LetterNum>
-      <SubmitBtn aria-label="등록하기 버튼">등록하기</SubmitBtn>
+
+      <ReviewInput
+        type="text"
+        cols="30"
+        rows="10"
+        placeholder="리뷰를 작성해주세요."
+        onChange={(event) => {
+          setContent(event.target.value);
+        }}
+      ></ReviewInput>
+      <LetterNum>{content.length}/100자</LetterNum>
+      <SubmitBtn aria-label="등록하기 버튼" onClick={createReview}>
+        등록하기
+      </SubmitBtn>
     </ReviewWrapper>
   );
 }
