@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { NotRecommendTag, RecommendTag } from '../../../public/assets/images';
 import theme from './../../styles/theme';
 import { db } from './../../../firebase-config';
-import { collection, getDocs } from 'firebase/firestore';
+import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 
 export default function ReviewBox() {
@@ -24,6 +24,14 @@ export default function ReviewBox() {
     getReviews();
   }, []);
 
+  const deleteReview = async (id, name) => {
+    const reviewsDoc = doc(db, 'reviews', id);
+
+    if (window.confirm(`${name}님의 데이터를 삭제하시겠습니까?`)) {
+      await deleteDoc(reviewsDoc);
+    }
+  };
+
   const showReviews = reviews.map((value) => (
     <div key={value.id}>
       <ReviewWrapper>
@@ -32,6 +40,13 @@ export default function ReviewBox() {
           <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
         </ReviewInfo>
         <ReviewContent>{value.content}</ReviewContent>
+        <button
+          onClick={() => {
+            deleteReview(value.id, value.name);
+          }}
+        >
+          삭제하기
+        </button>
       </ReviewWrapper>
     </div>
   ));
