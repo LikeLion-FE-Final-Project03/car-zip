@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
@@ -12,18 +12,35 @@ export default function FeeCalculator() {
   const [totalFee, setTotalFee] = useState(0);
 
   function handleHour(e) {
-    setHours(+e.target.value);
+    if (+e.target.value >= 0) {
+      setHours(+e.target.value);
+    } else {
+      e.target.value = '';
+    }
   }
 
   function handleMinutes(e) {
-    setMinutes(+e.target.value);
-  }
-  function calculatorFee(e) {
-    // e.preventDefault();
-    if (minutes >= 10 || hours >= 1) {
-      setTotalFee(2500 + Math.floor((hours * 60 + minutes - 10) / 5) * 500);
+    if (+e.target.value >= 0) {
+      setMinutes(+e.target.value);
+    } else {
+      e.target.value = '';
     }
   }
+
+  function calculatorFee() {
+    if (minutes >= 10 || hours >= 1) {
+      setTotalFee((2500 + Math.ceil((hours * 60 + minutes - 10) / 5) * 500).toLocaleString());
+    } else if (minutes > 0) {
+      setTotalFee((2500).toLocaleString());
+    }
+  }
+
+  useEffect(() => {
+    calculatorFee();
+  }, [hours]);
+  useEffect(() => {
+    calculatorFee();
+  }, [minutes]);
 
   return (
     <FeeCalculatorWrapper>
@@ -48,9 +65,6 @@ export default function FeeCalculator() {
         <p>최초 10분 2,500원, 추가 5분당 500원</p>
       </ParkingFee>
       <ResultFee>
-        <UtilButton type="button" onClick={calculatorFee} width="100" icon={icon_calculator} theme="default">
-          주차비 미리보기
-        </UtilButton>
         <h3>예상 결제 금액</h3>
         <p>{totalFee}원</p>
         <span>할인 감면 대상에 따라 결제 금액이 달라질 수 있으니 참고용으로만 사용하시길 바랍니다.</span>
@@ -74,7 +88,7 @@ const FeeCalculatorWrapper = styled.section`
   }
 
   & h3 {
-    margin-top: 40px;
+    margin-top: 20px;
     margin-bottom: 10px;
     font-size: ${theme.fontSizes.title};
     font-weight: 700;
@@ -122,6 +136,8 @@ const InputWrapper = styled.div`
 
 const ParkingFee = styled.section`
   margin-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid ${theme.colors.orangeMain};
 `;
 
 const ResultFee = styled.section`
