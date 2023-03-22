@@ -16,24 +16,34 @@ import ViewReview from './pages/VeiwReview';
 import { useState } from 'react';
 
 function App() {
-  const [isLogedIn,setIsLogedIn] = useState(false)
+  function CheckLogedIn() {
+    const isLogedIn = JSON.parse(window.localStorage.getItem('user'));
+    const returnLogedIn = isLogedIn ? (
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/*" element={<NotFound />} />
+        <Route path="/detail" element={<ZipDetail />} />
+        <Route path="/fee" element={<FeeCalculator />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/mypage/bookmark" element={<Bookmark />} />
+        <Route path="/sidebar" element={<SidebarTest />} />
+        <Route path="/viewreview" element={<ViewReview />} />
+        <Route path="/newreview" element={<NewReview />} />
+      </Routes>
+    ) : (
+      <Routes>
+        <Route path="/" element={<Login />} />
+      </Routes>
+    );
+    return returnLogedIn;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/*" element={<NotFound />} />
-          <Route path="/detail" element={<ZipDetail />} />
-          <Route path="/fee" element={<FeeCalculator />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/mypage/bookmark" element={<Bookmark />} />
-          <Route path="/sidebar" element={<SidebarTest />} />
-          <Route path="/viewreview" element={<ViewReview />} />
-          <Route path="/newreview" element={<NewReview />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
+        <CheckLogedIn />
       </BrowserRouter>
     </ThemeProvider>
   );

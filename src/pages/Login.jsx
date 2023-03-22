@@ -33,21 +33,15 @@ export default function Login() {
     signInWithPopup(auth, provider)
       .then((data) => {
         setUserData(data.user);
-        console.log(data);
+        // console.log(data);
         localStorage.setItem('user', JSON.stringify(data));
+        // toHome();
+        location.reload();
       })
       .catch((err) => {
         console.log(err);
       });
   }
-
-  // const handleKakaoLogin = () => {
-  //   const redirectUri = `${location.origin}/callback/kakaotalk`;
-
-  //   window.Kakao.Auth.authorize({
-  //     redirectUri
-  //   });
-  // };
 
   return (
     <LoginWrapper>
