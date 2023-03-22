@@ -16,30 +16,23 @@ import ViewReview from './pages/VeiwReview';
 import { useState } from 'react';
 
 function App() {
-  const [isLogedIn, setIsLogedIn] = useState(false);
+  const [isLogedIn,setIsLogedIn] = useState(false)
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Swtich>
-            {isLogedIn ? (
-              <>
-                <Route path="/" element={<Main />} />
-                <Route path="/*" element={<NotFound />} />
-                <Route path="/detail" element={<ZipDetail />} />
-                <Route path="/fee" element={<FeeCalculator />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/mypage" element={<Mypage />} />
-                <Route path="/mypage/bookmark" element={<Bookmark />} />
-                <Route path="/sidebar" element={<SidebarTest />} />
-                <Route path="/viewreview" element={<ViewReview />} />
-                <Route path="/newreview" element={<NewReview />} />
-              </>
-            ) : (
-              <Route path="/login" element={<Login />} />
-            )}
-          </Swtich>
+          <Route path="/" element={<Main />} />
+          <Route path="/*" element={<NotFound />} />
+          <Route path="/detail" element={<ZipDetail />} />
+          <Route path="/fee" element={<FeeCalculator />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/mypage/bookmark" element={<Bookmark />} />
+          <Route path="/sidebar" element={<SidebarTest />} />
+          <Route path="/viewreview" element={<ViewReview />} />
+          <Route path="/newreview" element={<NewReview />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
