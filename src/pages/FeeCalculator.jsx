@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import Header from '../components/ZipDetail/Header';
-import UtilButton from '../components/UtilButton';
-import icon_calculator from '../../public/assets/icons/icon-calculator.svg';
 
 export default function FeeCalculator() {
+  const { basicTime, basicCharge, addUnitTime, addUnitCharge } = useLocation().state;
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
-  const [totalFee, setTotalFee] = useState(0);
+  const [totalFee, setTotalFee] = useState('0원');
 
   function handleHour(e) {
     if (+e.target.value >= 0) {
@@ -28,10 +28,17 @@ export default function FeeCalculator() {
   }
 
   function calculatorFee() {
-    if (minutes >= 10 || hours >= 1) {
-      setTotalFee((2500 + Math.ceil((hours * 60 + minutes - 10) / 5) * 500).toLocaleString());
+    if (!(+addUnitTime && +addUnitCharge)) {
+      setTotalFee(`${(+basicCharge).toLocaleString()}원 이상`);
+    } else if (minutes >= +basicTime || hours >= 1) {
+      setTotalFee(
+        (
+          +basicCharge +
+          Math.ceil((hours * 60 + minutes - +basicTime) / +addUnitTime) * +addUnitCharge
+        ).toLocaleString() + '원'
+      );
     } else if (minutes > 0) {
-      setTotalFee((2500).toLocaleString());
+      setTotalFee(basicCharge.toLocaleString() + '원');
     }
   }
 
@@ -62,11 +69,14 @@ export default function FeeCalculator() {
       </ParkingTime>
       <ParkingFee>
         <h2>주차비</h2>
-        <p>최초 10분 2,500원, 추가 5분당 500원</p>
+        <p>
+          최초 {basicTime}분 <span>{(+basicCharge).toLocaleString()}원</span> / 추가 {addUnitTime}분당{' '}
+          {(+addUnitCharge).toLocaleString()}원
+        </p>
       </ParkingFee>
       <ResultFee>
         <h3>예상 결제 금액</h3>
-        <p>{totalFee}원</p>
+        <p>{totalFee}</p>
         <span>할인 감면 대상에 따라 결제 금액이 달라질 수 있으니 참고용으로만 사용하시길 바랍니다.</span>
       </ResultFee>
     </FeeCalculatorWrapper>

@@ -10,7 +10,21 @@ import CopyButton from '../CopyButton';
 import TagItem from '../TagItem';
 import UtilButton from '../UtilButton';
 
-export default function InfoZip() {
+export default function InfoZip({
+  info: {
+    name,
+    type,
+    chargeInfo,
+    count,
+    where,
+    address,
+    basicTime,
+    basicCharge,
+    addUnitTime,
+    addUnitCharge,
+    phoneNumber,
+  },
+}) {
   function copyClipboard() {
     const target = document.querySelector('.zip-address').innerHTML;
     navigator.clipboard
@@ -26,35 +40,44 @@ export default function InfoZip() {
   function handleCallZip() {
     const usersDevice = navigator.userAgent;
     if (usersDevice.indexOf('Windows') > -1 || usersDevice.indexOf('Macintosh') > -1) {
-      alert('전화번호 1234-1234');
+      alert(`전화번호 ${phoneNumber}`);
     } else {
-      document.location.href = 'tel: 1234-1234';
+      document.location.href = `tel: ${phoneNumber}`;
     }
   }
 
   return (
     <InfoZipWrapper>
       <Title>
-        <h2>마포 공영주차장</h2>
+        <h2>{name}</h2>
         <FavoriteButton>즐겨찾기 추가</FavoriteButton>
       </Title>
       <TagWrapper>
-        <TagItem text={'공영'} />
-        <TagItem text={'유료'} />
-        <TagItem text={'11면'} />
-        <TagItem text={'노외'} />
+        <TagItem text={type} />
+        <TagItem text={chargeInfo} />
+        <TagItem text={count + '면'} />
+        <TagItem text={where} />
       </TagWrapper>
       <Address>
-        <span className="zip-address">서울 서대문구 충정로 60 10층</span>
+        <span className="zip-address">{address}</span>
         <CopyButton type="button" onClick={copyClipboard}>
           주소 복사하기
         </CopyButton>
       </Address>
       <Price>
-        최초 10분 <span>2,500원</span> / 추가 5분당 500원
+        최초 {(+basicTime).toLocaleString()}분 <span>{(+basicCharge).toLocaleString()}원</span> / 추가{' '}
+        {(+addUnitTime).toLocaleString()}분당 {(+addUnitCharge).toLocaleString()}원
       </Price>
       <Utils>
-        <Link to="/fee">
+        <Link
+          to="/fee"
+          state={{
+            basicTime: basicTime,
+            basicCharge: basicCharge,
+            addUnitTime: addUnitTime,
+            addUnitCharge: addUnitCharge,
+          }}
+        >
           <UtilButton type="button" width="100" icon={icon_calculator} theme="default">
             주차비 미리보기
           </UtilButton>
