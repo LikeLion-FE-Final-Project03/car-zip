@@ -9,6 +9,7 @@ const Span = styled.span`
   display: inline-block;
   padding: 6px 12px;
   margin-right: 4px;
+  margin-bottom: 8px;
   border-radius: 999px;
   background-color: ${theme.colors.yellow};
   color: ${theme.colors.dark};
