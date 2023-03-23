@@ -1,11 +1,15 @@
 import theme from '../../styles/theme';
 import styled from 'styled-components';
 import icon_prev_page from '../../../public/assets/icons/icon-prev-page.svg';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header(props) {
+  const navigate = useNavigate();
   return (
     <DetailHeader>
-      <button type="button">뒤로 가기</button>
+      <button type="button" onClick={() => navigate(-1)}>
+        뒤로 가기
+      </button>
       <h1>{props.title}</h1>
     </DetailHeader>
   );
