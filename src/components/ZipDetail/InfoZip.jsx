@@ -1,41 +1,89 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import icon_marker from '../../../public/assets/icons/icon-marker.svg';
 import icon_call from '../../../public/assets/icons/icon-call.svg';
 import icon_calculator from '../../../public/assets/icons/icon-calculator.svg';
 import icon_navi from '../../../public/assets/icons/icon-navi.svg';
-
 import FavoriteButton from '../FavoriteButton';
 import CopyButton from '../CopyButton';
 import TagItem from '../TagItem';
 import UtilButton from '../UtilButton';
 
-export default function InfoZip() {
+export default function InfoZip({
+  info: {
+    name,
+    type,
+    chargeInfo,
+    count,
+    where,
+    address,
+    basicTime,
+    basicCharge,
+    addUnitTime,
+    addUnitCharge,
+    phoneNumber,
+  },
+}) {
+  function copyClipboard() {
+    const target = document.querySelector('.zip-address').innerHTML;
+    navigator.clipboard
+      .writeText(target)
+      .then(() => {
+        alert('주소를 클립보드에 복사하였습니다.');
+      })
+      .catch(() => {
+        alert('클립보드에 복사를 실패하였습니다.');
+      });
+  }
+
+  function handleCallZip() {
+    const usersDevice = navigator.userAgent;
+    if (usersDevice.indexOf('Windows') > -1 || usersDevice.indexOf('Macintosh') > -1) {
+      alert(`전화번호 ${phoneNumber}`);
+    } else {
+      document.location.href = `tel: ${phoneNumber}`;
+    }
+  }
+
   return (
     <InfoZipWrapper>
       <Title>
-        <h2>마포 공영주차장</h2>
-        <FavoriteButton type="button">즐겨찾기 추가</FavoriteButton>
+        <h2>{name}</h2>
+        <FavoriteButton>즐겨찾기 추가</FavoriteButton>
       </Title>
       <TagWrapper>
-        <TagItem text={'공영'} />
-        <TagItem text={'전기차 충전소'} />
-        <TagItem text={'화장실'} />
-        <TagItem text={'공휴일 무료'} />
+        <TagItem text={type} />
+        <TagItem text={chargeInfo} />
+        <TagItem text={count + '면'} />
+        <TagItem text={where} />
       </TagWrapper>
       <Address>
-        <span>서울 서대문구 충정로 60 10층</span>
-        <CopyButton type="button">주소 복사하기</CopyButton>
+        <span className="zip-address">{address}</span>
+        <CopyButton type="button" onClick={copyClipboard}>
+          주소 복사하기
+        </CopyButton>
       </Address>
       <Price>
-        최초 10분 <span>2,500원</span> / 추가 5분당 500원
+        최초 {(+basicTime).toLocaleString()}분 <span>{(+basicCharge).toLocaleString()}원</span> / 추가{' '}
+        {(+addUnitTime).toLocaleString()}분당 {(+addUnitCharge).toLocaleString()}원
       </Price>
       <Utils>
-        <UtilButton type="button" width="100" icon={icon_calculator} theme="default">
-          주차비 미리보기
-        </UtilButton>
+        <Link
+          to="/fee"
+          state={{
+            basicTime: basicTime,
+            basicCharge: basicCharge,
+            addUnitTime: addUnitTime,
+            addUnitCharge: addUnitCharge,
+          }}
+        >
+          <UtilButton type="button" width="100" icon={icon_calculator} theme="default">
+            주차비 미리보기
+          </UtilButton>
+        </Link>
         <div>
-          <UtilButton type="button" width="50" icon={icon_call} theme="dark">
+          <UtilButton type="button" width="50" icon={icon_call} theme="dark" onClick={handleCallZip}>
             전화
           </UtilButton>
           <UtilButton type="button" width="50" icon={icon_navi} theme="default">
@@ -54,7 +102,7 @@ const InfoZipWrapper = styled.section`
 
 const Title = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
   margin-bottom: 16px;
 
@@ -66,7 +114,7 @@ const Title = styled.div`
 `;
 
 const TagWrapper = styled.div`
-  white-space: nowrap;
+  /* white-space: nowrap; */
   margin-bottom: 16px;
 `;
 
