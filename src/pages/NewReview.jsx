@@ -7,7 +7,8 @@ import { NotRecommendBtn, RecommendBtn } from '../../public/assets/images';
 import theme from './../styles/theme';
 import { calcRem } from './../styles/theme';
 
-import { db } from './../../firebase-config';
+// import { db } from './../../firebase-config';
+import { db } from '../../Firebase';
 import { addDoc, deleteDoc, updateDoc, doc, collection, getDocs } from 'firebase/firestore';
 
 export default function NewReview() {

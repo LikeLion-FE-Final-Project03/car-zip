@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { db, auth } from '../Firebase.js';
+import { db, auth } from '../../Firebase.js';
 import { GoogleAuthProvider, signInWithPopup, signInAnonymously } from 'firebase/auth';
 
 import styled from 'styled-components';
@@ -77,7 +77,7 @@ export default function Login() {
   //       // ...
   //     });
   // }
-  
+
   return (
     <LoginWrapper>
       <LoginColumn>

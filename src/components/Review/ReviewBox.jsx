@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import { BtnReviewUpdate, BtnReviewDelete } from '../../../public/assets/icons';
+import { ReviewUpdateButton, ReviewDeleteButton } from '../../../public/assets/icons';
 import { NotRecommendTag, RecommendTag } from '../../../public/assets/images';
 import theme from './../../styles/theme';
-import { db } from './../../../firebase-config';
+// import { db } from './../../../firebase-config';
+import { db } from '../../../Firebase';
 import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 
 export default function ReviewBox() {
-
   const [reviews, setReviews] = useState([]);
-//시작될 때 한번만 실행
+  //시작될 때 한번만 실행
   useEffect(() => {
     // 비동기로 데이터 받을준비
     const getReviews = async () => {
@@ -38,8 +38,8 @@ export default function ReviewBox() {
         <ReviewBoxHeader>
           <ParkingLot>파킹 주차장</ParkingLot>
           <BtnWrapper>
-            <BtnReviewUpdate className="btnUpdate" />
-            <BtnReviewDelete />
+            <ReviewUpdateButton className="btnUpdate" />
+            <ReviewDeleteButton />
           </BtnWrapper>
         </ReviewBoxHeader>
         <ReviewWrapper>
