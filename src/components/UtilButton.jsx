@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import theme from '../styles/theme';
 
-export default function UtilButton({ type, width, icon, children, theme, onClick }) {
+export default function UtilButton({ type, width, icon, children, theme, onClick, as }) {
   return (
-    <Button type={type} icon={icon} width={width} theme={theme} onClick={onClick}>
+    <Button as={as} type={type} icon={icon} width={width} theme={theme} onClick={onClick}>
       {children}
     </Button>
   );
@@ -25,11 +25,14 @@ const buttonTheme = {
 };
 
 const Button = styled.button`
+  display: inline-block;
+  padding: 10px 0;
+  margin-bottom: 10px;
   width: ${(props) => props.width}%;
   color: ${(props) => buttonTheme[props.theme].text};
   background-color: ${(props) => buttonTheme[props.theme].backgroundColor};
+  text-align: center;
   font-size: ${theme.fontSizes.subTitle2};
-  padding: 10px 0;
   font-weight: 700;
   border: 0;
   border-radius: 10px;
@@ -42,6 +45,6 @@ const Button = styled.button`
     height: 30px;
     margin-right: 4px;
     background: url(${(props) => props.icon}) no-repeat center center;
-    vertical-align: bottom;
+    vertical-align: sub;
   }
 `;
