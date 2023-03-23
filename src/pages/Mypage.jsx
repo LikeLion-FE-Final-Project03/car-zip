@@ -1,10 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route, NavLink, Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import theme, { calcRem } from '../styles/theme';
 import { TextStyle } from '../styles/UsefulStyle';
-import { GoogleIcon, KakaoIcon, NaverIcon, LogoutButton, BackButton } from '../../public/assets/icons';
+import {
+  GoogleIcon,
+  KakaoIcon,
+  NaverIcon,
+  LogoutButton,
+  BackButton,
+  ReviewUpdateButton,
+} from '../../public/assets/icons';
+import ReviewBox from './../components/Review/ReviewBox';
 
 export default function Mypage() {
   return (
@@ -13,10 +21,10 @@ export default function Mypage() {
         <button>
           <BackButton />
         </button>
-        <span>마이 페이지</span>
+        <h1>마이 페이지</h1>
       </Title>
-      <UserInfoContents></UserInfoContents>
-      <Nav></Nav>
+      <UserInfoContents />
+      <Nav />
       <Routes>
         <Route exact path="/review" element={<ReviewContents />}></Route>
         <Route exact path="/bookmark" element={<ParkinglotContents />}></Route>
@@ -25,7 +33,7 @@ export default function Mypage() {
   );
 }
 
-const Title = styled.h1`
+const Title = styled.div`
   height: ${calcRem(57)};
   background-color: ${theme.colors.dark};
   color: ${theme.colors.white};
@@ -40,10 +48,11 @@ const Title = styled.h1`
     background-color: transparent;
     display: float;
     float: left;
-    height: 57px;
+    height: ${calcRem(57)};
+    margin-left: ${calcRem(20)};
   }
 
-  > span {
+  > h1 {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -80,8 +89,8 @@ const UserInfoWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 40px 20px;
-  border-bottom: solid 4px ${theme.colors.dark};
+  padding: ${calcRem(40)} ${calcRem(20)};
+  border-bottom: solid ${calcRem(4)} ${theme.colors.dark};
   letter-spacing: -1px;
 
   > div {
@@ -147,12 +156,38 @@ const NavStyle = styled(NavLink)`
 
 function ReviewContents() {
   return (
-    <section>
-      <h2>리뷰</h2>
-      <ul>리뷰 컴포넌트 들어올곳</ul>
-    </section>
+    <ul>
+      <ReviewBoxWrapper>
+        <h3>파킹 주차장</h3>
+        <button>
+          <Link to="/editReview">
+            <ReviewUpdateButton />
+          </Link>
+        </button>
+        <ReviewBox></ReviewBox>
+      </ReviewBoxWrapper>
+    </ul>
   );
 }
+
+const ReviewBoxWrapper = styled.li`
+  margin: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid ${theme.colors.orangeMain};
+  > h3 {
+    display: inline-block;
+    font-size: ${theme.fontSizes.subTitle2};
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  > button {
+    display: float;
+    float: right;
+  }
+`;
+
+//---------------------------------------
 
 function ParkinglotContents() {
   return (

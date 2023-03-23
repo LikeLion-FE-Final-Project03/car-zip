@@ -4,9 +4,11 @@ import { useState } from 'react';
 import theme from '../styles/theme';
 import { TextStyle } from '../styles/UsefulStyle';
 
-import { NaviButton, ActiveFavorite, DeactiveFavorite } from '../../public/assets/icons';
+import { NaviButtonImg, ActiveFavorite, DeactiveFavorite } from '../../public/assets/icons';
 
 export function ParkinglotList() {
+  const [state, setState] = useState('focus');
+
   return (
     <ParkinglotWrapper>
       <div>
@@ -22,9 +24,11 @@ export function ParkinglotList() {
           10분당 2,500원 / 추가 5분당 1,000원
         </TextStyle>
       </div>
-      <NavibuttonStyle>
-        <NaviButton />
-      </NavibuttonStyle>
+      <a href="https://map.kakao.com/link/to/카카오판교오피스,37.402056,127.108212">
+        <NavibuttonStyle>
+          <NaviButtonImg />
+        </NavibuttonStyle>
+      </a>
     </ParkinglotWrapper>
   );
 }
