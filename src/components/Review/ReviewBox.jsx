@@ -8,13 +8,12 @@ import { useState, useEffect } from 'react';
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
 
-  //db의 reviews 컬렉션 가져오기
-  const reviewsCollectionRef = collection(db, 'reviews');
-
   //시작될 때 한번만 실행
   useEffect(() => {
     // 비동기로 데이터 받을준비
     const getReviews = async () => {
+      //db의 reviews 컬렉션 가져오기
+      const reviewsCollectionRef = collection(db, 'reviews');
       // getDocs로 컬렉션안에 데이터 가져오기
       const data = await getDocs(reviewsCollectionRef);
       // reviews에 data안의 자료 추가. 객체에 id 덮어씌우는거

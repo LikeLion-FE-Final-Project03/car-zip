@@ -1,21 +1,23 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { IcVector } from '../../public/assets/icons';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import theme from './../styles/theme';
+
+import { IcVector } from '../../public/assets/icons';
 import { NotRecommendBtn, RecommendBtn } from '../../public/assets/images';
+
+import theme from './../styles/theme';
 import { calcRem } from './../styles/theme';
+
 import { db } from './../../firebase-config';
 import { addDoc, deleteDoc, updateDoc, doc, collection, getDocs } from 'firebase/firestore';
 
 export default function NewReview() {
+  // 리뷰 데이터 담을 변수
+  const [reviews, setReviews] = useState([]);
   //리뷰에 필요한 데이터
   const [name, setName] = useState('');
   const [userId, setUserId] = useState('');
   const [content, setContent] = useState('');
   const [recommend, setRecommend] = useState('');
-
-  const [reviews, setReviews] = useState([]);
 
   //db의 reviews 컬렉션 가져오기
   const reviewsCollectionRef = collection(db, 'reviews');
@@ -50,8 +52,7 @@ export default function NewReview() {
 
   //추천, 비추천 클릭시 알림 띄우기
   const handleRecommend = (recommendVal) => {
-    window.alert(recommendVal ? '추천 버튼을 눌렀습니다.' : '비추천 버튼을 눌렀습니다.');
-
+    window.alert(`${recommendVal ? '추천' : '비추천'}버튼을 눌렀습니다.`);
     setRecommend(recommendVal);
   };
 
@@ -111,9 +112,7 @@ export default function NewReview() {
         }}
       ></ReviewInput>
       <LetterNum>{content.length}/100자</LetterNum>
-      <SubmitBtn aria-label="등록하기 버튼" onClick={createReview}>
-        등록하기
-      </SubmitBtn>
+      <SubmitBtn onClick={createReview}>등록하기</SubmitBtn>
     </ReviewWrapper>
   );
 }
