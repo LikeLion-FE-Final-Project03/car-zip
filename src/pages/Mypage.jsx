@@ -4,19 +4,14 @@ import { Routes, Route, NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import theme, { calcRem } from '../styles/theme';
 import { TextStyle } from '../styles/UsefulStyle';
-
-import googleIcon from '../../public/assets/icons/icon-google.svg';
-import kakaoIcon from '../../public/assets/icons/icon-kakao.svg';
-import naverIcon from '../../public/assets/icons/icon-naver.svg';
-import logoutButton from '../../public/assets/icons/button-logout.svg';
-import backButton from '../../public/assets/icons/button-back.svg';
+import { GoogleIcon, KakaoIcon, NaverIcon, LogoutButton, BackButton } from '../../public/assets/icons';
 
 export default function Mypage() {
   return (
     <>
       <Title>
         <button>
-          <img src={backButton} alt="뒤로가기 버튼" />
+          <BackButton />
         </button>
         <span>마이 페이지</span>
       </Title>
@@ -61,7 +56,9 @@ function UserInfoContents() {
   return (
     <UserInfoWrapper>
       <div>
-        <SNSImage src={kakaoIcon} alt="SNS 아이콘 이미지" />
+        <SNSImage>
+          <KakaoIcon />
+        </SNSImage>
         <div>
           <TextStyle fontsize="16px" fontweight="400">
             안녕하세요,
@@ -72,7 +69,7 @@ function UserInfoContents() {
         </div>
       </div>
       <button>
-        <img src={logoutButton} alt="로그아웃 버튼" />
+        <LogoutButton />
       </button>
     </UserInfoWrapper>
   );
@@ -99,7 +96,8 @@ const UserInfoWrapper = styled.div`
   }
 `;
 
-const SNSImage = styled.img`
+const SNSImage = styled.div`
+  display: inline-block;
   width: ${calcRem(52)};
   height: ${calcRem(53)};
   margin-right: ${calcRem(12)};

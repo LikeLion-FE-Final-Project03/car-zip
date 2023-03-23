@@ -1,22 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
-import { TextStyle } from '../styles/UsefulStyle';
-import prevButton from '../../public/assets/icons/icon-back.svg';
+import { PrevButton } from '../../public/assets/icons';
 import { ParkinglotList } from '../components/ParkinglotList';
 import theme from '../styles/theme';
+import SearchBar from '../components/SearchBar';
 
 export default function Search() {
   const [count, setCount] = useState(0);
 
   return (
     <>
+      <SearchBar />
       <SearchWrapper>
         <button>
-          <img src={prevButton} alt="뒤로가기 버튼 아이콘" /> 뒤로
+          <PrevButton></PrevButton> 뒤로
         </button>
         <fieldset>
-          <input type="radio" name="filter" id="filter-closest" checked></input>
+          <input type="radio" name="filter" id="filter-closest" defaultChecked></input>
           <label htmlFor="filter-closest"> 가까운 순 </label>
           <input type="radio" name="filter" id="filter-cheapest"></input>
           <label htmlFor="filter-cheapest"> 저렴한 순</label>
@@ -58,7 +59,7 @@ const SearchWrapper = styled.div`
       vertical-align: middle;
 
       &:checked {
-        border: 3px solid black;
+        border: 3px solid ${theme.colors.orangeMain};
       }
     }
   }
