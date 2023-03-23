@@ -1,27 +1,66 @@
 import styled from 'styled-components';
-import { RecommendTag } from '../../../public/assets/images';
 import { BtnReviewUpdate, BtnReviewDelete } from '../../../public/assets/icons';
+import { NotRecommendTag, RecommendTag } from '../../../public/assets/images';
 import theme from './../../styles/theme';
+import { db } from './../../../firebase-config';
+import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
+import { useState, useEffect } from 'react';
 
 export default function ReviewBox() {
-  return (
-    <ReviewBoxWrapper>
-      <ReviewBoxHeader>
-        <ParkingLot>파킹 주차장</ParkingLot>
-        <BtnWrapper>
-          <BtnReviewUpdate className="btnUpdate" />
-          <BtnReviewDelete />
-        </BtnWrapper>
-      </ReviewBoxHeader>
-      <ReviewWrapper>
-        <ReviewInfo>
-          <RecommendTag />
-          <p className="reviewDate">2023년 3월 13일</p>
-        </ReviewInfo>
-        <ReviewContent>주차면이 넓어서 좋아요. 자동화기계가 잘되어있어요.</ReviewContent>
-      </ReviewWrapper>
-    </ReviewBoxWrapper>
-  );
+
+  const [reviews, setReviews] = useState([]);
+//시작될 때 한번만 실행
+  useEffect(() => {
+    // 비동기로 데이터 받을준비
+    const getReviews = async () => {
+      //db의 reviews 컬렉션 가져오기
+      const reviewsCollectionRef = collection(db, 'reviews');
+      // getDocs로 컬렉션안에 데이터 가져오기
+      const data = await getDocs(reviewsCollectionRef);
+      // reviews에 data안의 자료 추가. 객체에 id 덮어씌우는거
+      setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getReviews();
+  }, []);
+
+  const deleteReview = async (id, name) => {
+    const reviewsDoc = doc(db, 'reviews', id);
+
+    if (window.confirm(`${name}님의 데이터를 삭제하시겠습니까?`)) {
+      await deleteDoc(reviewsDoc);
+    }
+  };
+
+  const showReviews = reviews.map((value) => (
+    <div key={value.id}>
+      <ReviewBoxWrapper>
+        <ReviewBoxHeader>
+          <ParkingLot>파킹 주차장</ParkingLot>
+          <BtnWrapper>
+            <BtnReviewUpdate className="btnUpdate" />
+            <BtnReviewDelete />
+          </BtnWrapper>
+        </ReviewBoxHeader>
+        <ReviewWrapper>
+          <ReviewInfo>
+            {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
+            <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
+          </ReviewInfo>
+          <ReviewContent>{value.content}</ReviewContent>
+          <button
+            onClick={() => {
+              deleteReview(value.id, value.name);
+            }}
+          >
+            삭제하기
+          </button>
+        </ReviewWrapper>
+      </ReviewBoxWrapper>
+    </div>
+  ));
+
+  return <>{showReviews}</>;
 }
 
 const ReviewBoxWrapper = styled.li`
