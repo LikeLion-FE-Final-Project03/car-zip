@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 import icon_copy from '../../public/assets/icons/icon-copy.svg';
 
-export default function CopyButton({ type, children }) {
-  return <Button type={type}>{children}</Button>;
+export default function CopyButton({ type, children, onClick }) {
+  return (
+    <Button type={type} onClick={onClick}>
+      {children}
+    </Button>
+  );
 }
 
 const Button = styled.button`

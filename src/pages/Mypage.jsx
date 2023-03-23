@@ -1,27 +1,30 @@
 import React from 'react';
 import { useState } from 'react';
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route, NavLink, Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import theme, { calcRem } from '../styles/theme';
 import { TextStyle } from '../styles/UsefulStyle';
-
-import googleIcon from '../../public/assets/icons/icon-google.svg';
-import kakaoIcon from '../../public/assets/icons/icon-kakao.svg';
-import naverIcon from '../../public/assets/icons/icon-naver.svg';
-import logoutButton from '../../public/assets/icons/button-logout.svg';
-import backButton from '../../public/assets/icons/button-back.svg';
+import {
+  GoogleIcon,
+  KakaoIcon,
+  NaverIcon,
+  LogoutButton,
+  BackButton,
+  ReviewUpdateButton,
+} from '../../public/assets/icons';
+import ReviewBox from './../components/Review/ReviewBox';
 
 export default function Mypage() {
   return (
     <>
       <Title>
         <button>
-          <img src={backButton} alt="뒤로가기 버튼" />
+          <BackButton />
         </button>
-        <span>마이 페이지</span>
+        <h1>마이 페이지</h1>
       </Title>
-      <UserInfoContents></UserInfoContents>
-      <Nav></Nav>
+      <UserInfoContents />
+      <Nav />
       <Routes>
         <Route exact path="/review" element={<ReviewContents />}></Route>
         <Route exact path="/bookmark" element={<ParkinglotContents />}></Route>
@@ -30,7 +33,7 @@ export default function Mypage() {
   );
 }
 
-const Title = styled.h1`
+const Title = styled.div`
   height: ${calcRem(57)};
   background-color: ${theme.colors.dark};
   color: ${theme.colors.white};
@@ -45,10 +48,11 @@ const Title = styled.h1`
     background-color: transparent;
     display: float;
     float: left;
-    height: 57px;
+    height: ${calcRem(57)};
+    margin-left: ${calcRem(20)};
   }
 
-  > span {
+  > h1 {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -61,7 +65,9 @@ function UserInfoContents() {
   return (
     <UserInfoWrapper>
       <div>
-        <SNSImage src={kakaoIcon} alt="SNS 아이콘 이미지" />
+        <SNSImage>
+          <KakaoIcon />
+        </SNSImage>
         <div>
           <TextStyle fontsize="16px" fontweight="400">
             안녕하세요,
@@ -72,7 +78,7 @@ function UserInfoContents() {
         </div>
       </div>
       <button>
-        <img src={logoutButton} alt="로그아웃 버튼" />
+        <LogoutButton />
       </button>
     </UserInfoWrapper>
   );
@@ -83,8 +89,8 @@ const UserInfoWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 40px 20px;
-  border-bottom: solid 4px ${theme.colors.dark};
+  padding: ${calcRem(40)} ${calcRem(20)};
+  border-bottom: solid ${calcRem(4)} ${theme.colors.dark};
   letter-spacing: -1px;
 
   > div {
@@ -99,7 +105,8 @@ const UserInfoWrapper = styled.div`
   }
 `;
 
-const SNSImage = styled.img`
+const SNSImage = styled.div`
+  display: inline-block;
   width: ${calcRem(52)};
   height: ${calcRem(53)};
   margin-right: ${calcRem(12)};
@@ -149,12 +156,38 @@ const NavStyle = styled(NavLink)`
 
 function ReviewContents() {
   return (
-    <section>
-      <h2>리뷰</h2>
-      <ul>리뷰 컴포넌트 들어올곳</ul>
-    </section>
+    <ul>
+      <ReviewBoxWrapper>
+        <h3>파킹 주차장</h3>
+        <button>
+          <Link to="/editReview">
+            <ReviewUpdateButton />
+          </Link>
+        </button>
+        <ReviewBox></ReviewBox>
+      </ReviewBoxWrapper>
+    </ul>
   );
 }
+
+const ReviewBoxWrapper = styled.li`
+  margin: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid ${theme.colors.orangeMain};
+  > h3 {
+    display: inline-block;
+    font-size: ${theme.fontSizes.subTitle2};
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  > button {
+    display: float;
+    float: right;
+  }
+`;
+
+//---------------------------------------
 
 function ParkinglotContents() {
   return (
