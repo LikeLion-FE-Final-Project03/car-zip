@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { BtnReviewUpdate, BtnReviewDelete } from '../../../public/assets/icons';
 import { NotRecommendTag, RecommendTag } from '../../../public/assets/images';
 import theme from './../../styles/theme';
 import { db } from './../../../firebase-config';
@@ -6,9 +7,9 @@ import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 
 export default function ReviewBox() {
-  const [reviews, setReviews] = useState([]);
 
-  //시작될 때 한번만 실행
+  const [reviews, setReviews] = useState([]);
+//시작될 때 한번만 실행
   useEffect(() => {
     // 비동기로 데이터 받을준비
     const getReviews = async () => {
@@ -33,25 +34,62 @@ export default function ReviewBox() {
 
   const showReviews = reviews.map((value) => (
     <div key={value.id}>
-      <ReviewWrapper>
-        <ReviewInfo>
-          {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
-          <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
-        </ReviewInfo>
-        <ReviewContent>{value.content}</ReviewContent>
-        <button
-          onClick={() => {
-            deleteReview(value.id, value.name);
-          }}
-        >
-          삭제하기
-        </button>
-      </ReviewWrapper>
+      <ReviewBoxWrapper>
+        <ReviewBoxHeader>
+          <ParkingLot>파킹 주차장</ParkingLot>
+          <BtnWrapper>
+            <BtnReviewUpdate className="btnUpdate" />
+            <BtnReviewDelete />
+          </BtnWrapper>
+        </ReviewBoxHeader>
+        <ReviewWrapper>
+          <ReviewInfo>
+            {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
+            <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
+          </ReviewInfo>
+          <ReviewContent>{value.content}</ReviewContent>
+          <button
+            onClick={() => {
+              deleteReview(value.id, value.name);
+            }}
+          >
+            삭제하기
+          </button>
+        </ReviewWrapper>
+      </ReviewBoxWrapper>
     </div>
   ));
 
   return <>{showReviews}</>;
 }
+
+const ReviewBoxWrapper = styled.li`
+  min-width: 320px;
+  height: 221px;
+  list-style: none;
+  padding: 0;
+`;
+
+const ReviewBoxHeader = styled.div`
+  width: 100%;
+  margin-bottom: 8px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+`;
+const ParkingLot = styled.p`
+  font-weight: 700;
+  font-size: ${theme.fontSizes.subTitle2};
+  line-height: 28.64px;
+  letter-spacing: -0.65px;
+  color: ${theme.colors.dark};
+`;
+
+const BtnWrapper = styled.div`
+  .btnUpdate {
+    margin-right: 4px;
+  }
+`;
 
 const ReviewWrapper = styled.div`
   box-sizing: border-box;

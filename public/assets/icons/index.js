@@ -6,3 +6,5 @@ export { ReactComponent as IcMenu } from './icon-menu.svg';
 export { ReactComponent as IcSearchBtn } from './icon-search-btn.svg';
 export { ReactComponent as IcBack } from './icon-prev.svg';
 export { ReactComponent as IcVector } from './icon-vector.svg';
+export { ReactComponent as BtnReviewUpdate } from './button-review-update.svg';
+export { ReactComponent as BtnReviewDelete } from './button-review-delete.svg';
