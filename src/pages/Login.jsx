@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { db, auth } from '../Firebase.js';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, signInAnonymously } from 'firebase/auth';
 
 import styled from 'styled-components';
 import theme from '../styles/theme.js';
@@ -17,7 +17,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
   useEffect(() => {
-    console.log(db);
+    // console.log(db);
   });
 
   const navigate = useNavigate();
@@ -38,10 +38,45 @@ export default function Login() {
         // toHome();
         location.reload();
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error.code, error.message);
       });
   }
+
+  function handlesAnonymous() {
+    signInAnonymously(auth)
+      .then((data) => {
+        setUserData(data.user);
+        // console.log(data);
+        localStorage.setItem('user', JSON.stringify(data));
+        // toHome();
+        location.reload();
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error.code, error.message);
+        // ...
+      });
+  }
+
+  // function handlesAnonymous() {
+  //   signInAnonymously()
+  //     .then(() => {
+  //       // Signed in..
+  //       // setUserData(data.user);
+  //       // localStorage.setItem('user', JSON.stringify(data));
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       console.log(error.code);
+  //       console.log(error.message);
+  //       // ...
+  //     });
+  // }
 
   return (
     <LoginWrapper>
@@ -71,7 +106,7 @@ export default function Login() {
             </button>
           </li> */}
           <li>
-            <button onClick={toHome}>다음에 하기</button>
+            <button onClick={handlesAnonymous}>다음에 하기</button>
           </li>
           {/* <li>{userData ? userData.displayName : null}</li> */}
         </LoginList>
