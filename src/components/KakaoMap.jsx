@@ -8,18 +8,25 @@ export default function KakaoMap(props) {
 
     const [state, setState] = useState({
       center: {
-        lat: 33.450701,
-        lng: 126.570667,
+        lat: 37.555167,
+        lng: 126.970833,
       },
       errMsg: null,
       isLoading: true,
     });
 
+    const handlingClickOverlay = () => {
+      props.setIsClicked(!props.isClicked);
+      console.log('클릭?');
+    };
+
     const mapRef = useRef();
 
     const ParkingFeeMarker = () => (
       <div className="overlaybox">
-        <div className="parking-fee">4,000</div>
+        <div className="parking-fee" onClick={handlingClickOverlay}>
+          4,000
+        </div>
       </div>
     );
 
@@ -74,7 +81,7 @@ export default function KakaoMap(props) {
             ref={mapRef}
           >
             {/* 🚨 To Do : 위치 변경 시 오버레이 랜더링 필요 */}
-            {!state.isLoading && (
+            {state.isLoading && (
               <CustomOverlayMap // 커스텀 오버레이를 표시할 Container
                 // 커스텀 오버레이가 표시될 위치입니다
                 position={state.center}
