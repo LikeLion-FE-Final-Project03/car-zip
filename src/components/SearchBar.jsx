@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import {
@@ -13,13 +13,38 @@ export default function SearchBar(props) {
   const toggleSidebar = () => {
     props.setIsSidebarOpen(!props.isSidebarOpen);
   };
+
+  const [isSearchWindowOn, setIsSearchWindowOn] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChangeInput = (e) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
+  };
+
+  const handleBlur = () => {
+    setIsSearchWindowOn(false);
+  };
+
+  const handleSearchWindow = () => {
+    setIsSearchWindowOn(true);
+  };
+
   return (
     <SearchBarWrapper>
       <IcMenu onClick={toggleSidebar} />
-      <SearchArea>
-        <SearchInput placeholder="검색어를 입력하세요." type="text" />
-        <IcSearchBtn />
-        <SearchKeywordWrapper>
+      <SearchArea onChange={handleSearchWindow}>
+        <SearchInput
+          placeholder="검색어를 입력하세요."
+          type="text"
+          value={inputValue}
+          onChange={handleChangeInput}
+          onBlur={handleBlur}
+        />
+        <SearchButton>
+          <IcSearchBtn />
+        </SearchButton>
+        <SearchKeywordWrapper className={isSearchWindowOn ? '' : 'closed'}>
           <h3>최근 검색</h3>
           <RecentSearch>
             <li>
@@ -83,7 +108,16 @@ const SearchInput = styled.input`
   }
 `;
 
+const SearchButton = styled.button`
+  display: flex;
+  align-items: center;
+`;
+
 const SearchKeywordWrapper = styled.div`
+  &.closed {
+    display: none;
+  }
+
   position: absolute;
   top: ${theme.calcRem(41)};
   left: 0;
