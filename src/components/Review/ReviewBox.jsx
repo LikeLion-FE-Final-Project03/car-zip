@@ -10,7 +10,9 @@ import { useNavigate } from 'react-router';
 
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
-  //시작될 때 한번만 실행
+  //로그인한 유저의 리뷰만 가져오기
+  const [userReview, setUserReview] = useState([]);
+
   const navigate = useNavigate();
 
   const isEdit = (id, reviewContent, recommendVal) => {
@@ -27,8 +29,6 @@ export default function ReviewBox() {
         recommendVal: recommend,
       },
     });
-
-    // window.location.href = '/editreview';
   };
 
   useEffect(() => {
@@ -43,6 +43,10 @@ export default function ReviewBox() {
     };
 
     getReviews();
+
+    //리뷰 데이터(reviews)에서 로그인한 유저가 작성한 리뷰만 가져와서
+    //userReview에 저장
+    setUserReview(reviews.filter((value) => value.userId === 'JKn7sCBymIb5bqOsqAhR7RajJk73'));
   }, []);
 
   const deleteReview = async (id, name) => {
@@ -53,7 +57,7 @@ export default function ReviewBox() {
     }
   };
 
-  const showReviews = reviews.map((value) => (
+  const showReviews = userReview.map((value) => (
     <div key={value.id}>
       <ReviewBoxWrapper>
         <ReviewBoxHeader>
