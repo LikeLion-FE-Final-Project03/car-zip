@@ -68,7 +68,7 @@ const EditReview = ({}) => {
   };
 
   const showReviews = reviews
-    .filter((value) => value.id === userId)
+    .filter((value) => value.userId === userId)
     .map((value) => (
       <div key={value.id}>
         <ReviewWrapper>

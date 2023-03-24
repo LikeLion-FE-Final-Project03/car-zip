@@ -10,21 +10,23 @@ import { useNavigate } from 'react-router';
 
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
-  //로그인한 유저의 리뷰만 가져오기
-  const [userReview, setUserReview] = useState([]);
+  //로그인한 유저의 리뷰만 저장
+  // const [userReview, setUserReview] = useState([]);
 
   const navigate = useNavigate();
 
+  //로그인한 유저의 uid 가져오기
+  const userId = JSON.parse(localStorage.getItem('user')).user.uid;
+
   const isEdit = (id, reviewContent, recommendVal) => {
-    console.log('넘겨온 id: ' + id);
+    console.log('넘겨온 userId: ' + id);
     console.log('넘겨온 content: ' + reviewContent);
     console.log('넘겨온 추천 여부: ' + recommendVal);
     const content = reviewContent;
-    const userId = id;
     const recommend = recommendVal;
     navigate('/editreview', {
       state: {
-        userId: id,
+        userId: userId,
         content: content,
         recommendVal: recommend,
       },
@@ -43,11 +45,11 @@ export default function ReviewBox() {
     };
 
     getReviews();
-
-    //리뷰 데이터(reviews)에서 로그인한 유저가 작성한 리뷰만 가져와서
-    //userReview에 저장
-    setUserReview(reviews.filter((value) => value.userId === 'JKn7sCBymIb5bqOsqAhR7RajJk73'));
   }, []);
+
+  //리뷰 데이터(reviews)에서 로그인한 유저가 작성한 리뷰만 가져와서
+  //userReview에 저장
+  const userReview = reviews.filter((value) => value.userId === userId);
 
   const deleteReview = async (id, name) => {
     const reviewsDoc = doc(db, 'reviews', id);
@@ -66,7 +68,7 @@ export default function ReviewBox() {
             <ReviewUpdateButton
               className="btnUpdate"
               onClick={() => {
-                isEdit(value.id, value.content, value.recommend);
+                isEdit(value.userId, value.content, value.recommend);
               }}
             />
             <ReviewDeleteButton
