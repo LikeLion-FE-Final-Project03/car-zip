@@ -2,7 +2,7 @@ import React, { useEffect, useInsertionEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import { IcVector } from '../../public/assets/icons';
-import { NotRecommendBtn, RecommendBtn } from '../../public/assets/images';
+import { NotRecommendBtn, RecommendBtn, GrayRecommend, GrayNotRecommend } from '../../public/assets/images';
 
 import theme from './../styles/theme';
 import { calcRem } from './../styles/theme';
@@ -13,20 +13,16 @@ import { addDoc, deleteDoc, updateDoc, doc, collection, getDocs } from 'firebase
 const EditReview = ({}) => {
   //리뷰 조회 페이지에서 넘겨 받은 데이터
   const location = useLocation();
-  const { userId } = location.state;
-  const { content } = location.state;
+  const { userId, content, recommendVal } = location.state;
 
   // 리뷰 데이터 담을 변수
   const [reviews, setReviews] = useState([]);
 
-  //리뷰에 필요한 데이터
-  const [recommend, setRecommend] = useState('');
+  //리뷰에 필요한 데이터 (초기값 : 기존 추천여부)
+  const [recommend, setRecommend] = useState(recommendVal);
 
-  //리뷰 내용 수정(초기값은 기존 리뷰 내용)
+  //리뷰 내용 수정(초기값 : 기존 리뷰 내용)
   const [newContent, setNewContent] = useState(content);
-
-  //추천 여부 수정
-  const [newRecommend, setNewRecommend] = useState(recommend);
 
   //db의 reviews 컬렉션 가져오기
   const reviewsCollectionRef = collection(db, 'reviews');
@@ -47,34 +43,23 @@ const EditReview = ({}) => {
     getReviews();
   }, []);
 
-  //추천, 비추천 클릭시 alert 띄우기
-  const handleRecommend = (recommendVal) => {
-    window.alert(`${recommendVal ? '추천' : '비추천'}버튼을 눌렀습니다.`);
-    setRecommend(recommendVal);
-  };
-
   const updateReview = async (id) => {
     const userDoc = doc(db, 'reviews', id);
 
     window.alert('리뷰를 수정하였습니다.');
 
     if (newContent === '') {
-      await updateDoc(userDoc, { recommend: newRecommend });
+      await updateDoc(userDoc, { recommend: recommend });
     } else {
       await updateDoc(userDoc, {
         content: newContent,
-        recommend: newRecommend,
+        recommend: recommend,
       });
     }
 
     //리뷰 수정 이후 다시 리뷰 조회 페이지로 이동
     //예외 처리해줘야 함.
     window.location.href = '/viewreview';
-  };
-
-  const updateRecommend = (recommendVal) => {
-    window.alert(recommendVal ? '추천 버튼을 눌렀습니다.' : '비추천 버튼을 눌렀습니다.');
-    setNewRecommend(recommendVal);
   };
 
   const handleChangeContent = (e) => {
@@ -102,19 +87,19 @@ const EditReview = ({}) => {
               aria-label="추천"
               tabIndex={0}
               onClick={() => {
-                updateRecommend(true);
+                setRecommend(true);
               }}
             >
-              <RecommendBtn />
+              {recommend ? <RecommendBtn /> : <GrayRecommend />}
             </RecommendBtnWrapper>
             <NotRecommendBtnWrapper
               aria-label="비추천"
               tabIndex={0}
               onClick={() => {
-                updateRecommend(false);
+                setRecommend(false);
               }}
             >
-              <NotRecommendBtn />
+              {!recommend ? <NotRecommendBtn /> : <GrayNotRecommend />}
             </NotRecommendBtnWrapper>
           </BtnWrapper>
           <ReviewInput type="text" cols="30" rows="10" value={state} onChange={handleChangeContent}></ReviewInput>
