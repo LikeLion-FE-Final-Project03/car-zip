@@ -11,6 +11,17 @@ export default function Favorite({ parkingNo }) {
   const favoriteCollectionRef = collection(db, 'favorites');
   const favoriteDocRef = doc(db, 'favorites', userInfo.user.uid);
 
+  async function setFavoriteButton() {
+    const favoriteSnap = await getDoc(favoriteDocRef);
+    const hasCurrentParkingLot = favoriteSnap.data().favoriteList.includes(parkingNo);
+    if (hasCurrentParkingLot) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }
+  setFavoriteButton();
+
   useEffect(() => {
     async function setDataFavoriteList() {
       const favoriteData = await getDocs(favoriteCollectionRef);
@@ -26,17 +37,6 @@ export default function Favorite({ parkingNo }) {
       }
     }
     setDataFavoriteList();
-
-    async function setFavoriteButton() {
-      const favoriteSnap = await getDoc(favoriteDocRef);
-      const hasCurrentParkingLot = favoriteSnap.data().favoriteList.includes(parkingNo);
-      if (hasCurrentParkingLot) {
-        setIsFavorite(true);
-      } else {
-        setIsFavorite(false);
-      }
-    }
-    setFavoriteButton();
   }, []);
 
   async function handleFavorite() {
@@ -79,6 +79,7 @@ const Label = styled.label`
   -webkit-mask-image: url(${icon_favorite});
   mask-image: url(${icon_favorite});
   overflow: hidden;
+  cursor: pointer;
 
   &.favorite {
     background-color: ${theme.colors.yellow};
