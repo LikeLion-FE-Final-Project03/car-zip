@@ -51,7 +51,7 @@ export default function NewReview() {
       recommend: recommend,
     });
     window.alert('리뷰를 등록하였습니다.');
-    console.log('create Review');
+    window.location.href = '/mypage/review';
   };
 
   //추천, 비추천 클릭시 알림 띄우기

@@ -59,7 +59,7 @@ const EditReview = ({}) => {
 
     //리뷰 수정 이후 다시 리뷰 조회 페이지로 이동
     //예외 처리해줘야 함.
-    window.location.href = '/viewreview';
+    window.location.href = '/mypage/review';
   };
 
   const handleChangeContent = (e) => {
