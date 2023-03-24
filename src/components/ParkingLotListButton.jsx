@@ -18,7 +18,7 @@ const ParkingLotListButtonWrapper = styled.button`
   border: 1px solid ${theme.colors.dark};
   border-radius: 999px;
   width: fit-content;
-  z-index: 9999;
+  z-index: 2;
   position: fixed;
   margin: 0 auto;
   left: 0;
