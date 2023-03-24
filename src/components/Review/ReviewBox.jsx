@@ -62,43 +62,46 @@ export default function ReviewBox() {
   const showReviews = userReview
     .sort((a, b) => b.date - a.date)
     .map((value) => (
-      <div key={value.id}>
-        <ReviewBoxWrapper>
-          <ReviewBoxHeader>
-            <ParkingLot>파킹 주차장</ParkingLot>
-            <BtnWrapper>
-              <ReviewUpdateButton
-                className="btnUpdate"
-                onClick={() => {
-                  isEdit(value.userId, value.content, value.recommend);
-                }}
-              />
-              <ReviewDeleteButton
-                onClick={() => {
-                  deleteReview(value.id, value.name);
-                }}
-              />
-            </BtnWrapper>
-          </ReviewBoxHeader>
-          <ReviewWrapper>
-            <ReviewInfo>
-              {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
-              <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
-            </ReviewInfo>
-            <ReviewContent>{value.content}</ReviewContent>
-          </ReviewWrapper>
-        </ReviewBoxWrapper>
-      </div>
+      <ReviewBoxWrapper key={value.id}>
+        <ReviewBoxHeader>
+          <ParkingLot>파킹 주차장</ParkingLot>
+          <BtnWrapper>
+            <ReviewUpdateButton
+              className="btnUpdate"
+              onClick={() => {
+                isEdit(value.userId, value.content, value.recommend);
+              }}
+            />
+            <ReviewDeleteButton
+              onClick={() => {
+                deleteReview(value.id, value.name);
+              }}
+            />
+          </BtnWrapper>
+        </ReviewBoxHeader>
+        <ReviewWrapper>
+          <ReviewInfo>
+            {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
+            <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
+          </ReviewInfo>
+          <ReviewContent>{value.content}</ReviewContent>
+        </ReviewWrapper>
+      </ReviewBoxWrapper>
     ));
 
   return <>{showReviews}</>;
 }
 
 const ReviewBoxWrapper = styled.li`
+  width: 100%;
+  box-sizing: border-box;
   min-width: 320px;
   height: 221px;
   list-style: none;
   padding: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid ${theme.colors.orangeMain};
 `;
 
 const ReviewBoxHeader = styled.div`
@@ -132,6 +135,7 @@ const ReviewWrapper = styled.div`
   padding: 20px 16px;
   letter-spacing: -0.65px;
   font-weight: 400;
+  overflow: scroll;
 `;
 
 const ReviewInfo = styled.div`

@@ -165,18 +165,6 @@ function ReviewContents() {
 const ReviewBoxWrapper = styled.ul`
   margin: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid ${theme.colors.orangeMain};
-  > h3 {
-    display: inline-block;
-    font-size: ${theme.fontSizes.subTitle2};
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-
-  > button {
-    display: float;
-    float: right;
-  }
 `;
 
 //---------------------------------------
