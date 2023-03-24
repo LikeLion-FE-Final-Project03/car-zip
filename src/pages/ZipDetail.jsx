@@ -39,6 +39,7 @@ export default function ZipDetail() {
           phoneNumber: data.phoneNumber,
           latitude: data.latitude,
           longitude: data.longitude,
+          parkingNo: data.prkplceNo,
         });
         setParkingDatail({
           basicTime: data.basicTime,

@@ -25,6 +25,7 @@ export default function InfoZip({
     phoneNumber,
     latitude,
     longitude,
+    parkingNo,
   },
 }) {
   function copyClipboard() {
@@ -56,7 +57,7 @@ export default function InfoZip({
     <InfoZipWrapper>
       <Title>
         <h2>{name}</h2>
-        <FavoriteButton>즐겨찾기 추가</FavoriteButton>
+        <FavoriteButton parkingNo={parkingNo}>즐겨찾기 추가</FavoriteButton>
       </Title>
       <TagWrapper>
         <TagItem text={type} />

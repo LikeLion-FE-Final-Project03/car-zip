@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { async } from '@firebase/util';
+import { addDoc, collection, doc, getDocs, setDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { db } from '../../Firebase';
 import icon_favorite from '../../public/assets/icons/icon-favorite.svg';
 import theme from '../styles/theme';
 
@@ -43,7 +46,24 @@ const parkingLotData = {
   referenceDate: '2022-11-17',
 };
 
-export default function Favorite() {
+export default function Favorite({ parkingNo }) {
+  const userInfo = JSON.parse(localStorage.getItem('user'));
+  useEffect(() => {
+    function setFavoriteList() {
+      setDoc(
+        doc(db, 'favorites', userInfo.user.uid),
+        {
+          uid: userInfo.user.uid,
+          name: userInfo.user.displayName,
+          favoriteList: [],
+        },
+        { capital: true },
+        { merge: true }
+      );
+    }
+    setFavoriteList();
+  }, []);
+
   const [userFavoriteList, setUserFavoriteList] = useState(userData.favoriteParkingLotId);
   const [isFavorite, SetIsFavorite] = useState(false);
 
