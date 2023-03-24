@@ -17,7 +17,6 @@ export default function KakaoMap(props) {
 
     const handlingClickOverlay = () => {
       props.setIsClicked(!props.isClicked);
-      console.log('클릭?');
     };
 
     const mapRef = useRef();
