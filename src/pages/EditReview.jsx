@@ -78,6 +78,8 @@ const EditReview = ({}) => {
         recommend: newRecommend,
       });
     }
+
+    window.location.href = '/viewreview';
   };
 
   const updateRecommend = (recommendVal) => {
