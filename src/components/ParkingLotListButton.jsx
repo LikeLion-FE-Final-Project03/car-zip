@@ -5,14 +5,14 @@ import { IcList } from '../../public/assets/icons/index.js';
 
 export default function ParkingLotListButton() {
   return (
-    <ParkingLotListButtonWrapper>
+    <ParkingLotListButtonWrapper href="http://localhost:3000/search">
       <IcList />
       목록보기
     </ParkingLotListButtonWrapper>
   );
 }
 
-const ParkingLotListButtonWrapper = styled.button`
+const ParkingLotListButtonWrapper = styled.a`
   background-color: ${theme.colors.white};
   color: ${theme.colors.dark};
   border: 1px solid ${theme.colors.dark};
