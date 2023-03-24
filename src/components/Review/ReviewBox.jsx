@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { ReviewUpdateButton, ReviewDeleteButton } from '../../../public/assets/icons';
 import { NotRecommendTag, RecommendTag } from '../../../public/assets/images';
 import theme from './../../styles/theme';
-// import { db } from './../../../firebase-config';
 import { db } from '../../../Firebase';
+// import { db } from './../../../firebase-config';
 import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 
@@ -39,7 +39,11 @@ export default function ReviewBox() {
           <ParkingLot>파킹 주차장</ParkingLot>
           <BtnWrapper>
             <ReviewUpdateButton className="btnUpdate" />
-            <ReviewDeleteButton />
+            <ReviewDeleteButton
+              onClick={() => {
+                deleteReview(value.id, value.name);
+              }}
+            />
           </BtnWrapper>
         </ReviewBoxHeader>
         <ReviewWrapper>
@@ -48,13 +52,6 @@ export default function ReviewBox() {
             <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
           </ReviewInfo>
           <ReviewContent>{value.content}</ReviewContent>
-          <button
-            onClick={() => {
-              deleteReview(value.id, value.name);
-            }}
-          >
-            삭제하기
-          </button>
         </ReviewWrapper>
       </ReviewBoxWrapper>
     </div>
