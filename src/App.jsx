@@ -25,7 +25,6 @@ function App() {
         <Route path="/fee" element={<FeeCalculator />} />
         <Route path="/search" element={<Search />} />
         <Route path="/mypage" element={<Mypage />} />
-        <Route path="/sidebar" element={<SidebarTest />} />
         <Route path="/viewreview" element={<ViewReview />} />
         <Route path="/newreview" element={<NewReview />} />
       </Routes>
