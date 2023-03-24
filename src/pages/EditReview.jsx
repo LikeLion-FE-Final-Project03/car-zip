@@ -7,28 +7,22 @@ import { NotRecommendBtn, RecommendBtn } from '../../public/assets/images';
 import theme from './../styles/theme';
 import { calcRem } from './../styles/theme';
 
-// import { db } from './../../firebase-config';
 import { db } from '../../Firebase';
 import { addDoc, deleteDoc, updateDoc, doc, collection, getDocs } from 'firebase/firestore';
 
 const EditReview = ({}) => {
-  // const [isEdit, setIsEdit] = useState(false);
-
+  //리뷰 조회 페이지에서 넘겨 받은 데이터
   const location = useLocation();
   const { userId } = location.state;
   const { content } = location.state;
 
-  console.log(content);
-
   // 리뷰 데이터 담을 변수
   const [reviews, setReviews] = useState([]);
+
   //리뷰에 필요한 데이터
-  const [name, setName] = useState('');
-  // const [userId, setUserId] = useState('');
-  // const [content, setContent] = useState(content);
   const [recommend, setRecommend] = useState('');
 
-  //리뷰 내용 수정
+  //리뷰 내용 수정(초기값은 기존 리뷰 내용)
   const [newContent, setNewContent] = useState(content);
 
   //추천 여부 수정
@@ -40,26 +34,20 @@ const EditReview = ({}) => {
   //기존 리뷰와 수정되는 리뷰 담는 변수
   const [state, setState] = useState(content);
 
-  //시작될 때 한번만 실행
+  //시작될 때 한번만 실행(DB에서 데이터 가져와서 저장)
   useEffect(() => {
     // 비동기로 데이터 받을준비
     const getReviews = async () => {
       // getDocs로 컬렉션안에 데이터 가져오기
       const data = await getDocs(reviewsCollectionRef);
-      // reviews에 data안의 자료 추가. 객체에 id 덮어씌우는거
+      // reviews에 data안의 자료 추가
       setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-
-      // setContent(reviews.filter((value) => value.id === userId).map((value) => value.content));
-      // setNewContent(content);
     };
 
     getReviews();
-
-    // console.log(content);
-    // console.log(newContent[0].length);
   }, []);
 
-  //추천, 비추천 클릭시 알림 띄우기
+  //추천, 비추천 클릭시 alert 띄우기
   const handleRecommend = (recommendVal) => {
     window.alert(`${recommendVal ? '추천' : '비추천'}버튼을 눌렀습니다.`);
     setRecommend(recommendVal);
@@ -79,6 +67,8 @@ const EditReview = ({}) => {
       });
     }
 
+    //리뷰 수정 이후 다시 리뷰 조회 페이지로 이동
+    //예외 처리해줘야 함.
     window.location.href = '/viewreview';
   };
 
