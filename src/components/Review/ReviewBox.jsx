@@ -6,10 +6,26 @@ import { db } from '../../../Firebase';
 // import { db } from './../../../firebase-config';
 import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
   //시작될 때 한번만 실행
+  const navigate = useNavigate();
+
+  const isEdit = (id) => {
+    console.log('넘겨온 id: ' + id);
+
+    const userId = id;
+    navigate('/editreview', {
+      state: {
+        userId: id,
+      },
+    });
+
+    // window.location.href = '/editreview';
+  };
+
   useEffect(() => {
     // 비동기로 데이터 받을준비
     const getReviews = async () => {
@@ -38,7 +54,12 @@ export default function ReviewBox() {
         <ReviewBoxHeader>
           <ParkingLot>파킹 주차장</ParkingLot>
           <BtnWrapper>
-            <ReviewUpdateButton className="btnUpdate" />
+            <ReviewUpdateButton
+              className="btnUpdate"
+              onClick={() => {
+                isEdit(value.id);
+              }}
+            />
             <ReviewDeleteButton
               onClick={() => {
                 deleteReview(value.id, value.name);
