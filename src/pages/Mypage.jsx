@@ -156,21 +156,13 @@ const NavStyle = styled(NavLink)`
 
 function ReviewContents() {
   return (
-    <ul>
-      <ReviewBoxWrapper>
-        <h3>파킹 주차장</h3>
-        <button>
-          <Link to="/editReview">
-            <ReviewUpdateButton />
-          </Link>
-        </button>
-        <ReviewBox></ReviewBox>
-      </ReviewBoxWrapper>
-    </ul>
+    <ReviewBoxWrapper>
+      <ReviewBox></ReviewBox>
+    </ReviewBoxWrapper>
   );
 }
 
-const ReviewBoxWrapper = styled.li`
+const ReviewBoxWrapper = styled.ul`
   margin: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid ${theme.colors.orangeMain};
