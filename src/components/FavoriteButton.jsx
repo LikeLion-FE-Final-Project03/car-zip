@@ -1,15 +1,4 @@
-import { async } from '@firebase/util';
-import {
-  addDoc,
-  arrayRemove,
-  arrayUnion,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  setDoc,
-  updateDoc,
-} from 'firebase/firestore';
+import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { db } from '../../Firebase';
@@ -17,25 +6,38 @@ import icon_favorite from '../../public/assets/icons/icon-favorite.svg';
 import theme from '../styles/theme';
 
 export default function Favorite({ parkingNo }) {
+  const [isFavorite, setIsFavorite] = useState(false);
   const userInfo = JSON.parse(localStorage.getItem('user'));
+  const favoriteCollectionRef = collection(db, 'favorites');
+  const favoriteDocRef = doc(db, 'favorites', userInfo.user.uid);
 
   useEffect(() => {
-    function setFavoriteList() {
-      setDoc(
-        doc(db, 'favorites', userInfo.user.uid),
-        {
+    async function setDataFavoriteList() {
+      const favoriteData = await getDocs(favoriteCollectionRef);
+      const hasFavoriteList = Boolean(favoriteData.docs.filter((doc) => doc.id === userInfo.user.uid).length);
+      if (hasFavoriteList) {
+        return;
+      } else {
+        setDoc(doc(db, 'favorites', userInfo.user.uid), {
           uid: userInfo.user.uid,
           name: userInfo.user.displayName,
           favoriteList: [],
-        },
-        { capital: true },
-        { merge: true }
-      );
+        });
+      }
     }
-    setFavoriteList();
-  }, []);
+    setDataFavoriteList();
 
-  const [isFavorite, SetIsFavorite] = useState(false);
+    async function setFavoriteButton() {
+      const favoriteSnap = await getDoc(favoriteDocRef);
+      const hasCurrentParkingLot = favoriteSnap.data().favoriteList.includes(parkingNo);
+      if (hasCurrentParkingLot) {
+        setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
+      }
+    }
+    setFavoriteButton();
+  }, []);
 
   async function handleFavorite() {
     const favoriteRef = await getDoc(doc(db, 'favorites', userInfo.user.uid));
@@ -43,13 +45,13 @@ export default function Favorite({ parkingNo }) {
       updateDoc(doc(db, 'favorites', userInfo.user.uid), {
         favoriteList: arrayUnion(parkingNo),
       });
-      SetIsFavorite(true);
+      setIsFavorite(true);
       alert('즐겨찾기에 추가되었습니다.');
     } else {
       updateDoc(doc(db, 'favorites', userInfo.user.uid), {
         favoriteList: arrayRemove(parkingNo),
       });
-      SetIsFavorite(false);
+      setIsFavorite(false);
       alert('즐겨찾기에서 삭제되었습니다.');
     }
   }
