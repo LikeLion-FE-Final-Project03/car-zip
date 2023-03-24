@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useRef } from 'react';
+import styled, { css } from 'styled-components';
 
 import { IcVector } from '../../public/assets/icons';
 import { NotRecommendBtn, RecommendBtn, GrayRecommend, GrayNotRecommend } from '../../public/assets/images';
@@ -7,17 +7,22 @@ import { NotRecommendBtn, RecommendBtn, GrayRecommend, GrayNotRecommend } from '
 import theme from './../styles/theme';
 import { calcRem } from './../styles/theme';
 
-// import { db } from './../../firebase-config';
 import { db } from '../../Firebase';
 import { addDoc, deleteDoc, updateDoc, doc, collection, getDocs } from 'firebase/firestore';
 
 export default function NewReview() {
   // 리뷰 데이터 담을 변수
   const [reviews, setReviews] = useState([]);
+
   // 리뷰 작성 시 필수 입력값
   const [content, setContent] = useState('');
   const [recommend, setRecommend] = useState(false);
+
+  //유효성 검사
+  //버튼 선택했는지 확인
   const [selectedRecommend, setSelectedRecommend] = useState(false);
+  //글자수 조건에 맞지 않을 때 focus 주기
+  const contentInput = useRef();
 
   //db의 reviews 컬렉션 가져오기
   const reviewsCollectionRef = collection(db, 'reviews');
@@ -41,6 +46,25 @@ export default function NewReview() {
 
   //리뷰 작성
   const createReview = async () => {
+    //유효성 검사 먼저
+    if (!selectedRecommend) {
+      alert('추천과 비추천 버튼 중 하나를 선택해주세요.');
+      return;
+    }
+
+    if (content.length < 5) {
+      alert('리뷰는 최소 5글자 이상 입력해주세요.');
+      contentInput.current.focus();
+      return;
+    }
+
+    if (content.length > 200) {
+      alert('리뷰는 200자 이하로 작성해주세요.');
+      contentInput.current.focus();
+      return;
+    }
+
+    //DB에 저장하기
     // addDoc을 이용해서 내가 원하는 collection에 내가 원하는 key로 값을 추가함.
     await addDoc(reviewsCollectionRef, {
       name: userName,
@@ -88,7 +112,6 @@ export default function NewReview() {
             handleRecommend(false);
           }}
         >
-          {/* <NotRecommendBtn /> */}
           {!selectedRecommend ? <GrayNotRecommend /> : recommend ? <GrayNotRecommend /> : <NotRecommendBtn />}
         </NotRecommendBtnWrapper>
       </BtnWrapper>
@@ -98,11 +121,12 @@ export default function NewReview() {
         cols="30"
         rows="10"
         placeholder="리뷰를 작성해주세요."
+        ref={contentInput}
         onChange={(event) => {
           setContent(event.target.value);
         }}
       ></ReviewInput>
-      <LetterNum>{content.length}/100자</LetterNum>
+      <LetterNum>{content.length}/200자</LetterNum>
       <SubmitBtn onClick={createReview}>등록하기</SubmitBtn>
     </ReviewWrapper>
   );
@@ -211,13 +235,12 @@ const LetterNum = styled.p`
 `;
 
 const SubmitBtn = styled.button`
-  /* width: 354px; */
   width: 90%;
   height: 49.75px;
-  background-color: ${theme.colors.orangeMain};
   border: none;
   border-radius: 6px;
   margin: 0 18px;
+  background-color: ${theme.colors.orangeMain};
   font-size: ${theme.fontSizes.subTitle2};
   font-weight: 700;
   color: ${theme.colors.white};
