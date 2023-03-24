@@ -13,13 +13,15 @@ export default function ReviewBox() {
   //시작될 때 한번만 실행
   const navigate = useNavigate();
 
-  const isEdit = (id) => {
+  const isEdit = (id, reviewContent) => {
     console.log('넘겨온 id: ' + id);
-
+    console.log('넘겨온 content: ' + reviewContent);
+    const content = reviewContent;
     const userId = id;
     navigate('/editreview', {
       state: {
         userId: id,
+        content: content,
       },
     });
 
@@ -57,7 +59,7 @@ export default function ReviewBox() {
             <ReviewUpdateButton
               className="btnUpdate"
               onClick={() => {
-                isEdit(value.id);
+                isEdit(value.id, value.content);
               }}
             />
             <ReviewDeleteButton
