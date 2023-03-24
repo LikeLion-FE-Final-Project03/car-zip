@@ -24,7 +24,7 @@ export default function NewReview() {
 
   //로그인한 유저 정보
   const userName = JSON.parse(localStorage.getItem('user')).user.displayName;
-  const userId = JSON.parse(localStorage.getItem('user')).user.email;
+  const userId = JSON.parse(localStorage.getItem('user')).user.uid;
 
   //시작될 때 한번만 실행
   useEffect(() => {
