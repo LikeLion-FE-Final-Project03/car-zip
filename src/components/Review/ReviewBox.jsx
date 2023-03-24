@@ -59,35 +59,37 @@ export default function ReviewBox() {
     }
   };
 
-  const showReviews = userReview.map((value) => (
-    <div key={value.id}>
-      <ReviewBoxWrapper>
-        <ReviewBoxHeader>
-          <ParkingLot>파킹 주차장</ParkingLot>
-          <BtnWrapper>
-            <ReviewUpdateButton
-              className="btnUpdate"
-              onClick={() => {
-                isEdit(value.userId, value.content, value.recommend);
-              }}
-            />
-            <ReviewDeleteButton
-              onClick={() => {
-                deleteReview(value.id, value.name);
-              }}
-            />
-          </BtnWrapper>
-        </ReviewBoxHeader>
-        <ReviewWrapper>
-          <ReviewInfo>
-            {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
-            <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
-          </ReviewInfo>
-          <ReviewContent>{value.content}</ReviewContent>
-        </ReviewWrapper>
-      </ReviewBoxWrapper>
-    </div>
-  ));
+  const showReviews = userReview
+    .sort((a, b) => b.date - a.date)
+    .map((value) => (
+      <div key={value.id}>
+        <ReviewBoxWrapper>
+          <ReviewBoxHeader>
+            <ParkingLot>파킹 주차장</ParkingLot>
+            <BtnWrapper>
+              <ReviewUpdateButton
+                className="btnUpdate"
+                onClick={() => {
+                  isEdit(value.userId, value.content, value.recommend);
+                }}
+              />
+              <ReviewDeleteButton
+                onClick={() => {
+                  deleteReview(value.id, value.name);
+                }}
+              />
+            </BtnWrapper>
+          </ReviewBoxHeader>
+          <ReviewWrapper>
+            <ReviewInfo>
+              {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
+              <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
+            </ReviewInfo>
+            <ReviewContent>{value.content}</ReviewContent>
+          </ReviewWrapper>
+        </ReviewBoxWrapper>
+      </div>
+    ));
 
   return <>{showReviews}</>;
 }
