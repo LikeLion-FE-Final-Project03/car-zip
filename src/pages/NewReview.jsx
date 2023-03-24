@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { IcVector } from '../../public/assets/icons';
-import { NotRecommendBtn, RecommendBtn } from '../../public/assets/images';
+import { NotRecommendBtn, RecommendBtn, GrayRecommend, GrayNotRecommend } from '../../public/assets/images';
 
 import theme from './../styles/theme';
 import { calcRem } from './../styles/theme';
@@ -16,7 +16,8 @@ export default function NewReview() {
   const [reviews, setReviews] = useState([]);
   // 리뷰 작성 시 필수 입력값
   const [content, setContent] = useState('');
-  const [recommend, setRecommend] = useState('');
+  const [recommend, setRecommend] = useState(false);
+  const [selectedRecommend, setSelectedRecommend] = useState(false);
 
   //db의 reviews 컬렉션 가져오기
   const reviewsCollectionRef = collection(db, 'reviews');
@@ -55,8 +56,8 @@ export default function NewReview() {
 
   //추천, 비추천 클릭시 알림 띄우기
   const handleRecommend = (recommendVal) => {
-    window.alert(`${recommendVal ? '추천' : '비추천'}버튼을 눌렀습니다.`);
     setRecommend(recommendVal);
+    setSelectedRecommend(true);
   };
 
   return (
@@ -78,7 +79,7 @@ export default function NewReview() {
             handleRecommend(true);
           }}
         >
-          <RecommendBtn />
+          {!selectedRecommend ? <GrayRecommend /> : recommend ? <RecommendBtn /> : <GrayRecommend />}
         </RecommendBtnWrapper>
         <NotRecommendBtnWrapper
           aria-label="비추천"
@@ -87,7 +88,8 @@ export default function NewReview() {
             handleRecommend(false);
           }}
         >
-          <NotRecommendBtn />
+          {/* <NotRecommendBtn /> */}
+          {!selectedRecommend ? <GrayNotRecommend /> : recommend ? <GrayNotRecommend /> : <NotRecommendBtn />}
         </NotRecommendBtnWrapper>
       </BtnWrapper>
 
