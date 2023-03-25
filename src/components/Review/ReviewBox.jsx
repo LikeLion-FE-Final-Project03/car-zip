@@ -7,6 +7,7 @@ import { db } from '../../../Firebase';
 import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
@@ -53,12 +54,19 @@ export default function ReviewBox() {
   //userReview에 저장
   const userReview = reviews.filter((value) => value.userId === userId);
 
+  if (userReview.length === 0) {
+    return <NoReview>작성한 리뷰가 없습니다.</NoReview>;
+  }
+
   const deleteReview = async (id, name) => {
     const reviewsDoc = doc(db, 'reviews', id);
 
     if (window.confirm(`${name}님의 데이터를 삭제하시겠습니까?`)) {
       await deleteDoc(reviewsDoc);
     }
+
+    //리뷰 삭제 시 리뷰 조회 페이지 리렌더링
+    window.location.href = '/mypage/review';
   };
 
   const showReviews = userReview
@@ -152,4 +160,8 @@ const ReviewInfo = styled.div`
 const ReviewContent = styled.p`
   color: ${theme.colors.black};
   line-height: 24px;
+`;
+
+const NoReview = styled.h2`
+  font-size: ${theme.fontSizes.subTitle1};
 `;
