@@ -8,11 +8,10 @@ import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { unstable_renderSubtreeIntoContainer } from 'react-dom';
+import { async } from '@firebase/util';
 
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
-  //로그인한 유저의 리뷰만 저장
-  // const [userReview, setUserReview] = useState([]);
 
   const navigate = useNavigate();
 
@@ -54,10 +53,6 @@ export default function ReviewBox() {
   //userReview에 저장
   const userReview = reviews.filter((value) => value.userId === userId);
 
-  if (userReview.length === 0) {
-    return <NoReview>작성한 리뷰가 없습니다.</NoReview>;
-  }
-
   const deleteReview = async (id, name) => {
     const reviewsDoc = doc(db, 'reviews', id);
 
@@ -69,37 +64,45 @@ export default function ReviewBox() {
     window.location.href = '/mypage/review';
   };
 
-  const showReviews = userReview
-    .sort((a, b) => b.date - a.date)
-    .map((value) => (
-      <ReviewBoxWrapper key={value.id}>
-        <ReviewBoxHeader>
-          <ParkingLot>파킹 주차장</ParkingLot>
-          <BtnWrapper>
-            <ReviewUpdateButton
-              className="btnUpdate"
-              onClick={() => {
-                isEdit(value.id, value.userId, value.content, value.recommend);
-              }}
-            />
-            <ReviewDeleteButton
-              onClick={() => {
-                deleteReview(value.id, value.name);
-              }}
-            />
-          </BtnWrapper>
-        </ReviewBoxHeader>
-        <ReviewWrapper>
-          <ReviewInfo>
-            {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
-            <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
-          </ReviewInfo>
-          <ReviewContent>{value.content}</ReviewContent>
-        </ReviewWrapper>
-      </ReviewBoxWrapper>
-    ));
+  console.log(reviews.filter((value) => value.userId === userId).length);
 
-  return <>{showReviews}</>;
+  const showReviews = () => {
+    if (reviews.filter((value) => value.userId === userId).length > 0) {
+      return userReview
+        .sort((a, b) => b.date - a.date)
+        .map((value) => (
+          <ReviewBoxWrapper key={value.id}>
+            <ReviewBoxHeader>
+              <ParkingLot>파킹 주차장</ParkingLot>
+              <BtnWrapper>
+                <ReviewUpdateButton
+                  className="btnUpdate"
+                  onClick={() => {
+                    isEdit(value.id, value.userId, value.content, value.recommend);
+                  }}
+                />
+                <ReviewDeleteButton
+                  onClick={() => {
+                    deleteReview(value.id, value.name);
+                  }}
+                />
+              </BtnWrapper>
+            </ReviewBoxHeader>
+            <ReviewWrapper>
+              <ReviewInfo>
+                {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
+                <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
+              </ReviewInfo>
+              <ReviewContent>{value.content}</ReviewContent>
+            </ReviewWrapper>
+          </ReviewBoxWrapper>
+        ));
+    } else {
+      return <NoReview>작성한 리뷰가 없습니다.</NoReview>;
+    }
+  };
+
+  return <>{showReviews()}</>;
 }
 
 const ReviewBoxWrapper = styled.li`
