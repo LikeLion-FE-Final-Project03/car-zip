@@ -1,4 +1,4 @@
-import React, { useEffect, useInsertionEffect, useState } from 'react';
+import React, { useEffect, useInsertionEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import { IcVector } from '../../public/assets/icons';
@@ -24,6 +24,10 @@ const EditReview = ({}) => {
   //리뷰 내용 수정(초기값 : 기존 리뷰 내용)
   const [newContent, setNewContent] = useState(content);
 
+  //유효성 검사
+  //글자수 조건에 맞지 않을 때 focus 주기
+  const contentInput = useRef();
+
   //db의 reviews 컬렉션 가져오기
   const reviewsCollectionRef = collection(db, 'reviews');
 
@@ -44,6 +48,18 @@ const EditReview = ({}) => {
   }, []);
 
   const updateReview = async (id) => {
+    //유효성 검사
+    if (state.length < 5) {
+      alert('리뷰는 최소 5글자 이상 입력해주세요.');
+      contentInput.current.focus();
+      return;
+    }
+
+    if (state.length > 200) {
+      alert('리뷰는 200자 이하로 작성해주세요.');
+      contentInput.current.focus();
+      return;
+    }
     const userDoc = doc(db, 'reviews', id);
 
     window.alert('리뷰를 수정하였습니다.');
@@ -102,8 +118,15 @@ const EditReview = ({}) => {
               {!recommend ? <NotRecommendBtn /> : <GrayNotRecommend />}
             </NotRecommendBtnWrapper>
           </BtnWrapper>
-          <ReviewInput type="text" cols="30" rows="10" value={state} onChange={handleChangeContent}></ReviewInput>
-          <LetterNum>{state.length}/100자</LetterNum>
+          <ReviewInput
+            ref={contentInput}
+            type="text"
+            cols="30"
+            rows="10"
+            value={state}
+            onChange={handleChangeContent}
+          ></ReviewInput>
+          <LetterNum>{state.length}/200자</LetterNum>
           <SubmitBtn onClick={() => updateReview(value.id)}>수정하기</SubmitBtn>
         </ReviewWrapper>
       </div>
