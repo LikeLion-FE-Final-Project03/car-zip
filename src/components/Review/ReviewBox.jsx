@@ -18,14 +18,16 @@ export default function ReviewBox() {
   //로그인한 유저의 uid 가져오기
   const userId = JSON.parse(localStorage.getItem('user')).user.uid;
 
-  const isEdit = (id, reviewContent, recommendVal) => {
-    console.log('넘겨온 userId: ' + id);
+  const isEdit = (id, userId, reviewContent, recommendVal) => {
+    console.log('넘겨온 userId: ' + userId);
+    console.log('넘겨온 id: ' + id);
     console.log('넘겨온 content: ' + reviewContent);
     console.log('넘겨온 추천 여부: ' + recommendVal);
     const content = reviewContent;
     const recommend = recommendVal;
     navigate('/editreview', {
       state: {
+        id: id,
         userId: userId,
         content: content,
         recommendVal: recommend,
@@ -69,7 +71,7 @@ export default function ReviewBox() {
             <ReviewUpdateButton
               className="btnUpdate"
               onClick={() => {
-                isEdit(value.userId, value.content, value.recommend);
+                isEdit(value.id, value.userId, value.content, value.recommend);
               }}
             />
             <ReviewDeleteButton
