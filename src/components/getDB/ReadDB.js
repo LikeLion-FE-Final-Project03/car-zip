@@ -11,12 +11,10 @@ import {
   equalTo,
   limitToLast,
 } from 'firebase/database';
-
-import { app, auth, database } from '../../../Firebase';
-import { async, stringify } from '@firebase/util';
+import { database } from '../../../Firebase';
 
 const dbRef = ref(database, 'items');
-
+//--------------------------------------------------------------------------------------
 /**
  *
  * @param {string} searchKey : 데이터 검색에 필요한 Key
@@ -30,21 +28,22 @@ export function SearchRTDB(searchKey, searchValue) {
   return getQue(que);
 }
 
+//-------------------------------------------------------------------------------------
 /**
  *
  * @param {number} Centerlatitude : 위도(latitude)
  * @param {number} Centerlongitude  : 경도(longitude)
  */
 
-export function SearchAreaScope(Centerlatitude, Centerlongitude) {
+export async function SearchAreaScope(Centerlatitude, Centerlongitude) {
   const que1 = query(dbRef, orderByChild('latitude'), startAt(36.011), endAt(36.014));
-  const que2 = query(dbRef, orderByChild('longitude'), startAt(129), endAt(130));
 
-  const arrayOne = getQue(que1);
-  const arrayTwo = getQue(que2);
+  const arrayOne = await getQue(que1);
 
-  console.log(compareArray(arrayOne, arrayTwo), 'here!!!!');
+  return dataFilter(arrayOne);
 }
+
+//--------------------------------------------------------------------------------------
 
 function getQue(que) {
   return get(que)
@@ -61,16 +60,42 @@ function getQue(que) {
       return { message: error.message };
     });
 }
-function compareArray(arr1, arr2) {
-  const arr3 = [];
+//--------------------------------------------------------------------------------------
 
-  for (let i = 0; i < arr1.length; i++) {
-    for (let t = 0; t < arr2.length; t++) {
-      if (arr1[i].prkplceNo === arr2[t].prkplceNo) {
-        arr3.push(arr1[i]);
-      }
+function dataFilter(arr1, Centerlongitude) {
+  let filteringData = [];
+
+  arr1.forEach((item) => {
+    if (129 < item.longitude < 130) {
+      filteringData.push(item);
     }
+  });
 
-    return arr3;
-  }
+  return filteringData;
 }
+
+//--------------------------------------------------------------------------------------
+
+// export async function SearchAreaScope(Centerlatitude, Centerlongitude) {
+//   const que1 = query(dbRef, orderByChild('latitude'), startAt(36.011), endAt(36.014));
+//   const que2 = query(dbRef, orderByChild('longitude'), startAt(129), endAt(130));
+
+//   const arrayOne = await getQue(que1);
+//   const arrayTwo = getQue(que2);
+
+//   const test123123 = dataFilter(arrayOne);
+//   console.log(test123123, 'hello');
+// }
+// function compareArray(arr1, arr2) {
+//   const arr3 = [];
+
+//   for (let i = 0; i < arr1.length; i++) {
+//     for (let t = 0; t < arr2.length; t++) {
+//       if (arr1[i].prkplceNo === arr2[t].prkplceNo) {
+//         arr3.push(arr1[i]);
+//       }
+//     }
+
+//     return arr3;
+//   }
+// }

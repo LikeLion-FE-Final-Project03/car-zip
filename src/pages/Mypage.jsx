@@ -17,16 +17,20 @@ import { SearchAreaScope, SearchRTDB } from './../components/getDB/ReadDB';
 
 export default function Mypage() {
   const [data, setData] = useState([]);
+  const [locationData, setLocationData] = useState([]);
   const Test1 = [];
 
   useEffect(() => {
-    SearchRTDB('prkplceNo', '350-4-000008').then((receivedData) => {
-      setData(receivedData);
-      Test1.push(receivedData);
+    SearchRTDB('prkplceNo', '350-4-000008').then((res) => {
+      setData(res);
+    });
+    SearchAreaScope().then((res) => {
+      setLocationData(res);
     });
   }, []);
 
-  console.log(Test1);
+  console.log(data, 'hello');
+  console.log(locationData, 'hello2');
 
   return (
     <>
