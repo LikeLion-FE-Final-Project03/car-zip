@@ -12,7 +12,6 @@ import { async } from '@firebase/util';
 
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
-  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -65,7 +64,7 @@ export default function ReviewBox() {
     window.location.href = '/mypage/review';
   };
 
-  // console.log(reviews.filter((value) => value.userId === userId));
+  // console.log(userReview.length);
 
   const showReviews = () => {
     if (reviews.filter((value) => value.userId === userId).length > 0) {
