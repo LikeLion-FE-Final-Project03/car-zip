@@ -1,7 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { db, auth } from '../../Firebase.js';
-import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup, signInAnonymously } from 'firebase/auth';
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signInWithPopup,
+  signInAnonymously,
+} from 'firebase/auth';
 
 import styled from 'styled-components';
 import theme from '../styles/theme.js';
@@ -66,8 +72,27 @@ export default function Login() {
         const credential = GithubAuthProvider.credentialFromError(error);
         console.log(error.code, error.message);
         if (error.code === 'auth/account-exists-with-different-credential') {
-          alert("기존 구글 로그인에 사용하셨던 이메일 계정과 같은 이메일 계정입니다. 구글 계정으로 로그인 해주세요.")
+          alert('기존 구글 로그인에 사용하셨던 이메일 계정과 같은 이메일 계정입니다. 구글 계정으로 로그인 해주세요.');
         }
+      });
+  }
+
+  function handleFacebookLogin() {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        setUserData(result.user);
+        // console.log(data);
+        localStorage.setItem('user', JSON.stringify(result));
+        // toHome();
+        location.reload();
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error.code, error.message);
       });
   }
 
@@ -104,8 +129,8 @@ export default function Login() {
   //     });
   // }
 
-  function preparing(){
-    alert("준비중입니다.")
+  function preparing() {
+    alert('준비중입니다.');
   }
 
   return (
@@ -126,17 +151,17 @@ export default function Login() {
             </button>
           </li>
           <li>
-            <button onClick={preparing} >
+            <button onClick={handleFacebookLogin}>
               <img src={facebook} alt="페이스북 로그인" />
             </button>
           </li>
           <li>
-            <button onClick={preparing} >
+            <button onClick={preparing}>
               <img src={kakao} alt="카카오 로그인" />
             </button>
           </li>
           <li>
-            <button onClick={preparing} >
+            <button onClick={preparing}>
               <img src={naver} alt="네이버 로그인" />
             </button>
           </li>
