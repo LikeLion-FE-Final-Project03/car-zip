@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, NavLink, Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import theme, { calcRem } from '../styles/theme';
@@ -13,8 +13,21 @@ import {
   ReviewUpdateButton,
 } from '../../public/assets/icons';
 import ReviewBox from './../components/Review/ReviewBox';
+import { SearchAreaScope, SearchRTDB } from './../components/getDB/ReadDB';
 
 export default function Mypage() {
+  const [data, setData] = useState([]);
+  const Test1 = [];
+
+  useEffect(() => {
+    SearchRTDB('prkplceNo', '350-4-000008').then((receivedData) => {
+      setData(receivedData);
+      Test1.push(receivedData);
+    });
+  }, []);
+
+  console.log(Test1);
+
   return (
     <>
       <Title>
