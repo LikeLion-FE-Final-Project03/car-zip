@@ -4,7 +4,9 @@ import DetailReview from '../Review/DetailReview';
 export default function Review() {
   return (
     <ReviewWrapper>
-      <DetailReview />
+      <ReviewBoxWrapper>
+        <DetailReview />
+      </ReviewBoxWrapper>
     </ReviewWrapper>
   );
 }
@@ -13,3 +15,5 @@ const ReviewWrapper = styled.section`
   padding: 20px;
   overflow: hidden;
 `;
+
+const ReviewBoxWrapper = styled.ul``;
