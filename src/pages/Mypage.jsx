@@ -165,12 +165,6 @@ function ReviewContents() {
 const ReviewBoxWrapper = styled.ul`
   margin: 20px;
   padding-bottom: 20px;
-  > h3 {
-    display: inline-block;
-    font-size: ${theme.fontSizes.subTitle2};
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
 `;
 
 //---------------------------------------

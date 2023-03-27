@@ -1,4 +1,4 @@
-import React, { useEffect, useInsertionEffect, useState } from 'react';
+import React, { useEffect, useInsertionEffect, useState, useRef, useId } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import { IcVector } from '../../public/assets/icons';
@@ -13,7 +13,7 @@ import { addDoc, deleteDoc, updateDoc, doc, collection, getDocs } from 'firebase
 const EditReview = ({}) => {
   //리뷰 조회 페이지에서 넘겨 받은 데이터
   const location = useLocation();
-  const { userId, content, recommendVal } = location.state;
+  const { id, userId, content, recommendVal } = location.state;
 
   // 리뷰 데이터 담을 변수
   const [reviews, setReviews] = useState([]);
@@ -23,6 +23,10 @@ const EditReview = ({}) => {
 
   //리뷰 내용 수정(초기값 : 기존 리뷰 내용)
   const [newContent, setNewContent] = useState(content);
+
+  //유효성 검사
+  //글자수 조건에 맞지 않을 때 focus 주기
+  const contentInput = useRef();
 
   //db의 reviews 컬렉션 가져오기
   const reviewsCollectionRef = collection(db, 'reviews');
@@ -44,6 +48,18 @@ const EditReview = ({}) => {
   }, []);
 
   const updateReview = async (id) => {
+    //유효성 검사
+    if (state.length < 5) {
+      alert('리뷰는 최소 5글자 이상 입력해주세요.');
+      contentInput.current.focus();
+      return;
+    }
+
+    if (state.length > 200) {
+      alert('리뷰는 200자 이하로 작성해주세요.');
+      contentInput.current.focus();
+      return;
+    }
     const userDoc = doc(db, 'reviews', id);
 
     window.alert('리뷰를 수정하였습니다.');
@@ -68,54 +84,53 @@ const EditReview = ({}) => {
   };
 
   const showReviews = reviews
-    .filter((value) => value.userId === userId)
+    .filter((value) => value.id === id)
     .map((value) => (
-      <div key={value.id}>
-        <ReviewWrapper>
-          <PageHeader>
-            <button aria-label="뒤로가기 버튼">
-              <IcVector />
-            </button>
-            <PageTitle>리뷰 수정</PageTitle>
-          </PageHeader>
-          <ParkingNameWrapper>
-            <ParkingName>파킹 주차장</ParkingName>
-          </ParkingNameWrapper>
+      <ReviewWrapper key={value.id}>
+        <PageHeader>
+          <button aria-label="뒤로가기 버튼">
+            <IcVector />
+          </button>
+          <PageTitle>리뷰 수정</PageTitle>
+        </PageHeader>
+        <ParkingNameWrapper>
+          <ParkingName>파킹 주차장</ParkingName>
+        </ParkingNameWrapper>
 
-          <BtnWrapper>
-            <RecommendBtnWrapper
-              aria-label="추천"
-              tabIndex={0}
-              onClick={() => {
-                setRecommend(true);
-              }}
-            >
-              {recommend ? <RecommendBtn /> : <GrayRecommend />}
-            </RecommendBtnWrapper>
-            <NotRecommendBtnWrapper
-              aria-label="비추천"
-              tabIndex={0}
-              onClick={() => {
-                setRecommend(false);
-              }}
-            >
-              {!recommend ? <NotRecommendBtn /> : <GrayNotRecommend />}
-            </NotRecommendBtnWrapper>
-          </BtnWrapper>
-          <ReviewInput type="text" cols="30" rows="10" value={state} onChange={handleChangeContent}></ReviewInput>
-          <LetterNum>{state.length}/100자</LetterNum>
-          <SubmitBtn onClick={() => updateReview(value.id)}>수정하기</SubmitBtn>
-        </ReviewWrapper>
-      </div>
+        <BtnWrapper>
+          <RecommendBtnWrapper
+            aria-label="추천"
+            tabIndex={0}
+            onClick={() => {
+              setRecommend(true);
+            }}
+          >
+            {recommend ? <RecommendBtn /> : <GrayRecommend />}
+          </RecommendBtnWrapper>
+          <NotRecommendBtnWrapper
+            aria-label="비추천"
+            tabIndex={0}
+            onClick={() => {
+              setRecommend(false);
+            }}
+          >
+            {!recommend ? <NotRecommendBtn /> : <GrayNotRecommend />}
+          </NotRecommendBtnWrapper>
+        </BtnWrapper>
+        <ReviewInput
+          ref={contentInput}
+          type="text"
+          cols="30"
+          rows="10"
+          value={state}
+          onChange={handleChangeContent}
+        ></ReviewInput>
+        <LetterNum>{state.length}/200자</LetterNum>
+        <SubmitBtn onClick={() => updateReview(value.id)}>수정하기</SubmitBtn>
+      </ReviewWrapper>
     ));
 
-  return (
-    <>
-      <h2>edit</h2>
-      <h2>작성자 : {userId}</h2>
-      {showReviews}
-    </>
-  );
+  return <>{showReviews}</>;
 };
 
 const ReviewWrapper = styled.div`
