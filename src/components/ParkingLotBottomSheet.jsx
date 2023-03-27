@@ -3,11 +3,21 @@ import { ParkinglotList } from './ParkinglotList.jsx';
 import styled from 'styled-components';
 import theme from '../styles/theme.js';
 import UtilButton from './UtilButton.jsx';
+import { ActiveFavorite, DeactiveFavorite } from '../../public/assets/icons/index.js';
+import { TextStyle } from '../styles/UsefulStyle';
 
 export default function ParkingLotBottomSheet() {
   return (
     <ParkingLotBottomSheetWrapper>
-      <ParkinglotList />
+      {/* <ParkinglotList /> */}
+      <ParkingLotInfoWrapper>
+        <BottomSheetTitle>
+          <ParkingLotTitle>주차장 이름</ParkingLotTitle>
+          <DeactiveFavorite />
+        </BottomSheetTitle>
+        <ParkingLotInfo>공영 | 전기차 충전소 | 화장실 | 12면</ParkingLotInfo>
+        <ParkingFeeInfo>10분당 2,500원 / 추가 5분당 1,000원</ParkingFeeInfo>
+      </ParkingLotInfoWrapper>
       <ButtonWrapper>
         <UtilButton type="button" icon="public/assets/icons/icon-call.svg" width="48" theme="dark">
           전화
@@ -27,6 +37,41 @@ const ParkingLotBottomSheetWrapper = styled.div`
   width: 100%;
   height: ${theme.calcRem(197)};
   background-color: ${theme.colors.white};
+`;
+
+const ParkingLotInfoWrapper = styled.div`
+  padding: 20px;
+  border-top: solid 1px ${theme.colors.grey};
+  line-height: 25px;
+`;
+
+const BottomSheetTitle = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+
+  & > svg {
+    width: ${theme.calcRem(24)};
+    height: ${theme.calcRem(24)};
+  }
+`;
+
+const ParkingLotTitle = styled.h3`
+  font-size: ${theme.fontSizes.subTitle2};
+  font-weight: 700;
+  color: ${theme.colors.dark};
+  margin-right: 6px;
+`;
+
+const ParkingLotInfo = styled.div`
+  font-size: ${theme.fontSizes.paragraph2};
+  font-weight: 400;
+  color: ${theme.colors.grey3};
+`;
+
+const ParkingFeeInfo = styled.div`
+  font-size: ${theme.fontSizes.subTitle1};
+  font-weight: 700;
 `;
 
 const ButtonWrapper = styled.div`

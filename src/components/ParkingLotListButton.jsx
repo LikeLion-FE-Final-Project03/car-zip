@@ -2,10 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import { IcList } from '../../public/assets/icons/index.js';
+import { useNavigate } from 'react-router-dom';
 
 export default function ParkingLotListButton() {
+  const navigate = useNavigate();
+  const onClickListBtn = () => {
+    navigate(`/search`);
+  };
+
   return (
-    <ParkingLotListButtonWrapper href="http://localhost:3000/search">
+    <ParkingLotListButtonWrapper onClick={onClickListBtn}>
       <IcList />
       목록보기
     </ParkingLotListButtonWrapper>
