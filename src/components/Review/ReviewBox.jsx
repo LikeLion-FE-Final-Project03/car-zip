@@ -3,13 +3,10 @@ import { ReviewUpdateButton, ReviewDeleteButton } from '../../../public/assets/i
 import { NotRecommendTag, RecommendTag } from '../../../public/assets/images';
 import theme from './../../styles/theme';
 import { db } from '../../../Firebase';
-// import { db } from './../../../firebase-config';
+
 import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { unstable_renderSubtreeIntoContainer } from 'react-dom';
-import { async } from '@firebase/util';
-
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
