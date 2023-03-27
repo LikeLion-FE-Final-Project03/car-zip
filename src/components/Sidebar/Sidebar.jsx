@@ -1,10 +1,21 @@
 import { IcBack } from '../../../public/assets/icons';
 import styled from 'styled-components';
 import theme from './../../styles/theme';
+import { useNavigate } from 'react-router-dom';
 
 export default function Sidebar(props) {
   const closeSidebar = () => {
     props.setIsSidebarOpen(false);
+  };
+
+  const navigate = useNavigate();
+
+  const onClickReview = () => {
+    navigate(`/mypage/review`);
+  };
+
+  const onClickBookmark = () => {
+    navigate(`/mypage/bookmark`);
   };
 
   return (
@@ -17,12 +28,12 @@ export default function Sidebar(props) {
           <MyPage>마이페이지</MyPage>
           <MypageList>
             <ReviewLi>
-              <ReviewMenu href="http://localhost:3000/mypage" tabIndex={0}>
+              <ReviewMenu onClick={onClickReview} tabIndex={0}>
                 - 나의 리뷰
               </ReviewMenu>
             </ReviewLi>
             <li>
-              <BookmarkMenu href="http://localhost:3000/mypage/bookmark" tabIndex={0}>
+              <BookmarkMenu onClick={onClickBookmark} tabIndex={0}>
                 - 즐겨찾기
               </BookmarkMenu>
             </li>
