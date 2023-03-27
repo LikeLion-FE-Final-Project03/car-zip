@@ -2,14 +2,35 @@ import styled from 'styled-components';
 import { ReviewUpdateButton, ReviewDeleteButton } from '../../../public/assets/icons';
 import { NotRecommendTag, RecommendTag } from '../../../public/assets/images';
 import theme from './../../styles/theme';
-// import { db } from './../../../firebase-config';
 import { db } from '../../../Firebase';
+// import { db } from './../../../firebase-config';
 import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
   //시작될 때 한번만 실행
+  const navigate = useNavigate();
+
+  const isEdit = (id, reviewContent, recommendVal) => {
+    console.log('넘겨온 id: ' + id);
+    console.log('넘겨온 content: ' + reviewContent);
+    console.log('넘겨온 추천 여부: ' + recommendVal);
+    const content = reviewContent;
+    const userId = id;
+    const recommend = recommendVal;
+    navigate('/editreview', {
+      state: {
+        userId: id,
+        content: content,
+        recommendVal: recommend,
+      },
+    });
+
+    // window.location.href = '/editreview';
+  };
+
   useEffect(() => {
     // 비동기로 데이터 받을준비
     const getReviews = async () => {
@@ -38,8 +59,17 @@ export default function ReviewBox() {
         <ReviewBoxHeader>
           <ParkingLot>파킹 주차장</ParkingLot>
           <BtnWrapper>
-            <ReviewUpdateButton className="btnUpdate" />
-            <ReviewDeleteButton />
+            <ReviewUpdateButton
+              className="btnUpdate"
+              onClick={() => {
+                isEdit(value.id, value.content, value.recommend);
+              }}
+            />
+            <ReviewDeleteButton
+              onClick={() => {
+                deleteReview(value.id, value.name);
+              }}
+            />
           </BtnWrapper>
         </ReviewBoxHeader>
         <ReviewWrapper>
@@ -48,13 +78,6 @@ export default function ReviewBox() {
             <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
           </ReviewInfo>
           <ReviewContent>{value.content}</ReviewContent>
-          <button
-            onClick={() => {
-              deleteReview(value.id, value.name);
-            }}
-          >
-            삭제하기
-          </button>
         </ReviewWrapper>
       </ReviewBoxWrapper>
     </div>
