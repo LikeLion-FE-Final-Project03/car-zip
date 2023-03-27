@@ -22,7 +22,7 @@ export default function ReviewBox() {
   //로그인한 유저의 uid 가져오기
   const userId = JSON.parse(localStorage.getItem('user')).user.uid;
 
-  const isEdit = (id, userId, reviewContent, recommendVal) => {
+  const isEdit = (id, userId, reviewContent, recommendVal, parkingName) => {
     const content = reviewContent;
     const recommend = recommendVal;
     navigate('/editreview', {
@@ -31,6 +31,7 @@ export default function ReviewBox() {
         userId: userId,
         content: content,
         recommendVal: recommend,
+        parkingName: parkingName,
       },
     });
   };
@@ -59,21 +60,6 @@ export default function ReviewBox() {
   //userReview에 저장
   const userReview = reviews.filter((value) => value.userId === userId);
 
-  // const parkingNo = userReview.map((v) => v.prkplceNo);
-  // console.log(parkingNo);
-
-  //주차장코드에 해당되는 주차장의 데이터 가져오기
-  // useEffect(() => {
-  //   SearchRTDB('prkplceNo', parkingNo).then((res) => {
-  //     setData(res);
-  //   });
-  // }, []);
-
-  //주차장 데이터에서 주차장 이름가져오기
-  // const prkplceNm = data.map((value) => value.prkplceNm);
-
-  // console.log(prkplceNm);
-
   const deleteReview = async (id, name) => {
     const reviewsDoc = doc(db, 'reviews', id);
 
@@ -95,12 +81,12 @@ export default function ReviewBox() {
           .map((value) => (
             <ReviewBoxWrapper key={value.id}>
               <ReviewBoxHeader>
-                <ParkingLot>{value.prkplceNo}</ParkingLot>
+                <ParkingLot>{value.parkingName}</ParkingLot>
                 <BtnWrapper>
                   <ReviewUpdateButton
                     className="btnUpdate"
                     onClick={() => {
-                      isEdit(value.id, value.userId, value.content, value.recommend);
+                      isEdit(value.id, value.userId, value.content, value.recommend, value.parkingName);
                     }}
                   />
                   <ReviewDeleteButton

@@ -17,7 +17,7 @@ import { SearchRTDB } from './../components/getDB/ReadDB';
 export default function NewReview() {
   //상세페이지에서 넘겨 받은 주차장 코드
   const location = useLocation();
-  const { parkingNo } = location.state;
+  const { parkingNo, parkingName } = location.state;
 
   //RTDB 데이터를 담기
   const [data, setData] = useState([]);
@@ -42,15 +42,7 @@ export default function NewReview() {
   const userName = JSON.parse(localStorage.getItem('user')).user.displayName;
   const userId = JSON.parse(localStorage.getItem('user')).user.uid;
 
-  //RTDB에서 해당 주차장 코드의 주차장명 가져오기
-  useEffect(() => {
-    SearchRTDB('prkplceNo', parkingNo).then((res) => {
-      setData(res);
-    });
-  }, []);
-
   //주차장명 저장
-  const prkplceNm = data.map((value) => value.prkplceNm);
 
   //시작될 때 한번만 실행
   useEffect(() => {
@@ -94,6 +86,7 @@ export default function NewReview() {
       date: new Date().getTime(),
       prkplceNo: parkingNo,
       recommend: recommend,
+      parkingName: parkingName,
     });
     window.alert('리뷰를 등록하였습니다.');
     window.location.href = '/mypage/review';
@@ -114,7 +107,7 @@ export default function NewReview() {
         <PageTitle>리뷰 작성</PageTitle>
       </PageHeader>
       <ParkingNameWrapper>
-        <ParkingName>{prkplceNm}</ParkingName>
+        <ParkingName>{parkingName}</ParkingName>
       </ParkingNameWrapper>
       <BtnWrapper>
         <RecommendBtnWrapper

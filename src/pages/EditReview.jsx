@@ -13,7 +13,7 @@ import { addDoc, deleteDoc, updateDoc, doc, collection, getDocs } from 'firebase
 const EditReview = ({}) => {
   //리뷰 조회 페이지에서 넘겨 받은 데이터
   const location = useLocation();
-  const { id, userId, content, recommendVal } = location.state;
+  const { id, userId, content, recommendVal, parkingName } = location.state;
 
   // 리뷰 데이터 담을 변수
   const [reviews, setReviews] = useState([]);
@@ -94,7 +94,7 @@ const EditReview = ({}) => {
           <PageTitle>리뷰 수정</PageTitle>
         </PageHeader>
         <ParkingNameWrapper>
-          <ParkingName>파킹 주차장</ParkingName>
+          <ParkingName>{parkingName}</ParkingName>
         </ParkingNameWrapper>
 
         <BtnWrapper>

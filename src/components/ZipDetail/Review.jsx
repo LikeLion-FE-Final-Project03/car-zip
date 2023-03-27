@@ -3,13 +3,19 @@ import theme from '../../styles/theme';
 import DetailReview from '../Review/DetailReview';
 import { useNavigate } from 'react-router';
 
-export default function Review({ zipcode }) {
+import { useState, useEffect } from 'react';
+import { SearchRTDB } from './../getDB/ReadDB';
+
+export default function Review({ zipcode, zipname }) {
   const navigate = useNavigate();
+
+  const [data, setData] = useState([]);
 
   const createReview = () => {
     navigate('/newreview', {
       state: {
         parkingNo: zipcode,
+        parkingName: zipname,
       },
     });
   };
@@ -29,7 +35,7 @@ export default function Review({ zipcode }) {
         </button>
       </div>
       <ReviewBoxWrapper>
-        <DetailReview zipcode={zipcode} />
+        <DetailReview zipcode={zipcode} zipname={zipname} />
       </ReviewBoxWrapper>
     </ReviewWrapper>
   );

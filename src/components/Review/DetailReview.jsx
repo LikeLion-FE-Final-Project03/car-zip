@@ -31,8 +31,6 @@ export default function DetailReview({ zipcode }) {
     getReviews();
   }, []);
 
-  //리뷰 데이터(reviews)에서 주차장 코드가 일치하는 리뷰만 가져와서
-  //detailReview에 저장 ('2312-023'부분에 넘겨받은 주차장 코드를 넣어야함.)
   const detailReview = reviews.filter((value) => value.prkplceNo === zipcode);
 
   const showReviews = () => {
