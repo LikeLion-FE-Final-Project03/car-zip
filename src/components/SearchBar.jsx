@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import { IcMenu, IcSearchBtn } from '../../public/assets/icons/index.js';
 
-export default function SearchBar() {
+export default function SearchBar(props) {
+  const toggleSidebar = () => {
+    props.setIsSidebarOpen(!props.isSidebarOpen);
+  };
   return (
     <SearchBarWrapper>
-      <IcMenu />
+      <IcMenu onClick={toggleSidebar} />
       <SearchArea>
         <SearchInput placeholder="검색어를 입력하세요." type="text" />
         <IcSearchBtn />

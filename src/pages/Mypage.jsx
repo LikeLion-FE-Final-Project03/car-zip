@@ -158,32 +158,20 @@ function ReviewContents() {
   return (
     <ul>
       <ReviewBoxWrapper>
-        <h3>파킹 주차장</h3>
-        <button>
-          <Link to="/editReview">
-            <ReviewUpdateButton />
-          </Link>
-        </button>
         <ReviewBox></ReviewBox>
       </ReviewBoxWrapper>
     </ul>
   );
 }
 
-const ReviewBoxWrapper = styled.li`
+const ReviewBoxWrapper = styled.ul`
   margin: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid ${theme.colors.orangeMain};
   > h3 {
     display: inline-block;
     font-size: ${theme.fontSizes.subTitle2};
     font-weight: 700;
     margin-bottom: 20px;
-  }
-
-  > button {
-    display: float;
-    float: right;
   }
 `;
 
