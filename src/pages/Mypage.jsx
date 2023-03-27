@@ -4,16 +4,8 @@ import { Routes, Route, NavLink, Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import theme, { calcRem } from '../styles/theme';
 import { TextStyle } from '../styles/UsefulStyle';
-import {
-  GoogleIcon,
-  KakaoIcon,
-  NaverIcon,
-  LogoutButton,
-  BackButton,
-  ReviewUpdateButton,
-} from '../../public/assets/icons';
+import { GoogleIcon, KakaoIcon, NaverIcon, LogoutButton, BackButton } from '../../public/assets/icons';
 import ReviewBox from './../components/Review/ReviewBox';
-import { SearchAreaScope, SearchRTDB } from './../components/getDB/ReadDB';
 
 export default function Mypage() {
   const [data, setData] = useState([]);
@@ -25,7 +17,6 @@ export default function Mypage() {
   // }, []);
 
   console.log(data);
-
   return (
     <>
       <Title>
