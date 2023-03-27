@@ -34,6 +34,12 @@ export default function SearchBar(props) {
     props.setSearchName(inputValue);
   };
 
+  const handleEnterPress = (e) => {
+    if (e.key == 'Enter') {
+      handleSearchButton();
+    }
+  };
+
   console.log(inputValue);
   return (
     <SearchBarWrapper>
@@ -45,6 +51,7 @@ export default function SearchBar(props) {
           value={inputValue}
           onChange={handleChangeInput}
           onBlur={handleBlur}
+          onKeyPress={handleEnterPress}
         />
         <SearchButton onClick={handleSearchButton}>
           <IcSearchBtn />
