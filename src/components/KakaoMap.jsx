@@ -1,19 +1,38 @@
-import { useRef, useState } from 'react';
-import { Map, CustomOverlayMap } from 'react-kakao-maps-sdk';
+import { useEffect, useRef, useState } from 'react';
+import { Map, CustomOverlayMap, MapMarker } from 'react-kakao-maps-sdk';
 import { IcLocation } from '../../public/assets/icons';
+import { SearchAreaScope } from '../components/getDB/ReadDB';
 
 export default function KakaoMap(props) {
+  const [state, setState] = useState({
+    center: {
+      lat: 36.013434,
+      lng: 129.349478,
+    },
+    errMsg: null,
+    isLoading: true,
+  });
+
   const Main = () => {
     const [draggable, setDraggable] = useState(true);
 
-    const [state, setState] = useState({
-      center: {
-        lat: 37.555167,
-        lng: 126.970833,
-      },
-      errMsg: null,
-      isLoading: true,
+    const [locationData, setLocationData] = useState([]);
+
+    useEffect(() => {
+      SearchAreaScope(state.center.lat, state.center.lng).then((res) => {
+        setLocationData(res);
+      });
+    }, []);
+
+    console.log(locationData, 'hello');
+
+    const positions = [];
+
+    locationData.forEach((obj) => {
+      positions.push({ title: obj.prkplceNm, latlng: { lat: obj.latitude, lng: obj.longitude }, fee: obj.basicCharge });
     });
+
+    console.log(positions);
 
     const handlingClickOverlay = () => {
       props.setIsClicked(!props.isClicked);
@@ -21,10 +40,10 @@ export default function KakaoMap(props) {
 
     const mapRef = useRef();
 
-    const ParkingFeeMarker = () => (
+    const ParkingFeeMarker = (props) => (
       <div className="overlaybox">
         <div className="parking-fee" onClick={handlingClickOverlay}>
-          4,000
+          {props.fee}
         </div>
       </div>
     );
@@ -80,7 +99,7 @@ export default function KakaoMap(props) {
             ref={mapRef}
           >
             {/* 🚨 To Do : 위치 변경 시 오버레이 랜더링 필요 */}
-            {state.isLoading && (
+            {/* {state.isLoading && (
               <CustomOverlayMap // 커스텀 오버레이를 표시할 Container
                 // 커스텀 오버레이가 표시될 위치입니다
                 position={state.center}
@@ -90,7 +109,14 @@ export default function KakaoMap(props) {
               >
                 <ParkingFeeMarker />
               </CustomOverlayMap>
-            )}
+            )} */}
+
+            {positions.map((position, index) => (
+              <CustomOverlayMap position={position.latlng} xAnchor={0.3} yAnchor={0.91}>
+                <ParkingFeeMarker fee={position.fee} />
+              </CustomOverlayMap>
+            ))}
+
             <div className="custom_zoomcontrol radius_border">
               <span onClick={zoomIn}>
                 <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대" />

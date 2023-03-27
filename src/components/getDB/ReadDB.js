@@ -40,7 +40,7 @@ export async function SearchAreaScope(Centerlatitude, Centerlongitude) {
 
   const arrayOne = await getQue(que1);
 
-  return dataFilter(arrayOne);
+  return dataFilter(arrayOne, Centerlongitude);
 }
 
 //--------------------------------------------------------------------------------------
