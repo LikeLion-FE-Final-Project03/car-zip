@@ -4,34 +4,10 @@ import { Routes, Route, NavLink, Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import theme, { calcRem } from '../styles/theme';
 import { TextStyle } from '../styles/UsefulStyle';
-import {
-  GoogleIcon,
-  KakaoIcon,
-  NaverIcon,
-  LogoutButton,
-  BackButton,
-  ReviewUpdateButton,
-} from '../../public/assets/icons';
+import { GoogleIcon, KakaoIcon, NaverIcon, LogoutButton, BackButton } from '../../public/assets/icons';
 import ReviewBox from './../components/Review/ReviewBox';
-import { SearchAreaScope, SearchRTDB } from './../components/getDB/ReadDB';
 
 export default function Mypage() {
-  const [data, setData] = useState([]);
-  const [locationData, setLocationData] = useState([]);
-  const Test1 = [];
-
-  useEffect(() => {
-    SearchRTDB('prkplceNo', '350-4-000008').then((res) => {
-      setData(res);
-    });
-    SearchAreaScope().then((res) => {
-      setLocationData(res);
-    });
-  }, []);
-
-  console.log(data, 'hello');
-  console.log(locationData, 'hello2');
-
   return (
     <>
       <Title>
