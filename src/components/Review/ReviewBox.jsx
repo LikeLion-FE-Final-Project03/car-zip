@@ -7,9 +7,14 @@ import { db } from '../../../Firebase';
 import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+
+import { SearchAreaScope, SearchRTDB } from './../getDB/ReadDB';
+
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [data, setData] = useState([]);
 
   const navigate = useNavigate();
 
@@ -28,6 +33,15 @@ export default function ReviewBox() {
       },
     });
   };
+
+  useEffect(() => {
+    SearchRTDB('prkplceNo', '350-4-000008').then((res) => {
+      setData(res);
+    });
+  }, []);
+
+  const prkplceNm = data.map((value) => value.prkplceNm);
+  console.log(prkplceNm);
 
   //[사이드이펙트] DB -> 리뷰 요청/응답
   useEffect(() => {
@@ -74,7 +88,7 @@ export default function ReviewBox() {
           .map((value) => (
             <ReviewBoxWrapper key={value.id}>
               <ReviewBoxHeader>
-                <ParkingLot>파킹 주차장</ParkingLot>
+                <ParkingLot>{prkplceNm}</ParkingLot>
                 <BtnWrapper>
                   <ReviewUpdateButton
                     className="btnUpdate"
