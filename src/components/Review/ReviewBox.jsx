@@ -20,10 +20,6 @@ export default function ReviewBox() {
   const userId = JSON.parse(localStorage.getItem('user')).user.uid;
 
   const isEdit = (id, userId, reviewContent, recommendVal) => {
-    console.log('넘겨온 userId: ' + userId);
-    console.log('넘겨온 id: ' + id);
-    console.log('넘겨온 content: ' + reviewContent);
-    console.log('넘겨온 추천 여부: ' + recommendVal);
     const content = reviewContent;
     const recommend = recommendVal;
     navigate('/editreview', {
@@ -70,8 +66,6 @@ export default function ReviewBox() {
     //리뷰 삭제 시 리뷰 조회 페이지 리렌더링
     window.location.href = '/mypage/review';
   };
-
-  // console.log(userReview.length);
 
   const showReviews = () => {
     if (loading) {
