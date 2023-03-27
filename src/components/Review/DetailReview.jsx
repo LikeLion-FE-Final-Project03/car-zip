@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 
 export default function DetailReview() {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   //로그인한 유저의 uid 가져오기
   const userId = JSON.parse(localStorage.getItem('user')).user.uid;
@@ -15,12 +16,16 @@ export default function DetailReview() {
   useEffect(() => {
     // 비동기로 데이터 받을준비
     const getReviews = async () => {
-      //db의 reviews 컬렉션 가져오기
-      const reviewsCollectionRef = collection(db, 'reviews');
-      // getDocs로 컬렉션안에 데이터 가져오기
-      const data = await getDocs(reviewsCollectionRef);
-      // reviews에 data안의 자료 추가. 객체에 id 덮어씌우는거
-      setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      try {
+        //db의 reviews 컬렉션 가져오기
+        const reviewsCollectionRef = collection(db, 'reviews');
+        // getDocs로 컬렉션안에 데이터 가져오기
+        const data = await getDocs(reviewsCollectionRef);
+        // reviews에 data안의 자료 추가. 객체에 id 덮어씌우는거
+        setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      } finally {
+        setLoading(false);
+      }
     };
 
     getReviews();
@@ -31,22 +36,26 @@ export default function DetailReview() {
   const detailReview = reviews.filter((value) => value.prkplceNo === '2312-023');
 
   const showReviews = () => {
-    if (detailReview.length > 0) {
-      return detailReview
-        .sort((a, b) => b.date - a.date)
-        .map((value) => (
-          <ReviewBoxWrapper key={value.id}>
-            <ReviewWrapper>
-              <ReviewInfo>
-                {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
-                <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
-              </ReviewInfo>
-              <ReviewContent>{value.content}</ReviewContent>
-            </ReviewWrapper>
-          </ReviewBoxWrapper>
-        ));
+    if (!loading) {
+      if (detailReview.length > 0) {
+        return detailReview
+          .sort((a, b) => b.date - a.date)
+          .map((value) => (
+            <ReviewBoxWrapper key={value.id}>
+              <ReviewWrapper>
+                <ReviewInfo>
+                  {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
+                  <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
+                </ReviewInfo>
+                <ReviewContent>{value.content}</ReviewContent>
+              </ReviewWrapper>
+            </ReviewBoxWrapper>
+          ));
+      } else {
+        return <NoReview>해당 주차장에 등록된 리뷰가 없습니다.</NoReview>;
+      }
     } else {
-      return <NoReview>해당 주차장에 등록된 리뷰가 없습니다.</NoReview>;
+      return <ReviewLoading>작성한 리뷰 로딩 중...</ReviewLoading>;
     }
   };
 
@@ -93,5 +102,9 @@ const ReviewContent = styled.p`
 `;
 
 const NoReview = styled.h2`
+  font-size: ${theme.fontSizes.subTitle1};
+`;
+
+const ReviewLoading = styled.h2`
   font-size: ${theme.fontSizes.subTitle1};
 `;
