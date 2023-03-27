@@ -36,7 +36,7 @@ export function SearchRTDB(searchKey, searchValue) {
  */
 
 export async function SearchAreaScope(Centerlatitude, Centerlongitude) {
-  const que1 = query(dbRef, orderByChild('latitude'), startAt(36.011), endAt(36.014));
+  const que1 = query(dbRef, orderByChild('latitude'), startAt(Centerlatitude - 0.0091), endAt(Centerlatitude + 0.0091));
 
   const arrayOne = await getQue(que1);
 
@@ -66,7 +66,7 @@ function dataFilter(arr1, Centerlongitude) {
   let filteringData = [];
 
   arr1.forEach((item) => {
-    if (129 < item.longitude < 130) {
+    if (Centerlongitude - 0.0113 < item.longitude < Centerlongitude + 0.0113) {
       filteringData.push(item);
     }
   });
