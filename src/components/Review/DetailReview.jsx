@@ -66,12 +66,8 @@ const ReviewBoxWrapper = styled.li`
   width: 100%;
   box-sizing: border-box;
   min-width: 320px;
-  height: 221px;
   list-style: none;
   padding: 0;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid ${theme.colors.orangeMain};
 `;
 
 const ReviewWrapper = styled.div`
