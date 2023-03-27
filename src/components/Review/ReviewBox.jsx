@@ -16,6 +16,7 @@ export default function ReviewBox() {
 
   const [data, setData] = useState([]);
 
+  // const [parkingNo, setParkingNo] = useState('');
   const navigate = useNavigate();
 
   //로그인한 유저의 uid 가져오기
@@ -33,15 +34,6 @@ export default function ReviewBox() {
       },
     });
   };
-
-  useEffect(() => {
-    SearchRTDB('prkplceNo', '350-4-000008').then((res) => {
-      setData(res);
-    });
-  }, []);
-
-  const prkplceNm = data.map((value) => value.prkplceNm);
-  console.log(prkplceNm);
 
   //[사이드이펙트] DB -> 리뷰 요청/응답
   useEffect(() => {
@@ -67,6 +59,21 @@ export default function ReviewBox() {
   //userReview에 저장
   const userReview = reviews.filter((value) => value.userId === userId);
 
+  // const parkingNo = userReview.map((v) => v.prkplceNo);
+  // console.log(parkingNo);
+
+  //주차장코드에 해당되는 주차장의 데이터 가져오기
+  // useEffect(() => {
+  //   SearchRTDB('prkplceNo', parkingNo).then((res) => {
+  //     setData(res);
+  //   });
+  // }, []);
+
+  //주차장 데이터에서 주차장 이름가져오기
+  // const prkplceNm = data.map((value) => value.prkplceNm);
+
+  // console.log(prkplceNm);
+
   const deleteReview = async (id, name) => {
     const reviewsDoc = doc(db, 'reviews', id);
 
@@ -88,7 +95,7 @@ export default function ReviewBox() {
           .map((value) => (
             <ReviewBoxWrapper key={value.id}>
               <ReviewBoxHeader>
-                <ParkingLot>{prkplceNm}</ParkingLot>
+                <ParkingLot>{value.prkplceNo}</ParkingLot>
                 <BtnWrapper>
                   <ReviewUpdateButton
                     className="btnUpdate"
