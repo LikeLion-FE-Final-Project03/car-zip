@@ -3,8 +3,7 @@ import { ParkinglotList } from './ParkinglotList.jsx';
 import styled from 'styled-components';
 import theme from '../styles/theme.js';
 import UtilButton from './UtilButton.jsx';
-import { ActiveFavorite, DeactiveFavorite } from '../../public/assets/icons/index.js';
-import { TextStyle } from '../styles/UsefulStyle';
+import FavoriteButton from '../components/FavoriteButton.jsx';
 
 export default function ParkingLotBottomSheet() {
   return (
@@ -13,7 +12,7 @@ export default function ParkingLotBottomSheet() {
       <ParkingLotInfoWrapper>
         <BottomSheetTitle>
           <ParkingLotTitle>주차장 이름</ParkingLotTitle>
-          <DeactiveFavorite />
+          <FavoriteButton />
         </BottomSheetTitle>
         <ParkingLotInfo>공영 | 전기차 충전소 | 화장실 | 12면</ParkingLotInfo>
         <ParkingFeeInfo>10분당 2,500원 / 추가 5분당 1,000원</ParkingFeeInfo>
@@ -49,11 +48,6 @@ const BottomSheetTitle = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 4px;
-
-  & > svg {
-    width: ${theme.calcRem(24)};
-    height: ${theme.calcRem(24)};
-  }
 `;
 
 const ParkingLotTitle = styled.h3`
