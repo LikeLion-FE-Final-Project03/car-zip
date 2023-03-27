@@ -23,6 +23,8 @@ export default function InfoZip({
     addUnitTime,
     addUnitCharge,
     phoneNumber,
+    latitude,
+    longitude,
   },
 }) {
   function copyClipboard() {
@@ -44,6 +46,10 @@ export default function InfoZip({
     } else {
       document.location.href = `tel: ${phoneNumber}`;
     }
+  }
+
+  function naviKakaoMap() {
+    return `location.href='https://map.kakao.com/link/to/${address},${latitude},${longitude}'`;
   }
 
   return (
@@ -86,7 +92,13 @@ export default function InfoZip({
           <UtilButton type="button" width="50" icon={icon_call} theme="dark" onClick={handleCallZip}>
             전화
           </UtilButton>
-          <UtilButton type="button" width="50" icon={icon_navi} theme="default">
+          <UtilButton
+            as="a"
+            width="50"
+            icon={icon_navi}
+            theme="default"
+            href={`https://map.kakao.com/link/to/${address},${latitude},${longitude}`}
+          >
             길안내
           </UtilButton>
         </div>
@@ -114,7 +126,6 @@ const Title = styled.div`
 `;
 
 const TagWrapper = styled.div`
-  /* white-space: nowrap; */
   margin-bottom: 16px;
 `;
 

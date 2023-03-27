@@ -10,7 +10,6 @@ import Login from './pages/Login';
 import FeeCalculator from './pages/FeeCalculator';
 import Mypage from './pages/Mypage';
 import NewReview from './pages/NewReview';
-import SidebarTest from './pages/SidebarTest';
 import ViewReview from './pages/ViewReview';
 import EditReview from './pages/EditReview';
 import { useState } from 'react';
@@ -26,7 +25,6 @@ function App() {
         <Route path="/fee" element={<FeeCalculator />} />
         <Route path="/search" element={<Search />} />
         <Route path="/mypage/*" element={<Mypage />} />
-        <Route path="/sidebar" element={<SidebarTest />} />
         <Route path="/viewreview" element={<ViewReview />} />
         <Route path="/newreview" element={<NewReview />} />
         <Route path="/editreview" element={<EditReview />} />
