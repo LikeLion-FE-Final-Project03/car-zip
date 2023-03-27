@@ -56,7 +56,7 @@ export default function ZipDetail() {
     <div>
       <Header title="주차장 상세보기" />
       <InfoZip info={parkingInfo} />
-      <Review zipcode={parkingInfo.parkingNo} />
+      <Review zipcode={parkingInfo.parkingNo} zipname={parkingInfo.name} />
       <InfoMore info={parkingDatail} />
       <RecentUpdate info={latestUpdate} />
     </div>

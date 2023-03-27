@@ -7,16 +7,22 @@ import { db } from '../../../Firebase';
 import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+
+import { SearchAreaScope, SearchRTDB } from './../getDB/ReadDB';
+
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [data, setData] = useState([]);
+
+  // const [parkingNo, setParkingNo] = useState('');
   const navigate = useNavigate();
 
   //로그인한 유저의 uid 가져오기
   const userId = JSON.parse(localStorage.getItem('user')).user.uid;
 
-  const isEdit = (id, userId, reviewContent, recommendVal) => {
+  const isEdit = (id, userId, reviewContent, recommendVal, parkingName) => {
     const content = reviewContent;
     const recommend = recommendVal;
     navigate('/editreview', {
@@ -25,6 +31,7 @@ export default function ReviewBox() {
         userId: userId,
         content: content,
         recommendVal: recommend,
+        parkingName: parkingName,
       },
     });
   };
@@ -74,12 +81,12 @@ export default function ReviewBox() {
           .map((value) => (
             <ReviewBoxWrapper key={value.id}>
               <ReviewBoxHeader>
-                <ParkingLot>파킹 주차장</ParkingLot>
+                <ParkingLot>{value.parkingName}</ParkingLot>
                 <BtnWrapper>
                   <ReviewUpdateButton
                     className="btnUpdate"
                     onClick={() => {
-                      isEdit(value.id, value.userId, value.content, value.recommend);
+                      isEdit(value.id, value.userId, value.content, value.recommend, value.parkingName);
                     }}
                   />
                   <ReviewDeleteButton

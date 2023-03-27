@@ -8,6 +8,15 @@ import { GoogleIcon, KakaoIcon, NaverIcon, LogoutButton, BackButton } from '../.
 import ReviewBox from './../components/Review/ReviewBox';
 
 export default function Mypage() {
+  const [data, setData] = useState([]);
+
+  // useEffect(() => {
+  //   SearchRTDB('prkplceNo', '350-4-000008').then((res) => {
+  //     setData(res);
+  //   });
+  // }, []);
+
+  console.log(data);
   return (
     <>
       <Title>
