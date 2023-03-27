@@ -12,7 +12,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "firebase": "^9.18.0",
-    "firebase-tools": "^11.24.1",
+    "firebase-tools": "^0.1.6",
     "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -38,7 +38,7 @@
   "scripts": {
     "start": "npm run dev -- --open",
     "dev": "vite --host localhost --port 3000 --cors",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext .tsx,.ts,.jsx,.js",
     "lint:fix": "npm run lint -- --fix",

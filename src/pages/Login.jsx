@@ -1,7 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { db, auth } from '../../Firebase.js';
-import { GoogleAuthProvider, signInWithPopup, signInAnonymously } from 'firebase/auth';
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signInWithPopup,
+  signInAnonymously,
+} from 'firebase/auth';
 
 import styled from 'styled-components';
 import theme from '../styles/theme.js';
@@ -10,6 +16,7 @@ import facebook from '../../public/assets/images/login/facebook.svg';
 import google from '../../public/assets/images/login/google.svg';
 import kakao from '../../public/assets/images/login/kakao.svg';
 import naver from '../../public/assets/images/login/naver.svg';
+import github from '../../public/assets/images/login/github.svg';
 
 import { result } from 'lodash';
 import { async } from '@firebase/util';
@@ -35,6 +42,50 @@ export default function Login() {
         setUserData(data.user);
         // console.log(data);
         localStorage.setItem('user', JSON.stringify(data));
+        // toHome();
+        location.reload();
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error.code, error.message);
+      });
+  }
+
+  function handleGithubLogin() {
+    const provider = new GithubAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GithubAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        setUserData(result.user);
+        localStorage.setItem('user', JSON.stringify(result));
+        location.reload();
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GithubAuthProvider.credentialFromError(error);
+        console.log(error.code, error.message);
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          alert('기존 구글 로그인에 사용하셨던 이메일 계정과 같은 이메일 계정입니다. 구글 계정으로 로그인 해주세요.');
+        }
+      });
+  }
+
+  function handleFacebookLogin() {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        setUserData(result.user);
+        // console.log(data);
+        localStorage.setItem('user', JSON.stringify(result));
         // toHome();
         location.reload();
       })
@@ -78,6 +129,10 @@ export default function Login() {
   //     });
   // }
 
+  function preparing() {
+    alert('준비중입니다.');
+  }
+
   return (
     <LoginWrapper>
       <LoginColumn>
@@ -85,26 +140,31 @@ export default function Login() {
           <img src={logo_dark} alt="CarZip" />
         </h1>
         <LoginList>
-          {/* <li>
-            <button>
-              <img src={facebook} alt="페이스북 로그인" />
+          <li>
+            <button onClick={handleGithubLogin}>
+              <img src={github} alt="깃헙 로그인" />
             </button>
-          </li> */}
+          </li>
           <li>
             <button onClick={handleGoogleLogin}>
               <img src={google} alt="구글 로그인" />
             </button>
           </li>
-          {/* <li>
-            <button>
+          <li>
+            <button onClick={handleFacebookLogin}>
+              <img src={facebook} alt="페이스북 로그인" />
+            </button>
+          </li>
+          <li>
+            <button onClick={preparing}>
               <img src={kakao} alt="카카오 로그인" />
             </button>
-          </li> */}
-          {/* <li>
-            <button>
+          </li>
+          <li>
+            <button onClick={preparing}>
               <img src={naver} alt="네이버 로그인" />
             </button>
-          </li> */}
+          </li>
           <li>
             <button onClick={handlesAnonymous}>다음에 하기</button>
           </li>
