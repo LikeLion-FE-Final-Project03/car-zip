@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Map, CustomOverlayMap, MapMarker } from 'react-kakao-maps-sdk';
 import { IcLocation } from '../../public/assets/icons';
 import { SearchAreaScope } from '../components/getDB/ReadDB';
+import ParkingLotBottomSheet from './ParkingLotBottomSheet';
 
 export default function KakaoMap(props) {
   const [state, setState] = useState({
@@ -11,6 +12,7 @@ export default function KakaoMap(props) {
     },
     errMsg: null,
     isLoading: true,
+    isBottomSheetOpen: false,
   });
 
   const Main = () => {
@@ -24,29 +26,48 @@ export default function KakaoMap(props) {
       });
     }, []);
 
-    console.log(locationData, 'hello');
+    // console.log(locationData, 'hello');
 
     const positions = [];
 
     locationData.forEach((obj) => {
-      positions.push({ title: obj.prkplceNm, latlng: { lat: obj.latitude, lng: obj.longitude }, fee: obj.basicCharge });
+      positions.push({
+        title: obj.prkplceNm,
+        latlng: { lat: obj.latitude, lng: obj.longitude },
+        fee: obj.basicCharge,
+        basicTime: obj.basicTime,
+        prkplceNo: obj.prkplceNo,
+        prkplceSe: obj.prkplceSe,
+      });
     });
 
-    console.log(positions);
-
-    const handlingClickOverlay = () => {
-      props.setIsClicked(!props.isClicked);
-    };
+    // console.log(positions);
 
     const mapRef = useRef();
 
-    const ParkingFeeMarker = (props) => (
-      <div className="overlaybox">
-        <div className="parking-fee" onClick={handlingClickOverlay}>
-          {props.fee}
+    const ParkingFeeMarker = (props) => {
+      const handlingClickOverlay = () => {
+        setState((prev) => ({
+          ...prev,
+          isBottomSheetOpen: !prev.isBottomSheetOpen,
+          selectedParkingLot: {
+            title: props.title,
+            fee: props.fee,
+            basicTime: props.basicTime,
+            prkplceNo: props.prkplceNo,
+            prkplceSe: props.prkplceSe,
+          },
+        }));
+      };
+
+      return (
+        <div className="overlaybox">
+          <div className="parking-fee" onClick={handlingClickOverlay}>
+            {+props.fee === 0 ? '무료' : props.fee}
+          </div>
         </div>
-      </div>
-    );
+      );
+    };
 
     const zoomIn = () => {
       const map = mapRef.current;
@@ -98,22 +119,15 @@ export default function KakaoMap(props) {
             draggable={draggable}
             ref={mapRef}
           >
-            {/* 🚨 To Do : 위치 변경 시 오버레이 랜더링 필요 */}
-            {/* {state.isLoading && (
-              <CustomOverlayMap // 커스텀 오버레이를 표시할 Container
-                // 커스텀 오버레이가 표시될 위치입니다
-                position={state.center}
-                // 커스텀 오버레이에 대한 확장 옵션
-                xAnchor={0.3}
-                yAnchor={0.91}
-              >
-                <ParkingFeeMarker />
-              </CustomOverlayMap>
-            )} */}
-
             {positions.map((position, index) => (
-              <CustomOverlayMap position={position.latlng} xAnchor={0.3} yAnchor={0.91}>
-                <ParkingFeeMarker fee={position.fee} />
+              <CustomOverlayMap key={position.prkplceNo} position={position.latlng} xAnchor={0.3} yAnchor={0.91}>
+                <ParkingFeeMarker
+                  title={position.title}
+                  fee={position.fee}
+                  basicTime={position.basicTime}
+                  prkplceNo={position.prkplceNo}
+                  prkplceSe={position.prkplceSe}
+                />
               </CustomOverlayMap>
             ))}
 
@@ -130,6 +144,9 @@ export default function KakaoMap(props) {
             </button>
           </Map>
         </div>
+        {state.isBottomSheetOpen && (
+          <ParkingLotBottomSheet show={state.isBottomSheetOpen} selectedParkingLot={state.selectedParkingLot} />
+        )}
       </>
     );
   };

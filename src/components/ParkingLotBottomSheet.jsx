@@ -1,21 +1,21 @@
 import React from 'react';
-import { ParkinglotList } from './ParkinglotList.jsx';
 import styled from 'styled-components';
 import theme from '../styles/theme.js';
 import UtilButton from './UtilButton.jsx';
 import FavoriteButton from '../components/FavoriteButton.jsx';
 
-export default function ParkingLotBottomSheet() {
+export default function ParkingLotBottomSheet(props) {
   return (
-    <ParkingLotBottomSheetWrapper>
-      {/* <ParkinglotList /> */}
+    <ParkingLotBottomSheetWrapper className={`ParkingLotBottomSheet ${props.show ? 'show' : ''}`}>
       <ParkingLotInfoWrapper>
         <BottomSheetTitle>
-          <ParkingLotTitle>주차장 이름</ParkingLotTitle>
+          <ParkingLotTitle>{props.selectedParkingLot.title}</ParkingLotTitle>
           <FavoriteButton />
         </BottomSheetTitle>
-        <ParkingLotInfo>공영 | 전기차 충전소 | 화장실 | 12면</ParkingLotInfo>
-        <ParkingFeeInfo>10분당 2,500원 / 추가 5분당 1,000원</ParkingFeeInfo>
+        <ParkingLotInfo>{props.selectedParkingLot.prkplceSe} | 전기차 충전소 | 화장실 | 12면</ParkingLotInfo>
+        <ParkingFeeInfo>
+          {props.selectedParkingLot.basicTime}분당 {props.selectedParkingLot.fee}원
+        </ParkingFeeInfo>
       </ParkingLotInfoWrapper>
       <ButtonWrapper>
         <UtilButton type="button" icon="public/assets/icons/icon-call.svg" width="48" theme="dark">
@@ -30,12 +30,18 @@ export default function ParkingLotBottomSheet() {
 }
 
 const ParkingLotBottomSheetWrapper = styled.div`
-  z-index: 12;
   position: fixed;
   bottom: 0;
   width: 100%;
   height: ${theme.calcRem(197)};
   background-color: ${theme.colors.white};
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(100%); /* bottom sheet 숨기기 */
+  z-index: 12;
+
+  &.show {
+    transform: translateY(0%); /* bottom sheet 보이기 */
+  }
 `;
 
 const ParkingLotInfoWrapper = styled.div`
