@@ -17,7 +17,7 @@ export default function Sidebar(props) {
           <MyPage>마이페이지</MyPage>
           <MypageList>
             <ReviewLi>
-              <ReviewMenu href="http://localhost:3000/mypage" tabIndex={0}>
+              <ReviewMenu href="http://localhost:3000/mypage/review" tabIndex={0}>
                 - 나의 리뷰
               </ReviewMenu>
             </ReviewLi>

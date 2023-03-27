@@ -99,3 +99,14 @@ function dataFilter(arr1, Centerlongitude) {
 //     return arr3;
 //   }
 // }
+
+// const [data, setData] = useState([]);
+
+// useEffect(() => {
+//   SearchRTDB('prkplceNo', '350-4-000008').then((res) => {
+//     setData(res);
+//   });
+//   SearchAreaScope().then((res) => {
+//     setLocationData(res);
+//   });
+// }, []);
