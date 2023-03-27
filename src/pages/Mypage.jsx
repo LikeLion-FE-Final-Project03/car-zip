@@ -156,11 +156,9 @@ const NavStyle = styled(NavLink)`
 
 function ReviewContents() {
   return (
-    <ul>
-      <ReviewBoxWrapper>
-        <ReviewBox></ReviewBox>
-      </ReviewBoxWrapper>
-    </ul>
+    <ReviewBoxWrapper>
+      <ReviewBox></ReviewBox>
+    </ReviewBoxWrapper>
   );
 }
 

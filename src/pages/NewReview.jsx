@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { IcVector } from '../../public/assets/icons';
-import { NotRecommendBtn, RecommendBtn } from '../../public/assets/images';
+import { NotRecommendBtn, RecommendBtn, GrayRecommend, GrayNotRecommend } from '../../public/assets/images';
 
 import theme from './../styles/theme';
 import { calcRem } from './../styles/theme';
@@ -14,14 +14,17 @@ import { addDoc, deleteDoc, updateDoc, doc, collection, getDocs } from 'firebase
 export default function NewReview() {
   // 리뷰 데이터 담을 변수
   const [reviews, setReviews] = useState([]);
-  //리뷰에 필요한 데이터
-  const [name, setName] = useState('');
-  const [userId, setUserId] = useState('');
+  // 리뷰 작성 시 필수 입력값
   const [content, setContent] = useState('');
-  const [recommend, setRecommend] = useState('');
+  const [recommend, setRecommend] = useState(false);
+  const [selectedRecommend, setSelectedRecommend] = useState(false);
 
   //db의 reviews 컬렉션 가져오기
   const reviewsCollectionRef = collection(db, 'reviews');
+
+  //로그인한 유저 정보
+  const userName = JSON.parse(localStorage.getItem('user')).user.displayName;
+  const userId = JSON.parse(localStorage.getItem('user')).user.uid;
 
   //시작될 때 한번만 실행
   useEffect(() => {
@@ -40,7 +43,7 @@ export default function NewReview() {
   const createReview = async () => {
     // addDoc을 이용해서 내가 원하는 collection에 내가 원하는 key로 값을 추가함.
     await addDoc(reviewsCollectionRef, {
-      name: name,
+      name: userName,
       userId: userId,
       content: content,
       date: new Date().getTime(),
@@ -48,13 +51,13 @@ export default function NewReview() {
       recommend: recommend,
     });
     window.alert('리뷰를 등록하였습니다.');
-    console.log('create Review');
+    window.location.href = '/mypage/review';
   };
 
   //추천, 비추천 클릭시 알림 띄우기
   const handleRecommend = (recommendVal) => {
-    window.alert(`${recommendVal ? '추천' : '비추천'}버튼을 눌렀습니다.`);
     setRecommend(recommendVal);
+    setSelectedRecommend(true);
   };
 
   return (
@@ -68,20 +71,6 @@ export default function NewReview() {
       <ParkingNameWrapper>
         <ParkingName>파킹 주차장</ParkingName>
       </ParkingNameWrapper>
-      <input
-        type="text"
-        placeholder="name..."
-        onChange={(event) => {
-          setName(event.target.value);
-        }}
-      />
-      <input
-        type="text"
-        placeholder="userId..."
-        onChange={(event) => {
-          setUserId(event.target.value);
-        }}
-      />
       <BtnWrapper>
         <RecommendBtnWrapper
           aria-label="추천"
@@ -90,7 +79,7 @@ export default function NewReview() {
             handleRecommend(true);
           }}
         >
-          <RecommendBtn />
+          {!selectedRecommend ? <GrayRecommend /> : recommend ? <RecommendBtn /> : <GrayRecommend />}
         </RecommendBtnWrapper>
         <NotRecommendBtnWrapper
           aria-label="비추천"
@@ -99,7 +88,8 @@ export default function NewReview() {
             handleRecommend(false);
           }}
         >
-          <NotRecommendBtn />
+          {/* <NotRecommendBtn /> */}
+          {!selectedRecommend ? <GrayNotRecommend /> : recommend ? <GrayNotRecommend /> : <NotRecommendBtn />}
         </NotRecommendBtnWrapper>
       </BtnWrapper>
 
