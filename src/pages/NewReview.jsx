@@ -10,7 +10,18 @@ import { calcRem } from './../styles/theme';
 import { db } from '../../Firebase';
 import { addDoc, deleteDoc, updateDoc, doc, collection, getDocs } from 'firebase/firestore';
 
+import { useLocation } from 'react-router';
+
+import { SearchRTDB } from './../components/getDB/ReadDB';
+
 export default function NewReview() {
+  //상세페이지에서 넘겨 받은 주차장 코드
+  const location = useLocation();
+  const { parkingNo } = location.state;
+
+  //RTDB 데이터를 담기
+  const [data, setData] = useState([]);
+
   // 리뷰 데이터 담을 변수
   const [reviews, setReviews] = useState([]);
 
@@ -30,6 +41,16 @@ export default function NewReview() {
   //로그인한 유저 정보
   const userName = JSON.parse(localStorage.getItem('user')).user.displayName;
   const userId = JSON.parse(localStorage.getItem('user')).user.uid;
+
+  //RTDB에서 해당 주차장 코드의 주차장명 가져오기
+  useEffect(() => {
+    SearchRTDB('prkplceNo', parkingNo).then((res) => {
+      setData(res);
+    });
+  }, []);
+
+  //주차장명 저장
+  const prkplceNm = data.map((value) => value.prkplceNm);
 
   //시작될 때 한번만 실행
   useEffect(() => {
@@ -71,7 +92,7 @@ export default function NewReview() {
       userId: userId,
       content: content,
       date: new Date().getTime(),
-      prkplceNo: '2312-023',
+      prkplceNo: parkingNo,
       recommend: recommend,
     });
     window.alert('리뷰를 등록하였습니다.');
@@ -93,7 +114,7 @@ export default function NewReview() {
         <PageTitle>리뷰 작성</PageTitle>
       </PageHeader>
       <ParkingNameWrapper>
-        <ParkingName>파킹 주차장</ParkingName>
+        <ParkingName>{prkplceNm}</ParkingName>
       </ParkingNameWrapper>
       <BtnWrapper>
         <RecommendBtnWrapper

@@ -1,15 +1,32 @@
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import DetailReview from '../Review/DetailReview';
+import { useNavigate } from 'react-router';
 
 export default function Review({ zipcode }) {
+  const navigate = useNavigate();
+
+  const createReview = () => {
+    navigate('/newreview', {
+      state: {
+        parkingNo: zipcode,
+      },
+    });
+  };
+
   return (
     <ReviewWrapper>
       <div className="title">
         <h3>리뷰</h3>
-        <div zipcode={zipcode} className="write-review">
+        <button
+          zipcode={zipcode}
+          className="write-review"
+          onClick={() => {
+            createReview();
+          }}
+        >
           리뷰작성 버튼
-        </div>
+        </button>
       </div>
       <ReviewBoxWrapper>
         <DetailReview zipcode={zipcode} />
