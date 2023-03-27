@@ -19,11 +19,9 @@ function App() {
     const isloggedIn = JSON.parse(window.localStorage.getItem('user'));
     const returnloggedIn = isloggedIn ? (
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/*" element={<NotFound />} />
+        <Route path="/*" element={<Main />} />
         <Route path="/detail" element={<ZipDetail />} />
         <Route path="/fee" element={<FeeCalculator />} />
-        <Route path="/search" element={<Search />} />
         <Route path="/mypage/*" element={<Mypage />} />
         <Route path="/viewreview" element={<ViewReview />} />
         <Route path="/newreview" element={<NewReview />} />

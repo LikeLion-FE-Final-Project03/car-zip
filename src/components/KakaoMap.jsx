@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Map, CustomOverlayMap } from 'react-kakao-maps-sdk';
 import { IcLocation } from '../../public/assets/icons';
 import { SearchAreaScope } from './getDB/ReadDB';
@@ -6,6 +6,7 @@ import { SearchAreaScope } from './getDB/ReadDB';
 export default function KakaoMap(props) {
   const Main = () => {
     const [draggable, setDraggable] = useState(true);
+
     const [state, setState] = useState({
       center: {
         lat: 33.450701,
@@ -70,13 +71,15 @@ export default function KakaoMap(props) {
         if (status === kakao.maps.services.Status.OK) {
           const currentLat = result[0].y;
           const currentLng = result[0].x;
-
           map.setCenter(new window.kakao.maps.LatLng(currentLat, currentLng));
+          console.log(result);
+
+          // SearchAreaScope 를 이용해 중심좌표 기준 2km안의 리스트를 구한다.
+          // SearchAreaScope(Number(currentLat), Number(currentLng));
         }
       };
       places.keywordSearch(keyword, callback);
     }
-
     searchPlace(props.SearchName);
 
     return (

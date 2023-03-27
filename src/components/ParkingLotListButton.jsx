@@ -2,13 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import { IcList } from '../../public/assets/icons/index.js';
+import { Link } from 'react-router-dom';
 
 export default function ParkingLotListButton() {
   return (
-    <ParkingLotListButtonWrapper>
-      <IcList />
-      목록보기
-    </ParkingLotListButtonWrapper>
+    <Link to="/searchList">
+      <ParkingLotListButtonWrapper>
+        <IcList />
+        목록보기
+      </ParkingLotListButtonWrapper>
+    </Link>
   );
 }
 
