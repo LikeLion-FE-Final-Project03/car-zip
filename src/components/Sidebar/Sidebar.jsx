@@ -1,10 +1,21 @@
 import { IcBack } from '../../../public/assets/icons';
 import styled from 'styled-components';
 import theme from './../../styles/theme';
+import { useNavigate } from 'react-router-dom';
 
 export default function Sidebar(props) {
   const closeSidebar = () => {
     props.setIsSidebarOpen(false);
+  };
+
+  const navigate = useNavigate();
+
+  const onClickReview = () => {
+    navigate(`/mypage/review`);
+  };
+
+  const onClickBookmark = () => {
+    navigate(`/mypage/bookmark`);
   };
 
   return (
@@ -17,12 +28,12 @@ export default function Sidebar(props) {
           <MyPage>마이페이지</MyPage>
           <MypageList>
             <ReviewLi>
-              <ReviewMenu href="http://localhost:3000/mypage" tabIndex={0}>
+              <ReviewMenu onClick={onClickReview} tabIndex={0}>
                 - 나의 리뷰
               </ReviewMenu>
             </ReviewLi>
             <li>
-              <BookmarkMenu href="http://localhost:3000/mypage/bookmark" tabIndex={0}>
+              <BookmarkMenu onClick={onClickBookmark} tabIndex={0}>
                 - 즐겨찾기
               </BookmarkMenu>
             </li>
@@ -46,11 +57,9 @@ export default function Sidebar(props) {
             </TextGithub>
           </p>
         </CarzipInfo>
-        <BackButton aria-label="뒤로가기 버튼">
+        <BackButton aria-label="뒤로가기 버튼" onClick={closeSidebar} onKeyDown={closeSidebar}>
           <IcBack />
-          <TextBack onClick={closeSidebar} onKeyDown={closeSidebar}>
-            뒤로
-          </TextBack>
+          <TextBack>뒤로</TextBack>
         </BackButton>
       </MenuWrapper>
       {props.isSidebarOpen ? <DimmedImage /> : ''}
