@@ -70,13 +70,24 @@ export default function FeeCalculator() {
       <ParkingFee>
         <h2>주차비</h2>
         <p>
-          최초 {basicTime}분 <span>{(+basicCharge).toLocaleString()}원</span> / 추가 {addUnitTime}분당{' '}
-          {(+addUnitCharge).toLocaleString()}원
+          최초 {(+basicTime).toLocaleString()}분 <span>{(+basicCharge).toLocaleString()}원</span> /{' '}
+          {addUnitTime
+            ? `추가 
+        ${(+addUnitTime).toLocaleString()}분당 ${(+addUnitCharge).toLocaleString()}원`
+            : '정보없음'}
         </p>
       </ParkingFee>
       <ResultFee>
         <h3>예상 결제 금액</h3>
         <p>{totalFee}</p>
+        {!addUnitTime ? (
+          <span>
+            해당 주차장의 추가요금 정보가 없어 정확한 계산이 불가합니다.
+            <br />
+          </span>
+        ) : (
+          ''
+        )}
         <span>할인 감면 대상에 따라 결제 금액이 달라질 수 있으니 참고용으로만 사용하시길 바랍니다.</span>
       </ResultFee>
     </FeeCalculatorWrapper>
