@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import theme from '../styles/theme';
 
-export default function UtilButton({ type, width, icon, children, theme, onClick, as }) {
+export default function UtilButton({ type, width, icon, children, theme, onClick, as, href }) {
   return (
-    <Button as={as} type={type} icon={icon} width={width} theme={theme} onClick={onClick}>
+    <Button as={as} type={type} icon={icon} width={width} theme={theme} onClick={onClick} href={href}>
       {children}
     </Button>
   );

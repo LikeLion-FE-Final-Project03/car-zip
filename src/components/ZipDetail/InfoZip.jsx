@@ -49,10 +49,6 @@ export default function InfoZip({
     }
   }
 
-  function naviKakaoMap() {
-    return `location.href='https://map.kakao.com/link/to/${address},${latitude},${longitude}'`;
-  }
-
   return (
     <InfoZipWrapper>
       <Title>
@@ -60,10 +56,10 @@ export default function InfoZip({
         <FavoriteButton parkingNo={parkingNo}>즐겨찾기 추가</FavoriteButton>
       </Title>
       <TagWrapper>
-        <TagItem text={type} />
-        <TagItem text={chargeInfo} />
-        <TagItem text={count + '면'} />
-        <TagItem text={where} />
+        {type ? <TagItem text={type} /> : ''}
+        {chargeInfo ? <TagItem text={chargeInfo} /> : ''}
+        {count ? <TagItem text={count + '면'} /> : ''}
+        {where ? <TagItem text={where} /> : ''}
       </TagWrapper>
       <Address>
         <span className="zip-address">{address}</span>
@@ -72,8 +68,11 @@ export default function InfoZip({
         </CopyButton>
       </Address>
       <Price>
-        최초 {(+basicTime).toLocaleString()}분 <span>{(+basicCharge).toLocaleString()}원</span> / 추가{' '}
-        {(+addUnitTime).toLocaleString()}분당 {(+addUnitCharge).toLocaleString()}원
+        최초 {(+basicTime).toLocaleString()}분 <span>{(+basicCharge).toLocaleString()}원</span> /{' '}
+        {addUnitTime
+          ? `추가 
+        ${(+addUnitTime).toLocaleString()}분당 ${(+addUnitCharge).toLocaleString()}원`
+          : '정보없음'}
       </Price>
       <Utils>
         <Link

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import DetailReview from '../Review/DetailReview';
 
-export default function Review() {
+export default function Review({ zipcode }) {
   return (
     <ReviewWrapper>
       <ReviewBoxWrapper>
-        <DetailReview />
+        <DetailReview zipcode={zipcode} />
       </ReviewBoxWrapper>
     </ReviewWrapper>
   );
