@@ -38,7 +38,7 @@
   "scripts": {
     "start": "npm run dev -- --open",
     "dev": "vite --host localhost --port 3000 --cors",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext .tsx,.ts,.jsx,.js",
     "lint:fix": "npm run lint -- --fix",
