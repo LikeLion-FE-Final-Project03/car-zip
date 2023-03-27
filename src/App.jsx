@@ -22,7 +22,7 @@ function App() {
         <Route path="/detail" element={<ZipDetail />} />
         <Route path="/fee" element={<FeeCalculator />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/mypage/*" element={<Mypage />} />
         <Route path="/viewreview" element={<ViewReview />} />
         <Route path="/newreview" element={<NewReview />} />
       </Routes>
