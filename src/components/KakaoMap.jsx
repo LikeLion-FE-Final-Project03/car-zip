@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 import { Map, CustomOverlayMap } from 'react-kakao-maps-sdk';
 import { IcLocation } from '../../public/assets/icons';
+import { SearchAreaScope } from './getDB/ReadDB';
 
 export default function KakaoMap(props) {
   const Main = () => {
     const [draggable, setDraggable] = useState(true);
-
     const [state, setState] = useState({
       center: {
         lat: 33.450701,
@@ -62,6 +62,23 @@ export default function KakaoMap(props) {
       }
     };
 
+    function searchPlace(keyword = '서울 광화문') {
+      const places = new window.kakao.maps.services.Places();
+
+      const callback = function (result, status) {
+        const map = mapRef.current;
+        if (status === kakao.maps.services.Status.OK) {
+          const currentLat = result[0].y;
+          const currentLng = result[0].x;
+
+          map.setCenter(new window.kakao.maps.LatLng(currentLat, currentLng));
+        }
+      };
+      places.keywordSearch(keyword, callback);
+    }
+
+    searchPlace(props.SearchName);
+
     return (
       <>
         <div className={`map_wrap`}>
@@ -101,5 +118,6 @@ export default function KakaoMap(props) {
       </>
     );
   };
+
   return <Main />;
 }

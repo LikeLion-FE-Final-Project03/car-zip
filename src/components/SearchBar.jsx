@@ -30,6 +30,11 @@ export default function SearchBar(props) {
     setIsSearchWindowOn(true);
   };
 
+  const handleSearchButton = () => {
+    props.setSearchName(inputValue);
+  };
+
+  console.log(inputValue);
   return (
     <SearchBarWrapper>
       <IcMenu onClick={toggleSidebar} />
@@ -41,7 +46,7 @@ export default function SearchBar(props) {
           onChange={handleChangeInput}
           onBlur={handleBlur}
         />
-        <SearchButton>
+        <SearchButton onClick={handleSearchButton}>
           <IcSearchBtn />
         </SearchButton>
         <SearchKeywordWrapper className={isSearchWindowOn ? '' : 'closed'}>
