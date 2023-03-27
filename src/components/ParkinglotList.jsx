@@ -6,13 +6,13 @@ import { TextStyle } from '../styles/UsefulStyle';
 
 import { NaviButtonImg, ActiveFavorite, DeactiveFavorite } from '../../public/assets/icons';
 
-export function ParkinglotList() {
+export function ParkinglotList(props) {
   const [state, setState] = useState('focus');
 
   return (
     <ParkinglotWrapper>
       <div>
-        <ParkinglotTitle>주차장 이름</ParkinglotTitle>
+        <ParkinglotTitle>{props.prkplceNm}</ParkinglotTitle>
         <BookmarkButtonStyle>
           <ActiveFavorite />
           <DeactiveFavorite />

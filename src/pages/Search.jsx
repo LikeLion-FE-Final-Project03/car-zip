@@ -5,16 +5,18 @@ import { PrevButton } from '../../public/assets/icons';
 import { ParkinglotList } from '../components/ParkinglotList';
 import theme from '../styles/theme';
 import SearchBar from '../components/SearchBar';
+import { Link } from 'react-router-dom';
 
 export default function Search() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <SearchBar />
       <SearchWrapper>
         <button>
-          <PrevButton></PrevButton> 뒤로
+          <Link to="/">
+            <PrevButton></PrevButton> 뒤로
+          </Link>
         </button>
         <fieldset>
           <input type="radio" name="filter" id="filter-closest" defaultChecked></input>

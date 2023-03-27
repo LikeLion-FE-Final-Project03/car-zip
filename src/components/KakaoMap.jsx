@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
-import { Map, CustomOverlayMap, MapMarker } from 'react-kakao-maps-sdk';
+import { useRef, useEffect, useState } from 'react';
+import { Map, CustomOverlayMap } from 'react-kakao-maps-sdk';
 import { IcLocation } from '../../public/assets/icons';
-import { SearchAreaScope } from '../components/getDB/ReadDB';
+import { SearchAreaScope } from './getDB/ReadDB';
 import ParkingLotBottomSheet from './ParkingLotBottomSheet';
 
 export default function KakaoMap(props) {
@@ -96,6 +96,25 @@ export default function KakaoMap(props) {
       }
     };
 
+    function searchPlace(keyword = '서울 광화문') {
+      const places = new window.kakao.maps.services.Places();
+
+      const callback = function (result, status) {
+        const map = mapRef.current;
+        if (status === kakao.maps.services.Status.OK) {
+          const currentLat = result[0].y;
+          const currentLng = result[0].x;
+          map.setCenter(new window.kakao.maps.LatLng(currentLat, currentLng));
+          console.log(result);
+
+          // SearchAreaScope 를 이용해 중심좌표 기준 2km안의 리스트를 구한다.
+          // SearchAreaScope(Number(currentLat), Number(currentLng));
+        }
+      };
+      places.keywordSearch(keyword, callback);
+    }
+    searchPlace(props.SearchName);
+
     return (
       <>
         <div className={`map_wrap`}>
@@ -155,5 +174,6 @@ export default function KakaoMap(props) {
       </>
     );
   };
+
   return <Main />;
 }
