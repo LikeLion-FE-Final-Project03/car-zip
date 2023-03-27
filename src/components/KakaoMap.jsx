@@ -10,6 +10,7 @@ export default function KakaoMap(props) {
       lat: 36.013434,
       lng: 129.349478,
     },
+    isPanto: false,
     errMsg: null,
     isLoading: true,
     isBottomSheetOpen: false,
@@ -17,14 +18,13 @@ export default function KakaoMap(props) {
 
   const Main = () => {
     const [draggable, setDraggable] = useState(true);
-
     const [locationData, setLocationData] = useState([]);
 
     useEffect(() => {
       SearchAreaScope(state.center.lat, state.center.lng).then((res) => {
         setLocationData(res);
       });
-    }, []);
+    }, [state.center]);
 
     // console.log(locationData, 'hello');
 
@@ -47,24 +47,12 @@ export default function KakaoMap(props) {
 
     const ParkingFeeMarker = (props) => {
       const handlingClickOverlay = () => {
-        setState((prev) => ({
-          ...prev,
-          isBottomSheetOpen: !prev.isBottomSheetOpen,
-          selectedParkingLot: {
-            title: props.title,
-            fee: props.fee,
-            basicTime: props.basicTime,
-            prkplceNo: props.prkplceNo,
-            prkplceSe: props.prkplceSe,
-          },
-        }));
+        props.onClick();
       };
 
       return (
-        <div className="overlaybox">
-          <div className="parking-fee" onClick={handlingClickOverlay}>
-            {+props.fee === 0 ? '무료' : props.fee}
-          </div>
+        <div className="overlaybox" onClick={handlingClickOverlay}>
+          <div className="parking-fee">{+props.fee === 0 ? '무료' : props.fee}</div>
         </div>
       );
     };
@@ -114,6 +102,7 @@ export default function KakaoMap(props) {
           <Map
             id="map"
             center={state.center}
+            isPanto={state.isPanto}
             style={{ width: '100%', height: '100vh', position: 'relative', overflow: 'hidden' }}
             level={3}
             draggable={draggable}
@@ -122,11 +111,27 @@ export default function KakaoMap(props) {
             {positions.map((position, index) => (
               <CustomOverlayMap key={position.prkplceNo} position={position.latlng} xAnchor={0.3} yAnchor={0.91}>
                 <ParkingFeeMarker
+                  center={position.latlng}
                   title={position.title}
                   fee={position.fee}
                   basicTime={position.basicTime}
                   prkplceNo={position.prkplceNo}
                   prkplceSe={position.prkplceSe}
+                  onClick={() => {
+                    setState((prev) => ({
+                      ...prev,
+                      center: { lat: position.latlng.lat, lng: position.latlng.lng },
+                      isPanto: true,
+                      isBottomSheetOpen: !prev.isBottomSheetOpen,
+                      selectedParkingLot: {
+                        title: position.title,
+                        fee: position.fee,
+                        basicTime: position.basicTime,
+                        prkplceNo: position.prkplceNo,
+                        prkplceSe: position.prkplceSe,
+                      },
+                    }));
+                  }}
                 />
               </CustomOverlayMap>
             ))}
