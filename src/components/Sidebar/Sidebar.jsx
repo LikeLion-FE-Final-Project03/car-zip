@@ -46,11 +46,9 @@ export default function Sidebar(props) {
             </TextGithub>
           </p>
         </CarzipInfo>
-        <BackButton aria-label="뒤로가기 버튼">
+        <BackButton aria-label="뒤로가기 버튼" onClick={closeSidebar} onKeyDown={closeSidebar}>
           <IcBack />
-          <TextBack onClick={closeSidebar} onKeyDown={closeSidebar}>
-            뒤로
-          </TextBack>
+          <TextBack>뒤로</TextBack>
         </BackButton>
       </MenuWrapper>
       {props.isSidebarOpen ? <DimmedImage /> : ''}
