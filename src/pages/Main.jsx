@@ -5,6 +5,7 @@ import ParkingLotListButton from '../components/ParkingLotListButton.jsx';
 import Sidebar from '../components/Sidebar/Sidebar';
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import ParkingLotBottomSheet from '../components/ParkingLotBottomSheet.jsx';
 
 export default function Main() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -13,7 +14,7 @@ export default function Main() {
   function MapPage() {
     return (
       <>
-        <Map la="37.498095" lo="127.027610" SearchName={searchName} />
+        <Map SearchName={searchName} />
         <ParkingLotListButton />
       </>
     );

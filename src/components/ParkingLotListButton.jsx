@@ -2,9 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import { IcList } from '../../public/assets/icons/index.js';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function ParkingLotListButton() {
+  const navigate = useNavigate();
+  const onClickListBtn = () => {
+    navigate(`/search`);
+  };
+
   return (
     <Link to="/searchList">
       <ParkingLotListButtonWrapper>
@@ -15,7 +20,7 @@ export default function ParkingLotListButton() {
   );
 }
 
-const ParkingLotListButtonWrapper = styled.button`
+const ParkingLotListButtonWrapper = styled.a`
   background-color: ${theme.colors.white};
   color: ${theme.colors.dark};
   border: 1px solid ${theme.colors.dark};
