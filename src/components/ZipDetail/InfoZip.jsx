@@ -162,8 +162,6 @@ const Price = styled.div`
 `;
 
 const Utils = styled.div`
-  margin-bottom: 20px;
-
   & button {
     margin-bottom: 10px;
   }
