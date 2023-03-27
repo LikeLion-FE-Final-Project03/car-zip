@@ -12,6 +12,7 @@ import { async } from '@firebase/util';
 
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -35,15 +36,21 @@ export default function ReviewBox() {
     });
   };
 
+  //[사이드이펙트] DB -> 리뷰 요청/응답
   useEffect(() => {
     // 비동기로 데이터 받을준비
     const getReviews = async () => {
-      //db의 reviews 컬렉션 가져오기
-      const reviewsCollectionRef = collection(db, 'reviews');
-      // getDocs로 컬렉션안에 데이터 가져오기
-      const data = await getDocs(reviewsCollectionRef);
-      // reviews에 data안의 자료 추가. 객체에 id 덮어씌우는거
-      setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      try {
+        //db의 reviews 컬렉션 가져오기
+        const reviewsCollectionRef = collection(db, 'reviews');
+        // getDocs로 컬렉션안에 데이터 가져오기
+        const data = await getDocs(reviewsCollectionRef);
+        // reviews에 data안의 자료 추가. 객체에 id 덮어씌우는거
+        setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      } finally {
+        //리뷰를 모두 받은 경우, 로딩 상태 false로 변경
+        setLoading(false);
+      }
     };
 
     getReviews();
@@ -67,38 +74,42 @@ export default function ReviewBox() {
   // console.log(userReview.length);
 
   const showReviews = () => {
-    if (reviews.filter((value) => value.userId === userId).length > 0) {
-      return userReview
-        .sort((a, b) => b.date - a.date)
-        .map((value) => (
-          <ReviewBoxWrapper key={value.id}>
-            <ReviewBoxHeader>
-              <ParkingLot>파킹 주차장</ParkingLot>
-              <BtnWrapper>
-                <ReviewUpdateButton
-                  className="btnUpdate"
-                  onClick={() => {
-                    isEdit(value.id, value.userId, value.content, value.recommend);
-                  }}
-                />
-                <ReviewDeleteButton
-                  onClick={() => {
-                    deleteReview(value.id, value.name);
-                  }}
-                />
-              </BtnWrapper>
-            </ReviewBoxHeader>
-            <ReviewWrapper>
-              <ReviewInfo>
-                {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
-                <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
-              </ReviewInfo>
-              <ReviewContent>{value.content}</ReviewContent>
-            </ReviewWrapper>
-          </ReviewBoxWrapper>
-        ));
+    if (loading) {
+      return <ReviewRoading>작성한 리뷰 로딩 중...</ReviewRoading>;
     } else {
-      return <NoReview>작성한 리뷰가 없습니다.</NoReview>;
+      if (reviews.filter((value) => value.userId === userId).length > 0) {
+        return userReview
+          .sort((a, b) => b.date - a.date)
+          .map((value) => (
+            <ReviewBoxWrapper key={value.id}>
+              <ReviewBoxHeader>
+                <ParkingLot>파킹 주차장</ParkingLot>
+                <BtnWrapper>
+                  <ReviewUpdateButton
+                    className="btnUpdate"
+                    onClick={() => {
+                      isEdit(value.id, value.userId, value.content, value.recommend);
+                    }}
+                  />
+                  <ReviewDeleteButton
+                    onClick={() => {
+                      deleteReview(value.id, value.name);
+                    }}
+                  />
+                </BtnWrapper>
+              </ReviewBoxHeader>
+              <ReviewWrapper>
+                <ReviewInfo>
+                  {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
+                  <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
+                </ReviewInfo>
+                <ReviewContent>{value.content}</ReviewContent>
+              </ReviewWrapper>
+            </ReviewBoxWrapper>
+          ));
+      } else {
+        return <NoReview>작성한 리뷰가 없습니다.</NoReview>;
+      }
     }
   };
 
@@ -166,5 +177,9 @@ const ReviewContent = styled.p`
 `;
 
 const NoReview = styled.h2`
+  font-size: ${theme.fontSizes.subTitle1};
+`;
+
+const ReviewRoading = styled.h2`
   font-size: ${theme.fontSizes.subTitle1};
 `;
