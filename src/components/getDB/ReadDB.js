@@ -36,12 +36,7 @@ export function SearchRTDB(searchKey, searchValue) {
  */
 
 export async function SearchAreaScope(Centerlatitude, Centerlongitude) {
-  const que1 = query(
-    dbRef,
-    orderByChild('latitude'),
-    startAt(Centerlatitude - 0.00455),
-    endAt(Centerlatitude + 0.00455)
-  );
+  const que1 = query(dbRef, orderByChild('latitude'), startAt(Centerlatitude - 0.0091), endAt(Centerlatitude + 0.0091));
 
   const arrayOne = await getQue(que1);
   const filteredData = await dataFilter(arrayOne, Centerlongitude);
@@ -70,11 +65,8 @@ async function getQue(que) {
 async function dataFilter(arr1, Centerlongitude) {
   let filteringData = [];
 
-  // console.log(Centerlongitude - 0.00565, '결과1');
-  // console.log(Centerlongitude + 0.00565, '계산결과2');
-
   await arr1.forEach((item) => {
-    if (Centerlongitude - 0.00565 < item.longitude < Centerlongitude + 0.00565) {
+    if (Centerlongitude - 0.0113 < item.longitude && item.longitude < Centerlongitude + 0.0113) {
       filteringData.push(item);
       // console.log(item.longitude, '값');
     }
