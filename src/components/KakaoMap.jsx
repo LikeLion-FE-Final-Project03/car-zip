@@ -32,8 +32,6 @@ export default function KakaoMap(props) {
       ParkingFeeMarker;
     }, [props.SearchName]);
 
-    // console.log(locationData, 'hello');
-
     const positions = [];
 
     locationData.forEach((obj) => {
@@ -47,20 +45,19 @@ export default function KakaoMap(props) {
       });
     });
 
-    // console.log(positions);
-
     const mapRef = useRef();
 
     const ParkingFeeMarker = (props) => {
       const handlingClickOverlay = () => {
         props.onClick();
-        const markerEl = document.querySelector(`[data-prkplce-no="${props.prkplceNo}"]`);
-        markerEl.classList.add('clicked');
-        console.log(markerEl);
       };
 
       return (
-        <div className="overlaybox" onClick={handlingClickOverlay} data-prkplce-no={props.prkplceNo}>
+        <div
+          className={`overlaybox ${props.prkplceNo === state.currentMarker?.prkplceNo ? 'clicked' : ''}`}
+          onClick={handlingClickOverlay}
+          data-prkplce-no={props.prkplceNo}
+        >
           <div className="parking-fee">{+props.fee === 0 ? '무료' : props.fee}</div>
         </div>
       );
@@ -144,6 +141,7 @@ export default function KakaoMap(props) {
                 position={position.latlng}
                 xAnchor={0.3}
                 yAnchor={0.91}
+                onClick={() => {}}
               >
                 <ParkingFeeMarker
                   center={position.latlng}
