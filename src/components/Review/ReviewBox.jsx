@@ -16,12 +16,13 @@ export default function ReviewBox() {
 
   const [data, setData] = useState([]);
 
+  // const [parkingNo, setParkingNo] = useState('');
   const navigate = useNavigate();
 
   //로그인한 유저의 uid 가져오기
   const userId = JSON.parse(localStorage.getItem('user')).user.uid;
 
-  const isEdit = (id, userId, reviewContent, recommendVal) => {
+  const isEdit = (id, userId, reviewContent, recommendVal, parkingName) => {
     const content = reviewContent;
     const recommend = recommendVal;
     navigate('/editreview', {
@@ -30,18 +31,10 @@ export default function ReviewBox() {
         userId: userId,
         content: content,
         recommendVal: recommend,
+        parkingName: parkingName,
       },
     });
   };
-
-  useEffect(() => {
-    SearchRTDB('prkplceNo', '350-4-000008').then((res) => {
-      setData(res);
-    });
-  }, []);
-
-  const prkplceNm = data.map((value) => value.prkplceNm);
-  console.log(prkplceNm);
 
   //[사이드이펙트] DB -> 리뷰 요청/응답
   useEffect(() => {
@@ -88,12 +81,12 @@ export default function ReviewBox() {
           .map((value) => (
             <ReviewBoxWrapper key={value.id}>
               <ReviewBoxHeader>
-                <ParkingLot>{prkplceNm}</ParkingLot>
+                <ParkingLot>{value.parkingName}</ParkingLot>
                 <BtnWrapper>
                   <ReviewUpdateButton
                     className="btnUpdate"
                     onClick={() => {
-                      isEdit(value.id, value.userId, value.content, value.recommend);
+                      isEdit(value.id, value.userId, value.content, value.recommend, value.parkingName);
                     }}
                   />
                   <ReviewDeleteButton
