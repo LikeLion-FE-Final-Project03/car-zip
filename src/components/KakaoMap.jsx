@@ -137,8 +137,14 @@ export default function KakaoMap(props) {
             draggable={draggable}
             ref={mapRef}
           >
+            ›
             {positions.map((position, index) => (
-              <CustomOverlayMap key={position.prkplceNo} position={position.latlng} xAnchor={0.3} yAnchor={0.91}>
+              <CustomOverlayMap
+                key={position.prkplceNo + position.title}
+                position={position.latlng}
+                xAnchor={0.3}
+                yAnchor={0.91}
+              >
                 <ParkingFeeMarker
                   center={position.latlng}
                   title={position.title}
@@ -174,7 +180,6 @@ export default function KakaoMap(props) {
                 />
               </CustomOverlayMap>
             ))}
-
             <div className="custom_zoomcontrol radius_border">
               <span onClick={zoomIn}>
                 <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대" />
