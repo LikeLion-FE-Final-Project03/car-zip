@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import DetailReview from '../Review/DetailReview';
+import { WriteBtn } from '../../../public/assets/images';
 import { useNavigate } from 'react-router';
 
 import { useState, useEffect } from 'react';
@@ -31,7 +32,7 @@ export default function Review({ zipcode, zipname }) {
             createReview();
           }}
         >
-          리뷰작성 버튼
+          <WriteBtn />
         </button>
       </div>
       <ReviewBoxWrapper>
@@ -53,7 +54,6 @@ const ReviewWrapper = styled.section`
   & .write-review {
     width: 100px;
     height: 30px;
-    background-color: dodgerblue;
   }
 
   & h3 {
