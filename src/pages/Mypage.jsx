@@ -14,7 +14,7 @@ export default function Mypage() {
   return (
     <>
       <Title>
-        <button onClick={() => navigate(-1)}>
+        <button aria-label="뒤로가기" onClick={() => navigate(-1)}>
           <BackButton />
         </button>
         <h1>마이 페이지</h1>
@@ -85,7 +85,7 @@ function UserInfoContents() {
           }, 100);
         }}
       >
-        <LogoutButton />
+        <LogoutButton aria-label="로그아웃" />
       </Link>
     </UserInfoWrapper>
   );
