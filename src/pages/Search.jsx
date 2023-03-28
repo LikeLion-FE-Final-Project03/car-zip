@@ -1,23 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
-import { PrevButton } from '../../public/assets/icons';
+import { useState, useEffect } from 'react';
+import { PrevButtonIcon } from '../../public/assets/icons';
 import { ParkinglotList } from '../components/ParkinglotList';
 import theme from '../styles/theme';
 import SearchBar from '../components/SearchBar';
 import { Link } from 'react-router-dom';
 
-export default function Search() {
+export default function Search(props) {
   const [count, setCount] = useState(0);
+
+  let latlngRefData = props.latlngRef;
+  useEffect(() => {
+    latlngRefData = props.latlngRef;
+    console.log(latlngRefData.current);
+  }, [props.latlngRef.current, props.searchName]);
 
   return (
     <>
       <SearchWrapper>
-        <button>
-          <Link to="/">
-            <PrevButton></PrevButton> 뒤로
-          </Link>
-        </button>
+        <Link to="/">
+          <PrevButtonIcon></PrevButtonIcon> 뒤로
+        </Link>
+
         <fieldset>
           <input type="radio" name="filter" id="filter-closest" defaultChecked></input>
           <label htmlFor="filter-closest"> 가까운 순 </label>
@@ -26,7 +31,7 @@ export default function Search() {
         </fieldset>
       </SearchWrapper>
       <ul>
-        <ParkinglotList></ParkinglotList>
+        <ParkinglotList latlngRef={latlngRefData}></ParkinglotList>
       </ul>
     </>
   );

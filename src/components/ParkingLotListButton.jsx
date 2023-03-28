@@ -4,7 +4,7 @@ import theme from '../styles/theme';
 import { IcList } from '../../public/assets/icons/index.js';
 import { useNavigate, Link } from 'react-router-dom';
 
-export default function ParkingLotListButton() {
+export default function ParkingLotListButton(props) {
   const navigate = useNavigate();
   const onClickListBtn = () => {
     navigate(`/search`);
@@ -20,7 +20,7 @@ export default function ParkingLotListButton() {
   );
 }
 
-const ParkingLotListButtonWrapper = styled.a`
+const ParkingLotListButtonWrapper = styled.div`
   background-color: ${theme.colors.white};
   color: ${theme.colors.dark};
   border: 1px solid ${theme.colors.dark};

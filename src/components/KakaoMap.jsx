@@ -15,7 +15,6 @@ export default function KakaoMap(props) {
     isLoading: true,
     isBottomSheetOpen: false,
   });
-
   const Main = () => {
     const [draggable, setDraggable] = useState(true);
     const [locationData, setLocationData] = useState([]);
@@ -23,8 +22,14 @@ export default function KakaoMap(props) {
     useEffect(() => {
       SearchAreaScope(state.center.lat, state.center.lng).then((res) => {
         setLocationData(res);
+        console.log(res, 'here');
       });
-    }, [state.center]);
+    }, [state.center.lat]);
+
+    useEffect(() => {
+      searchPlace(props.SearchName);
+      ParkingFeeMarker;
+    }, [props.SearchName]);
 
     // console.log(locationData, 'hello');
 
@@ -101,19 +106,20 @@ export default function KakaoMap(props) {
 
       const callback = function (result, status) {
         const map = mapRef.current;
-        if (status === kakao.maps.services.Status.OK) {
-          const currentLat = result[0].y;
-          const currentLng = result[0].x;
-          map.setCenter(new window.kakao.maps.LatLng(currentLat, currentLng));
-          console.log(result);
 
-          // SearchAreaScope 를 이용해 중심좌표 기준 2km안의 리스트를 구한다.
-          // SearchAreaScope(Number(currentLat), Number(currentLng));
+        if (status === kakao.maps.services.Status.OK) {
+          const currentLat = Number(result[0].y);
+          const currentLng = Number(result[0].x);
+
+          SearchAreaScope(currentLat, currentLng).then((res) => {
+            props.latlngRef.current = res;
+            setLocationData(res);
+          });
+          map.setCenter(new window.kakao.maps.LatLng(currentLat, currentLng));
         }
       };
       places.keywordSearch(keyword, callback);
     }
-    searchPlace(props.SearchName);
 
     return (
       <>
@@ -177,3 +183,14 @@ export default function KakaoMap(props) {
 
   return <Main />;
 }
+
+// const [data, setData] = useState([]);
+
+// useEffect(() => {
+//   SearchRTDB('prkplceNo', '350-4-000008').then((res) => {
+//     setData(res);
+//   });
+//   SearchAreaScope().then((res) => {
+//     setLocationData(res);
+//   });
+// }, []);
