@@ -104,7 +104,7 @@ export default function NewReview() {
   return (
     <ReviewWrapper>
       <PageHeader>
-        <button aria-label="뒤로가기 버튼">
+        <button aria-label="뒤로가기 버튼" onClick={() => navigate(-1)}>
           <IcVector />
         </button>
         <PageTitle>리뷰 작성</PageTitle>
