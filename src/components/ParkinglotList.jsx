@@ -1,36 +1,53 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import theme from '../styles/theme';
 import { TextStyle } from '../styles/UsefulStyle';
 
 import { NaviButtonImg, ActiveFavorite, DeactiveFavorite } from '../../public/assets/icons';
+import { Link } from 'react-router-dom';
 
 export function ParkinglotList(props) {
   const [state, setState] = useState('focus');
+  let lists = [];
+  let currentData = props.latlngRef.current;
+  let i = 0;
 
-  return (
-    <ParkinglotWrapper>
-      <div>
-        <ParkinglotTitle>{props.prkplceNm}</ParkinglotTitle>
-        <BookmarkButtonStyle>
-          <ActiveFavorite />
-          <DeactiveFavorite />
-        </BookmarkButtonStyle>
-        <TextStyle fontsize={theme.fontSizes.paragraph2} fontweight="400" fontcolor={theme.colors.grey3}>
-          공영 | 전기차 충전소 | 화장실 | 12면
-        </TextStyle>
-        <TextStyle fontsize={theme.fontSizes.paragraph2} fontweight="700">
-          10분당 2,500원 / 추가 5분당 1,000원
-        </TextStyle>
-      </div>
-      <a href="https://map.kakao.com/link/to/카카오판교오피스,37.402056,127.108212">
-        <NavibuttonStyle>
-          <NaviButtonImg />
-        </NavibuttonStyle>
-      </a>
-    </ParkinglotWrapper>
-  );
+  useEffect(() => {
+    currentData = props.latlngRef.current;
+    console.log(currentData, '유즈이펙 안안');
+  }, [props.latlngRef.current]);
+
+  while (i < currentData.length) {
+    lists.push(
+      <Link to="/detail" state={props.latlngRef.current}>
+        <ParkinglotWrapper key={i}>
+          <div>
+            <ParkinglotTitle>{currentData[i].prkplceNm}</ParkinglotTitle>
+            <BookmarkButtonStyle>
+              <ActiveFavorite />
+              <DeactiveFavorite />
+            </BookmarkButtonStyle>
+            <TextStyle fontsize={theme.fontSizes.paragraph2} fontweight="400" fontcolor={theme.colors.grey3}>
+              {currentData[i].prkplceSe}
+            </TextStyle>
+            <TextStyle fontsize={theme.fontSizes.paragraph2} fontweight="700">
+              {currentData[i].parkingchrgeInfo} | {currentData[i].basicTime}분당 / {currentData[i].basicCharge}원
+            </TextStyle>
+          </div>
+          <a href="https://map.kakao.com/link/to/카카오판교오피스,37.402056,127.108212">
+            <NavibuttonStyle>
+              <NaviButtonImg />
+            </NavibuttonStyle>
+          </a>
+        </ParkinglotWrapper>
+      </Link>
+    );
+
+    i++;
+  }
+
+  return <div> {lists} </div>;
 }
 
 const ParkinglotWrapper = styled.li`
