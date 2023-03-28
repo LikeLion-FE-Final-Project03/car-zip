@@ -6,6 +6,8 @@ import { db } from '../../../Firebase';
 import { doc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 
+import { useLocation } from 'react-router';
+
 export default function DetailReview({ zipcode }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);

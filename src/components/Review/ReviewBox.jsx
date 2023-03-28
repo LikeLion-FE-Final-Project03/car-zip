@@ -16,7 +16,6 @@ export default function ReviewBox() {
 
   const [data, setData] = useState([]);
 
-  // const [parkingNo, setParkingNo] = useState('');
   const navigate = useNavigate();
 
   //로그인한 유저의 uid 가져오기
