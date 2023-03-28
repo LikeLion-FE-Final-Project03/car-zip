@@ -49,10 +49,13 @@ export default function KakaoMap(props) {
     const ParkingFeeMarker = (props) => {
       const handlingClickOverlay = () => {
         props.onClick();
+        const markerEl = document.querySelector(`[data-prkplce-no="${props.prkplceNo}"]`);
+        markerEl.classList.add('clicked');
+        console.log(markerEl);
       };
 
       return (
-        <div className="overlaybox" onClick={handlingClickOverlay}>
+        <div className="overlaybox" onClick={handlingClickOverlay} data-prkplce-no={props.prkplceNo}>
           <div className="parking-fee">{+props.fee === 0 ? '무료' : props.fee}</div>
         </div>
       );
