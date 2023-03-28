@@ -22,6 +22,15 @@ export default function Review({ zipcode, zipname }) {
     });
   };
 
+  function renderSwiperSlide(component) {
+    return <swiper-slide>{component}</swiper-slide>;
+  }
+
+  // 리뷰 하나하나를 배열로 만들어서 component에 넣어주기
+  // 그럴라면 리뷰 컴포넌트 자체를 배열로 만들어야 함
+  // 그럴라면 리뷰에서 가져온 데이터들을 컴포넌트에 넣은 것을 배열로 반환해야함
+  // 그럴라면 맞는 데이터를 골라서 배열로 가져온 다음 .map으로 컴포넌트에 넣어야 함
+
   return (
     <ReviewWrapper>
       <div className="title">
@@ -41,11 +50,11 @@ export default function Review({ zipcode, zipname }) {
           <swiper-slide>slide1</swiper-slide>
           <swiper-slide>slide2</swiper-slide>
           <swiper-slide>slide3</swiper-slide>
+          <swiper-slide>
+            <DetailReview zipcode={zipcode} zipname={zipname} />
+          </swiper-slide>
         </swiper-container>
       </SwiperWrapper>
-      <ReviewBoxWrapper>
-        <DetailReview zipcode={zipcode} zipname={zipname} />
-      </ReviewBoxWrapper>
     </ReviewWrapper>
   );
 }
