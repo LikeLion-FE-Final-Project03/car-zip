@@ -8,15 +8,6 @@ import { GoogleIcon, KakaoIcon, NaverIcon, LogoutButton, BackButton } from '../.
 import ReviewBox from './../components/Review/ReviewBox';
 
 export default function Mypage() {
-  const [data, setData] = useState([]);
-
-  // useEffect(() => {
-  //   SearchRTDB('prkplceNo', '350-4-000008').then((res) => {
-  //     setData(res);
-  //   });
-  // }, []);
-
-  console.log(data);
   return (
     <>
       <Title>
@@ -64,6 +55,7 @@ const Title = styled.div`
 
 // UserInfo---------------------------
 function UserInfoContents() {
+  const userName = JSON.parse(localStorage.getItem('user')).user.displayName;
   return (
     <UserInfoWrapper>
       <div>
@@ -75,7 +67,7 @@ function UserInfoContents() {
             안녕하세요,
           </TextStyle>
           <TextStyle fontsize="24px" fontweight="700">
-            Unique Id 님!
+            {userName}님!
           </TextStyle>
         </div>
       </div>
