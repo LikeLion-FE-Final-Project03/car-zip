@@ -36,16 +36,21 @@ export function SearchRTDB(searchKey, searchValue) {
  */
 
 export async function SearchAreaScope(Centerlatitude, Centerlongitude) {
-  const que1 = query(dbRef, orderByChild('latitude'), startAt(Centerlatitude - 0.0091), endAt(Centerlatitude + 0.0091));
+  const que1 = query(
+    dbRef,
+    orderByChild('latitude'),
+    startAt(Centerlatitude - 0.00455),
+    endAt(Centerlatitude + 0.00455)
+  );
 
   const arrayOne = await getQue(que1);
-
-  return dataFilter(arrayOne, Centerlongitude);
+  const filteredData = await dataFilter(arrayOne, Centerlongitude);
+  return filteredData;
 }
 
 //--------------------------------------------------------------------------------------
 
-function getQue(que) {
+async function getQue(que) {
   return get(que)
     .then((snapshot) => {
       const receivedData = [];
@@ -62,43 +67,24 @@ function getQue(que) {
 }
 //--------------------------------------------------------------------------------------
 
-function dataFilter(arr1, Centerlongitude) {
+async function dataFilter(arr1, Centerlongitude) {
   let filteringData = [];
 
-  arr1.forEach((item) => {
-    if (Centerlongitude - 0.0113 < item.longitude < Centerlongitude + 0.0113) {
+  // console.log(Centerlongitude - 0.00565, '결과1');
+  // console.log(Centerlongitude + 0.00565, '계산결과2');
+
+  await arr1.forEach((item) => {
+    if (Centerlongitude - 0.00565 < item.longitude < Centerlongitude + 0.00565) {
       filteringData.push(item);
+      // console.log(item.longitude, '값');
     }
   });
+  console.log(filteringData);
 
   return filteringData;
 }
 
 //--------------------------------------------------------------------------------------
-
-// export async function SearchAreaScope(Centerlatitude, Centerlongitude) {
-//   const que1 = query(dbRef, orderByChild('latitude'), startAt(36.011), endAt(36.014));
-//   const que2 = query(dbRef, orderByChild('longitude'), startAt(129), endAt(130));
-
-//   const arrayOne = await getQue(que1);
-//   const arrayTwo = getQue(que2);
-
-//   const test123123 = dataFilter(arrayOne);
-//   console.log(test123123, 'hello');
-// }
-// function compareArray(arr1, arr2) {
-//   const arr3 = [];
-
-//   for (let i = 0; i < arr1.length; i++) {
-//     for (let t = 0; t < arr2.length; t++) {
-//       if (arr1[i].prkplceNo === arr2[t].prkplceNo) {
-//         arr3.push(arr1[i]);
-//       }
-//     }
-
-//     return arr3;
-//   }
-// }
 
 // const [data, setData] = useState([]);
 
