@@ -2,23 +2,31 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import { IcList } from '../../public/assets/icons/index.js';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function ParkingLotListButton() {
+  const navigate = useNavigate();
+  const onClickListBtn = () => {
+    navigate(`/search`);
+  };
+
   return (
-    <ParkingLotListButtonWrapper>
-      <IcList />
-      목록보기
-    </ParkingLotListButtonWrapper>
+    <Link to="/searchList">
+      <ParkingLotListButtonWrapper>
+        <IcList />
+        목록보기
+      </ParkingLotListButtonWrapper>
+    </Link>
   );
 }
 
-const ParkingLotListButtonWrapper = styled.button`
+const ParkingLotListButtonWrapper = styled.a`
   background-color: ${theme.colors.white};
   color: ${theme.colors.dark};
   border: 1px solid ${theme.colors.dark};
   border-radius: 999px;
   width: fit-content;
-  z-index: 9999;
+  z-index: 2;
   position: fixed;
   margin: 0 auto;
   left: 0;

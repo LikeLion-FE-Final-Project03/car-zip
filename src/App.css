@@ -39,6 +39,10 @@
   z-index: 0;
 }
 
+.clicked {
+  color: aqua;
+}
+
 .custom_zoomcontrol {
   position: absolute;
   bottom: 160px;
@@ -73,7 +77,7 @@
   position: absolute;
   right: 20px;
   bottom: 100px;
-  z-index: 9999;
+  z-index: 1;
   border: none;
   padding-top: 2px;
 }

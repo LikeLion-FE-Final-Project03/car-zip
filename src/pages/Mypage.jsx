@@ -1,20 +1,22 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, NavLink, Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import theme, { calcRem } from '../styles/theme';
 import { TextStyle } from '../styles/UsefulStyle';
-import {
-  GoogleIcon,
-  KakaoIcon,
-  NaverIcon,
-  LogoutButton,
-  BackButton,
-  ReviewUpdateButton,
-} from '../../public/assets/icons';
+import { GoogleIcon, KakaoIcon, NaverIcon, LogoutButton, BackButton } from '../../public/assets/icons';
 import ReviewBox from './../components/Review/ReviewBox';
 
 export default function Mypage() {
+  const [data, setData] = useState([]);
+
+  // useEffect(() => {
+  //   SearchRTDB('prkplceNo', '350-4-000008').then((res) => {
+  //     setData(res);
+  //   });
+  // }, []);
+
+  console.log(data);
   return (
     <>
       <Title>
@@ -156,35 +158,15 @@ const NavStyle = styled(NavLink)`
 
 function ReviewContents() {
   return (
-    <ul>
-      <ReviewBoxWrapper>
-        <h3>파킹 주차장</h3>
-        <button>
-          <Link to="/editReview">
-            <ReviewUpdateButton />
-          </Link>
-        </button>
-        <ReviewBox></ReviewBox>
-      </ReviewBoxWrapper>
-    </ul>
+    <ReviewBoxWrapper>
+      <ReviewBox></ReviewBox>
+    </ReviewBoxWrapper>
   );
 }
 
-const ReviewBoxWrapper = styled.li`
+const ReviewBoxWrapper = styled.ul`
   margin: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid ${theme.colors.orangeMain};
-  > h3 {
-    display: inline-block;
-    font-size: ${theme.fontSizes.subTitle2};
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-
-  > button {
-    display: float;
-    float: right;
-  }
 `;
 
 //---------------------------------------

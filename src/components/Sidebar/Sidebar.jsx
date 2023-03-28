@@ -1,67 +1,115 @@
 import { IcBack } from '../../../public/assets/icons';
 import styled from 'styled-components';
 import theme from './../../styles/theme';
+import { useNavigate } from 'react-router-dom';
 
-export default function Sidebar() {
+export default function Sidebar(props) {
+  const closeSidebar = () => {
+    props.setIsSidebarOpen(false);
+  };
+
+  const navigate = useNavigate();
+
+  const onClickReview = () => {
+    navigate(`/mypage/review`);
+  };
+
+  const onClickBookmark = () => {
+    navigate(`/mypage/bookmark`);
+  };
+
   return (
-    <MenuWrapper>
-      <MenuTitle>
-        메뉴<MenuTitleEng>MENU</MenuTitleEng>
-      </MenuTitle>
-      <SubMenu>
-        <MyPage>마이페이지</MyPage>
-        <MypageList>
-          <ReviewLi>
-            <ReviewMenu href="http://localhost:3000/mypage" tabIndex={0}>
-              - 나의 리뷰
-            </ReviewMenu>
-          </ReviewLi>
-          <li>
-            <BookmarkMenu href="http://localhost:3000/mypage/bookmark" tabIndex={0}>
-              - 즐겨찾기
-            </BookmarkMenu>
-          </li>
-        </MypageList>
-      </SubMenu>
-      <CarzipInfo>
-        <LogoWrapper>
-          <Logo src={'../public/assets/images/logo.png'} alt={'카집 로고'} />
-        </LogoWrapper>
-
-        <TextCopyright role={'contentinfo'}>Copyright By Parking-React</TextCopyright>
-        <TextTitle role={'contentinfo'}>만든 사람들</TextTitle>
-        <p>
-          <TextGithub
-            href="https://github.com/LikeLion-FE-Final-Project03"
-            target="_blank"
-            rel="noopener noreferer"
-            role={'contentinfo'}
-            aria-label={'파킹 리액트 깃허브 주소'}
-          >
-            Parking-React
-          </TextGithub>
-        </p>
-      </CarzipInfo>
-      <BackButton aria-label="뒤로가기 버튼">
-        <IcBack />
-        <TextBack>뒤로</TextBack>
-      </BackButton>
-    </MenuWrapper>
+    <SidebarWrapper>
+      <MenuWrapper className={props.isSidebarOpen ? 'open' : ''}>
+        <MenuTitle>
+          메뉴<MenuTitleEng>MENU</MenuTitleEng>
+        </MenuTitle>
+        <SubMenu>
+          <MyPage>마이페이지</MyPage>
+          <MypageList>
+            <ReviewLi>
+              <ReviewMenu onClick={onClickReview} tabIndex={0}>
+                - 나의 리뷰
+              </ReviewMenu>
+            </ReviewLi>
+            <li>
+              <BookmarkMenu onClick={onClickBookmark} tabIndex={0}>
+                - 즐겨찾기
+              </BookmarkMenu>
+            </li>
+          </MypageList>
+        </SubMenu>
+        <CarzipInfo>
+          <LogoWrapper>
+            <Logo src={'../public/assets/images/logo.png'} alt={'카집 로고'} />
+          </LogoWrapper>
+          <TextCopyright role={'contentinfo'}>Copyright By Parking-React</TextCopyright>
+          <TextTitle role={'contentinfo'}>만든 사람들</TextTitle>
+          <p>
+            <TextGithub
+              href="https://github.com/LikeLion-FE-Final-Project03"
+              target="_blank"
+              rel="noopener noreferer"
+              role={'contentinfo'}
+              aria-label={'파킹 리액트 깃허브 주소'}
+            >
+              Parking-React
+            </TextGithub>
+          </p>
+        </CarzipInfo>
+        <BackButton aria-label="뒤로가기 버튼" onClick={closeSidebar} onKeyDown={closeSidebar}>
+          <IcBack />
+          <TextBack>뒤로</TextBack>
+        </BackButton>
+      </MenuWrapper>
+      {props.isSidebarOpen ? <DimmedImage /> : ''}
+    </SidebarWrapper>
   );
 }
 
+const SidebarWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const DimmedImage = styled.div`
+  &:after {
+    z-index: 3;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    content: '';
+    background: ${theme.colors.black};
+    mix-blend-mode: normal;
+    opacity: 0.5;
+  }
+`;
+
 const MenuWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: -100%;
   width: 60%;
-  height: 844px;
+  height: 100%;
+  z-index: 4;
   background-color: ${theme.colors.dark};
   padding: 36px 20px 17px 20px;
   display: flex;
   flex-flow: column nowrap;
   letter-spacing: -1.25px;
   line-height: 24px;
+  transition: all 0.5s ease;
 
   & > * {
     order: 0;
+  }
+
+  &.open {
+    left: 0;
+    z-index: 4;
+    transition: all 0.5s ease;
   }
 `;
 

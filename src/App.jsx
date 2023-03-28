@@ -10,8 +10,8 @@ import Login from './pages/Login';
 import FeeCalculator from './pages/FeeCalculator';
 import Mypage from './pages/Mypage';
 import NewReview from './pages/NewReview';
-import SidebarTest from './pages/SidebarTest';
 import ViewReview from './pages/ViewReview';
+import EditReview from './pages/EditReview';
 import { useState } from 'react';
 
 function App() {
@@ -19,15 +19,13 @@ function App() {
     const isloggedIn = JSON.parse(window.localStorage.getItem('user'));
     const returnloggedIn = isloggedIn ? (
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/*" element={<NotFound />} />
+        <Route path="/*" element={<Main />} />
         <Route path="/detail" element={<ZipDetail />} />
         <Route path="/fee" element={<FeeCalculator />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="/sidebar" element={<SidebarTest />} />
+        <Route path="/mypage/*" element={<Mypage />} />
         <Route path="/viewreview" element={<ViewReview />} />
         <Route path="/newreview" element={<NewReview />} />
+        <Route path="/editreview" element={<EditReview />} />
       </Routes>
     ) : (
       <Routes>
