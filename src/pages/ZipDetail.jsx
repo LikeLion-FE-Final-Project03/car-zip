@@ -10,7 +10,6 @@ export default function ZipDetail() {
   const [parkingInfo, setParkingInfo] = useState({});
   const [parkingDatail, setParkingDatail] = useState({});
   const [latestUpdate, setLatestUpdate] = useState({});
-  // const prkplceNo = props.prkplceNo
 
   useEffect(() => {
     SearchRTDB('prkplceNo', '350-4-000009').then((res) => {
