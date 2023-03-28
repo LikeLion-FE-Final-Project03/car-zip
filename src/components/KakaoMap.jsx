@@ -14,6 +14,7 @@ export default function KakaoMap(props) {
     errMsg: null,
     isLoading: true,
     isBottomSheetOpen: false,
+    currentMarker: null,
   });
 
   const Main = () => {
@@ -137,19 +138,29 @@ export default function KakaoMap(props) {
                   prkplceNo={position.prkplceNo}
                   prkplceSe={position.prkplceSe}
                   onClick={() => {
-                    setState((prev) => ({
-                      ...prev,
-                      center: { lat: position.latlng.lat, lng: position.latlng.lng },
-                      isPanto: true,
-                      isBottomSheetOpen: !prev.isBottomSheetOpen,
-                      selectedParkingLot: {
-                        title: position.title,
-                        fee: position.fee,
-                        basicTime: position.basicTime,
-                        prkplceNo: position.prkplceNo,
-                        prkplceSe: position.prkplceSe,
-                      },
-                    }));
+                    if (state.currentMarker && state.currentMarker.prkplceNo === position.prkplceNo) {
+                      // 현재 클릭된 마커와 같은 마커를 클릭하면 바텀시트 닫기
+                      setState((prev) => ({
+                        ...prev,
+                        isBottomSheetOpen: false,
+                        currentMarker: null,
+                      }));
+                    } else {
+                      setState((prev) => ({
+                        ...prev,
+                        center: { lat: position.latlng.lat, lng: position.latlng.lng },
+                        isPanto: true,
+                        isBottomSheetOpen: true,
+                        currentMarker: position,
+                        selectedParkingLot: {
+                          title: position.title,
+                          fee: position.fee,
+                          basicTime: position.basicTime,
+                          prkplceNo: position.prkplceNo,
+                          prkplceSe: position.prkplceSe,
+                        },
+                      }));
+                    }
                   }}
                 />
               </CustomOverlayMap>
