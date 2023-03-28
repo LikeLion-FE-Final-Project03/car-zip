@@ -1,5 +1,5 @@
 import React, { useEffect, useInsertionEffect, useState, useRef, useId } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { IcVector } from '../../public/assets/icons';
 import { NotRecommendBtn, RecommendBtn, GrayRecommend, GrayNotRecommend } from '../../public/assets/images';
@@ -33,6 +33,8 @@ const EditReview = ({}) => {
 
   //기존 리뷰와 수정되는 리뷰 담는 변수
   const [state, setState] = useState(content);
+
+  const navigate = useNavigate();
 
   //시작될 때 한번만 실행(DB에서 데이터 가져와서 저장)
   useEffect(() => {
@@ -88,7 +90,7 @@ const EditReview = ({}) => {
     .map((value) => (
       <ReviewWrapper key={value.id}>
         <PageHeader>
-          <button aria-label="뒤로가기 버튼">
+          <button aria-label="뒤로가기 버튼" onClick={() => navigate(-1)}>
             <IcVector />
           </button>
           <PageTitle>리뷰 수정</PageTitle>

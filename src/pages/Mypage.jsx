@@ -6,12 +6,15 @@ import theme, { calcRem } from '../styles/theme';
 import { TextStyle } from '../styles/UsefulStyle';
 import { GoogleIcon, KakaoIcon, NaverIcon, LogoutButton, BackButton } from '../../public/assets/icons';
 import ReviewBox from './../components/Review/ReviewBox';
+import { useNavigate } from 'react-router';
 
 export default function Mypage() {
+  const navigate = useNavigate();
+
   return (
     <>
       <Title>
-        <button>
+        <button aria-label="뒤로가기" onClick={() => navigate(-1)}>
           <BackButton />
         </button>
         <h1>마이 페이지</h1>
@@ -82,7 +85,7 @@ function UserInfoContents() {
           }, 100);
         }}
       >
-        <LogoutButton />
+        <LogoutButton aria-label="로그아웃" />
       </Link>
     </UserInfoWrapper>
   );

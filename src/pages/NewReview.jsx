@@ -14,6 +14,8 @@ import { useLocation } from 'react-router';
 
 import { SearchRTDB } from './../components/getDB/ReadDB';
 
+import { useNavigate } from 'react-router';
+
 export default function NewReview() {
   //상세페이지에서 넘겨 받은 주차장 코드
   const location = useLocation();
@@ -42,7 +44,7 @@ export default function NewReview() {
   const userName = JSON.parse(localStorage.getItem('user')).user.displayName;
   const userId = JSON.parse(localStorage.getItem('user')).user.uid;
 
-  //주차장명 저장
+  const navigate = useNavigate();
 
   //시작될 때 한번만 실행
   useEffect(() => {
@@ -89,7 +91,8 @@ export default function NewReview() {
       parkingName: parkingName,
     });
     window.alert('리뷰를 등록하였습니다.');
-    window.location.href = '/mypage/review';
+
+    navigate(-1);
   };
 
   //추천, 비추천 클릭시 알림 띄우기
@@ -101,7 +104,7 @@ export default function NewReview() {
   return (
     <ReviewWrapper>
       <PageHeader>
-        <button aria-label="뒤로가기 버튼">
+        <button aria-label="뒤로가기 버튼" onClick={() => navigate(-1)}>
           <IcVector />
         </button>
         <PageTitle>리뷰 작성</PageTitle>
@@ -141,7 +144,13 @@ export default function NewReview() {
         }}
       ></ReviewInput>
       <LetterNum>{content.length}/200자</LetterNum>
-      <SubmitBtn onClick={createReview}>등록하기</SubmitBtn>
+      <SubmitBtn
+        onClick={() => {
+          createReview();
+        }}
+      >
+        등록하기
+      </SubmitBtn>
     </ReviewWrapper>
   );
 }

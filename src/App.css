@@ -40,7 +40,44 @@
 }
 
 .clicked {
-  color: aqua;
+  background-color: #fc9400;
+  border: transparent solid 1px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  height: auto;
+  letter-spacing: -0.25px;
+  padding: 8px 10px 6px;
+  position: relative;
+  width: fit-content;
+  z-index: 100;
+}
+
+.clicked::after {
+  border-color: #fc9400 transparent;
+  border-style: solid;
+  border-width: 8px 6px 0 6.5px;
+  content: '';
+  display: block;
+  left: 40%;
+  position: absolute;
+  bottom: -7px;
+  width: 0;
+  z-index: 1;
+}
+
+.clicked::before {
+  border-color: transparent;
+  border-style: solid;
+  border-width: 8px 6px 0 6.5px;
+  content: '';
+  display: block;
+  left: 40%;
+  position: absolute;
+  bottom: -9px;
+  width: 0;
+  z-index: 0;
 }
 
 .custom_zoomcontrol {

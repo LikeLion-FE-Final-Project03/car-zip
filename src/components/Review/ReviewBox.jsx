@@ -16,7 +16,6 @@ export default function ReviewBox() {
 
   const [data, setData] = useState([]);
 
-  // const [parkingNo, setParkingNo] = useState('');
   const navigate = useNavigate();
 
   //로그인한 유저의 uid 가져오기
@@ -63,7 +62,7 @@ export default function ReviewBox() {
   const deleteReview = async (id, name) => {
     const reviewsDoc = doc(db, 'reviews', id);
 
-    if (window.confirm(`${name}님의 데이터를 삭제하시겠습니까?`)) {
+    if (window.confirm('리뷰를 삭제하시겠습니까?')) {
       await deleteDoc(reviewsDoc);
     }
 
