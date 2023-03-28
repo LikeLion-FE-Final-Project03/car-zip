@@ -5,3 +5,4 @@ export { ReactComponent as NotRecommendTag } from './review-notrecommend-tag.svg
 export { ReactComponent as RecommendTag } from './review-recommend-tag.svg';
 export { ReactComponent as GrayRecommend } from './review-gray-recommend.svg';
 export { ReactComponent as GrayNotRecommend } from './review-gray-notrecommend.svg';
+export { ReactComponent as WriteBtn } from './review-write-btn.svg';
