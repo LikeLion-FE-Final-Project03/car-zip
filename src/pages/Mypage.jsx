@@ -56,11 +56,12 @@ const Title = styled.div`
 // UserInfo---------------------------
 function UserInfoContents() {
   const userName = JSON.parse(localStorage.getItem('user')).user.displayName;
+
   return (
     <UserInfoWrapper>
       <div>
         <SNSImage>
-          <KakaoIcon />
+          <GoogleIcon />
         </SNSImage>
         <div>
           <TextStyle fontsize="16px" fontweight="400">
@@ -71,9 +72,18 @@ function UserInfoContents() {
           </TextStyle>
         </div>
       </div>
-      <button>
+      <Link
+        to="/"
+        onClick={() => {
+          window.localStorage.clear();
+
+          setTimeout(function () {
+            location.reload();
+          }, 100);
+        }}
+      >
         <LogoutButton />
-      </button>
+      </Link>
     </UserInfoWrapper>
   );
 }
