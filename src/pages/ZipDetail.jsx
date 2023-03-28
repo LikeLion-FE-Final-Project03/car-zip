@@ -13,7 +13,7 @@ export default function ZipDetail() {
   // const prkplceNo = props.prkplceNo
 
   useEffect(() => {
-    SearchRTDB('prkplceNo', '350-4-000009').then((res) => {
+    SearchRTDB('prkplceNo', '206-2-000018').then((res) => {
       const data = res[0];
       setParkingInfo({
         name: data.prkplceNm,
