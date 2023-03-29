@@ -41,7 +41,7 @@ export default function FavoriteButton({ parkingNo }) {
 
   async function handleFavorite() {
     const favoriteRef = await getDoc(doc(db, 'favorites', userInfo.user.uid));
-    if (!favoriteRef.data().favoriteList.length) {
+    if (!favoriteRef.data().favoriteList.includes(parkingNo)) {
       updateDoc(doc(db, 'favorites', userInfo.user.uid), {
         favoriteList: arrayUnion(parkingNo),
       });

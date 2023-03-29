@@ -62,6 +62,44 @@ export default function DetailReview({ zipcode }) {
   return <>{showReviews()}</>;
 }
 
+function renderReview(component) {
+  if (!loading) {
+    if (detailReview.length > 0) {
+      return detailReview
+        .sort((a, b) => b.date - a.date)
+        .map((value) => (
+          <ReviewBoxWrapper key={value.id}>
+            <ReviewWrapper>
+              <ReviewInfo>
+                {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
+                <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
+              </ReviewInfo>
+              <ReviewContent>{value.content}</ReviewContent>
+            </ReviewWrapper>
+          </ReviewBoxWrapper>
+        ));
+    } else {
+      return <NoReview>해당 주차장에 등록된 리뷰가 없습니다.</NoReview>;
+    }
+  } else {
+    return <ReviewLoading>작성한 리뷰 로딩 중...</ReviewLoading>;
+  }
+}
+
+function ReviewSingle() {
+  return (
+    <ReviewBoxWrapper key={value.id}>
+      <ReviewWrapper>
+        <ReviewInfo>
+          {value.recommend ? <RecommendTag /> : <NotRecommendTag />}
+          <p className="reviewDate">{new Date(value.date).toLocaleString()} </p>
+        </ReviewInfo>
+        <ReviewContent>{value.content}</ReviewContent>
+      </ReviewWrapper>
+    </ReviewBoxWrapper>
+  );
+}
+
 const ReviewBoxWrapper = styled.li`
   width: 100%;
   box-sizing: border-box;
