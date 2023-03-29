@@ -6,6 +6,7 @@ import { TextStyle } from '../styles/UsefulStyle';
 
 import { NaviButtonImg, ActiveFavorite, DeactiveFavorite } from '../../public/assets/icons';
 import { Link } from 'react-router-dom';
+import FavoriteButton from './FavoriteButton';
 
 export function ParkinglotList(props) {
   const [state, setState] = useState('focus');
@@ -19,29 +20,32 @@ export function ParkinglotList(props) {
   }, [props.latlngRef.current]);
 
   while (i < currentData.length) {
+    let currentnm = currentData[i].prkplceNm;
+    let currentlat = currentData[i].latitude;
+    let currentlng = currentData[i].longitude;
+
+    console.log(currentData[i].prkplceNo, '요기요');
+    console.log(currentData[i], 'here11');
     lists.push(
-      <Link to="/detail" state={props.latlngRef.current}>
-        <ParkinglotWrapper key={i}>
-          <div>
+      <ParkinglotWrapper key={i}>
+        <div>
+          <Link to="/detail" state={currentData[i]}>
             <ParkinglotTitle>{currentData[i].prkplceNm}</ParkinglotTitle>
-            <BookmarkButtonStyle>
-              <ActiveFavorite />
-              <DeactiveFavorite />
-            </BookmarkButtonStyle>
-            <TextStyle fontsize={theme.fontSizes.paragraph2} fontweight="400" fontcolor={theme.colors.grey3}>
-              {currentData[i].prkplceSe}
-            </TextStyle>
-            <TextStyle fontsize={theme.fontSizes.paragraph2} fontweight="700">
-              {currentData[i].parkingchrgeInfo} | {currentData[i].basicTime}분당 / {currentData[i].basicCharge}원
-            </TextStyle>
-          </div>
-          <a href="https://map.kakao.com/link/to/카카오판교오피스,37.402056,127.108212">
-            <NavibuttonStyle>
-              <NaviButtonImg />
-            </NavibuttonStyle>
-          </a>
-        </ParkinglotWrapper>
-      </Link>
+          </Link>
+          <FavoriteButton parkingNo={currentData[i].prkplceNo}>즐겨찾기 추가</FavoriteButton>
+          <TextStyle fontsize={theme.fontSizes.paragraph2} fontweight="400" fontcolor={theme.colors.grey3}>
+            {currentData[i].prkplceSe}
+          </TextStyle>
+          <TextStyle fontsize={theme.fontSizes.paragraph2} fontweight="700">
+            {currentData[i].parkingchrgeInfo} | {currentData[i].basicTime}분당 / {currentData[i].basicCharge}원
+          </TextStyle>
+        </div>
+        <a href={'https://map.kakao.com/link/to/' + currentnm + ',' + currentlat + ',' + currentlng}>
+          <NavibuttonStyle>
+            <NaviButtonImg />
+          </NavibuttonStyle>
+        </a>
+      </ParkinglotWrapper>
     );
 
     i++;

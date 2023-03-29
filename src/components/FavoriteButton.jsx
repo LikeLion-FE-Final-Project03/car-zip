@@ -5,7 +5,7 @@ import { db } from '../../Firebase';
 import icon_favorite from '../../public/assets/icons/icon-favorite.svg';
 import theme from '../styles/theme';
 
-export default function Favorite({ parkingNo }) {
+export default function FavoriteButton({ parkingNo }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const userInfo = JSON.parse(localStorage.getItem('user'));
   const favoriteCollectionRef = collection(db, 'favorites');
@@ -72,6 +72,7 @@ const Checkbox = styled.input`
 
 const Label = styled.label`
   box-sizing: border-box;
+  display: inline-block;
   width: 24px;
   height: 24px;
   padding-top: 24px;
