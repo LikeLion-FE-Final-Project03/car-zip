@@ -9,13 +9,11 @@ import ParkingLotBottomSheet from '../components/ParkingLotBottomSheet.jsx';
 
 export default function Main() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [searchName, setSearchName] = useState(' ');
-  const latlngRef = useRef([]);
 
   function MapPage() {
     return (
       <>
-        <Map SearchName={searchName} latlngRef={latlngRef} />
+        <Map />
         <ParkingLotListButton />
       </>
     );
@@ -23,11 +21,11 @@ export default function Main() {
 
   return (
     <div className="App">
-      <SearchBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} setSearchName={setSearchName} />
+      <SearchBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <Routes>
         <Route path="/" element={<MapPage />} />
-        <Route path="/searchList" element={<SearchListPage latlngRef={latlngRef} SearchName={searchName} />} />
+        <Route path="/searchList" element={<SearchListPage />} />
       </Routes>
     </div>
   );

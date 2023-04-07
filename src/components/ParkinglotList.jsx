@@ -11,13 +11,12 @@ import FavoriteButton from './FavoriteButton';
 export function ParkinglotList(props) {
   const [state, setState] = useState('focus');
   let lists = [];
-  let currentData = props.latlngRef.current;
+  let currentData = props.latlngRef;
   let i = 0;
 
   useEffect(() => {
-    currentData = props.latlngRef.current;
-    console.log(currentData, '유즈이펙 안안');
-  }, [props.latlngRef.current]);
+    currentData = props.latlngRef;
+  }, [props.latlngRef]);
 
   while (i < currentData.length) {
     let currentnm = currentData[i].prkplceNm;

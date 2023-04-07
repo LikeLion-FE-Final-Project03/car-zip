@@ -13,24 +13,29 @@ import NewReview from './pages/NewReview';
 import ViewReview from './pages/ViewReview';
 import EditReview from './pages/EditReview';
 import { useState } from 'react';
+import { RecoilRoot } from 'recoil';
 
 function App() {
   function CheckloggedIn() {
     const isloggedIn = JSON.parse(window.localStorage.getItem('user'));
     const returnloggedIn = isloggedIn ? (
-      <Routes>
-        <Route path="/*" element={<Main />} />
-        <Route path="/detail" element={<ZipDetail />} />
-        <Route path="/fee" element={<FeeCalculator />} />
-        <Route path="/mypage/*" element={<Mypage />} />
-        <Route path="/viewreview" element={<ViewReview />} />
-        <Route path="/newreview" element={<NewReview />} />
-        <Route path="/editreview" element={<EditReview />} />
-      </Routes>
+      <RecoilRoot>
+        <Routes>
+          <Route path="/*" element={<Main />} />
+          <Route path="/detail" element={<ZipDetail />} />
+          <Route path="/fee" element={<FeeCalculator />} />
+          <Route path="/mypage/*" element={<Mypage />} />
+          <Route path="/viewreview" element={<ViewReview />} />
+          <Route path="/newreview" element={<NewReview />} />
+          <Route path="/editreview" element={<EditReview />} />
+        </Routes>
+      </RecoilRoot>
     ) : (
-      <Routes>
-        <Route path="/" element={<Login />} />
-      </Routes>
+      <RecoilRoot>
+        <Routes>
+          <Route path="/" element={<Login />} />
+        </Routes>
+      </RecoilRoot>
     );
     return returnloggedIn;
   }

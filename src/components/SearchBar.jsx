@@ -8,8 +8,12 @@ import {
   IcSearchedPlace,
   IcSearchMore,
 } from '../../public/assets/icons/index.js';
+import { useRecoilState } from 'recoil';
+import { searchTextState } from './../RecoilState/RecoilState';
 
 export default function SearchBar(props) {
+  const [searchText, setSearchText] = useRecoilState(searchTextState);
+
   const toggleSidebar = () => {
     props.setIsSidebarOpen(!props.isSidebarOpen);
   };
@@ -31,7 +35,7 @@ export default function SearchBar(props) {
   };
 
   const handleSearchButton = () => {
-    props.setSearchName(inputValue);
+    setSearchText(inputValue);
   };
 
   const handleEnterPress = (e) => {
