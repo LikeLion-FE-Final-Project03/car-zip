@@ -6,15 +6,18 @@ import { ParkinglotList } from '../components/ParkinglotList';
 import theme from '../styles/theme';
 import SearchBar from '../components/SearchBar';
 import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+
+import { parkinglotListState } from '../RecoilState/RecoilState';
 
 export default function Search(props) {
   const [count, setCount] = useState(0);
+  const [listState, setListState] = useRecoilState(parkinglotListState);
 
-  let latlngRefData = props.latlngRef;
+  let latlngRefData = listState;
   useEffect(() => {
-    latlngRefData = props.latlngRef;
-    console.log(latlngRefData.current);
-  }, [props.latlngRef.current, props.searchName]);
+    latlngRefData = listState;
+  }, [listState]);
 
   return (
     <>

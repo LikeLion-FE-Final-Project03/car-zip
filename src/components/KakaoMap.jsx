@@ -3,6 +3,8 @@ import { Map, CustomOverlayMap } from 'react-kakao-maps-sdk';
 import { IcLocation } from '../../public/assets/icons';
 import { SearchAreaScope } from './getDB/ReadDB';
 import ParkingLotBottomSheet from './ParkingLotBottomSheet';
+import { useRecoilState } from 'recoil';
+import { parkinglotListState, searchTextState } from '../RecoilState/RecoilState';
 
 export default function KakaoMap(props) {
   const [state, setState] = useState({
@@ -19,6 +21,8 @@ export default function KakaoMap(props) {
   const Main = () => {
     const [draggable, setDraggable] = useState(true);
     const [locationData, setLocationData] = useState([]);
+    const [searchText, setSearchText] = useRecoilState(searchTextState);
+    const [listState, setListState] = useRecoilState(parkinglotListState);
 
     useEffect(() => {
       SearchAreaScope(state.center.lat, state.center.lng).then((res) => {
@@ -28,9 +32,9 @@ export default function KakaoMap(props) {
     }, [state.center.lat]);
 
     useEffect(() => {
-      searchPlace(props.SearchName);
+      searchPlace(searchText);
       ParkingFeeMarker;
-    }, [props.SearchName]);
+    }, [searchText]);
 
     const positions = [];
 
@@ -113,7 +117,7 @@ export default function KakaoMap(props) {
           const currentLng = Number(result[0].x);
 
           SearchAreaScope(currentLat, currentLng).then((res) => {
-            props.latlngRef.current = res;
+            setListState(res);
             setLocationData(res);
           });
           map.setCenter(new window.kakao.maps.LatLng(currentLat, currentLng));
