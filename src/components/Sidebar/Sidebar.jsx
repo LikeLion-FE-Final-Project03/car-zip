@@ -198,7 +198,7 @@ const TextGithub = styled.a`
 `;
 
 const BackButton = styled.button`
-  width: 62px;
+  width: 70px;
   padding: 0;
   color: ${theme.colors.orangeMain};
   order: -1;
