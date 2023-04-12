@@ -8,8 +8,6 @@ import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import { SearchAreaScope, SearchRTDB } from './../getDB/ReadDB';
-
 export default function ReviewBox() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);

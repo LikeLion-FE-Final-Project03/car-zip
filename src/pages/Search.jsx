@@ -11,20 +11,26 @@ import { useRecoilState } from 'recoil';
 import { parkinglotListState } from '../RecoilState/RecoilState';
 
 export default function Search(props) {
-  const [count, setCount] = useState(0);
   const [listState, setListState] = useRecoilState(parkinglotListState);
+
+  console.log('Search.jsx 렌더링');
 
   let latlngRefData = listState;
   useEffect(() => {
     latlngRefData = listState;
   }, [listState]);
 
+  const closeList = () => {
+    props.setListOpen(false);
+  };
+
   return (
     <>
       <SearchWrapper>
-        <Link to="/">
-          <PrevButtonIcon></PrevButtonIcon> 뒤로
-        </Link>
+        <button onClick={closeList}>
+          <PrevButtonIcon />
+          뒤로
+        </button>
 
         <fieldset>
           <input type="radio" name="filter" id="filter-closest" defaultChecked></input>

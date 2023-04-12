@@ -9,18 +9,19 @@ export default function ParkingLotListButton(props) {
   const onClickListBtn = () => {
     navigate(`/search`);
   };
+  const openList = () => {
+    props.setListOpen(true);
+  };
 
   return (
-    <Link to="/searchList">
-      <ParkingLotListButtonWrapper>
-        <IcList />
-        목록보기
-      </ParkingLotListButtonWrapper>
-    </Link>
+    <ParkingLotListButtonWrapper onClick={openList}>
+      <IcList />
+      목록보기
+    </ParkingLotListButtonWrapper>
   );
 }
 
-const ParkingLotListButtonWrapper = styled.div`
+const ParkingLotListButtonWrapper = styled.button`
   background-color: ${theme.colors.white};
   color: ${theme.colors.dark};
   border: 1px solid ${theme.colors.dark};

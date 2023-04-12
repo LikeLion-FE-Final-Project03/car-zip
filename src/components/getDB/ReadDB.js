@@ -46,6 +46,8 @@ export async function SearchAreaScope(Centerlatitude, Centerlongitude) {
 //--------------------------------------------------------------------------------------
 
 async function getQue(que) {
+  console.log('try get data');
+
   return get(que)
     .then((snapshot) => {
       const receivedData = [];
@@ -71,20 +73,5 @@ async function dataFilter(arr1, Centerlongitude) {
       // console.log(item.longitude, '값');
     }
   });
-  console.log(filteringData);
-
   return filteringData;
 }
-
-//--------------------------------------------------------------------------------------
-
-// const [data, setData] = useState([]);
-
-// useEffect(() => {
-//   SearchRTDB('prkplceNo', '350-4-000008').then((res) => {
-//     setData(res);
-//   });
-//   SearchAreaScope().then((res) => {
-//     setLocationData(res);
-//   });
-// }, []);

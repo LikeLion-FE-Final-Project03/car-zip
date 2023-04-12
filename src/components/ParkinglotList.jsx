@@ -23,8 +23,6 @@ export function ParkinglotList(props) {
     let currentlat = currentData[i].latitude;
     let currentlng = currentData[i].longitude;
 
-    console.log(currentData[i].prkplceNo, '요기요');
-    console.log(currentData[i], 'here11');
     lists.push(
       <ParkinglotWrapper key={i}>
         <div>
@@ -36,7 +34,11 @@ export function ParkinglotList(props) {
             {currentData[i].prkplceSe}
           </TextStyle>
           <TextStyle fontsize={theme.fontSizes.paragraph2} fontweight="700">
-            {currentData[i].parkingchrgeInfo} | {currentData[i].basicTime}분당 / {currentData[i].basicCharge}원
+            <ComparechrgeInfo
+              parkingchrgeInfo={currentData[i].parkingchrgeInfo}
+              basicTime={currentData[i].basicTime}
+              basicCharge={currentData[i].basicCharge}
+            />
           </TextStyle>
         </div>
         <a href={'https://map.kakao.com/link/to/' + currentnm + ',' + currentlat + ',' + currentlng}>
@@ -51,6 +53,18 @@ export function ParkinglotList(props) {
   }
 
   return <div> {lists} </div>;
+}
+
+function ComparechrgeInfo(props) {
+  if (props.parkingchrgeInfo == '무료') {
+    return '무료';
+  } else {
+    return (
+      <span>
+        {props.parkingchrgeInfo} / {props.basicTime}분당 {props.basicCharge}원
+      </span>
+    );
+  }
 }
 
 const ParkinglotWrapper = styled.li`

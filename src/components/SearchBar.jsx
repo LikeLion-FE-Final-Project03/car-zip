@@ -41,10 +41,10 @@ export default function SearchBar(props) {
   const handleEnterPress = (e) => {
     if (e.key == 'Enter') {
       handleSearchButton();
+      setIsSearchWindowOn(false);
     }
   };
 
-  console.log(inputValue);
   return (
     <SearchBarWrapper>
       <IcMenu onClick={toggleSidebar} />

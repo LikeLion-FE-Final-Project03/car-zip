@@ -24,16 +24,16 @@ export default function KakaoMap(props) {
     const [searchText, setSearchText] = useRecoilState(searchTextState);
     const [listState, setListState] = useRecoilState(parkinglotListState);
 
-    useEffect(() => {
-      SearchAreaScope(state.center.lat, state.center.lng).then((res) => {
-        setLocationData(res);
-        console.log(res, 'here');
-      });
-    }, [state.center.lat]);
+    // useEffect(() => {
+    //   SearchAreaScope(state.center.lat, state.center.lng).then((res) => {
+    //     setLocationData(res);
+    //   });
+    // }, []);
 
     useEffect(() => {
       searchPlace(searchText);
       ParkingFeeMarker;
+      console.log('kakaomap.jsx 의 useEffect');
     }, [searchText]);
 
     const positions = [];
@@ -204,14 +204,3 @@ export default function KakaoMap(props) {
 
   return <Main />;
 }
-
-// const [data, setData] = useState([]);
-
-// useEffect(() => {
-//   SearchRTDB('prkplceNo', '350-4-000008').then((res) => {
-//     setData(res);
-//   });
-//   SearchAreaScope().then((res) => {
-//     setLocationData(res);
-//   });
-// }, []);
