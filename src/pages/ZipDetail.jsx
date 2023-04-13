@@ -5,14 +5,18 @@ import RecentUpdate from '../components/ZipDetail/RecentUpdate';
 import Review from '../components/ZipDetail/Review';
 import InfoMore from '../components/ZipDetail/InfoMore';
 import { SearchRTDB } from '../components/getDB/ReadDB';
+import { useLocation } from 'react-router-dom';
 
 export default function ZipDetail() {
   const [parkingInfo, setParkingInfo] = useState({});
   const [parkingDatail, setParkingDatail] = useState({});
   const [latestUpdate, setLatestUpdate] = useState({});
+  const location = useLocation();
+  const locationList = location.state;
+  console.log('hello');
 
   useEffect(() => {
-    SearchRTDB('prkplceNo', '221-1-000008').then((res) => {
+    SearchRTDB('prkplceNo', locationList.prkplceNo).then((res) => {
       const data = res[0];
       setParkingInfo({
         name: data.prkplceNm,
